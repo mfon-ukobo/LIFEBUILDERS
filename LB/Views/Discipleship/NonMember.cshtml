@@ -1,0 +1,122 @@
+﻿@model AppUser
+
+@{
+    ViewData["Title"] = "Non Member";
+}
+
+<section class="s-p-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="section-header">
+                            <span>Discipleship Registraion</span>
+                            <h2>Not a Member Yet?</h2>
+                        </div>
+
+                        <div class="small alert alert-info border-0">
+                            <h6 class="alert-heading">
+                                <i class="la la-info"></i>
+                                Must Read
+                            </h6>
+                            Using this method, you will be registered and your email must be confirmed before you have access to the resources on this website.
+                        </div>
+
+                        @(await Html.PartialAsync("_Alerts"))
+
+                        <form asp-action="Register" asp-controller="Account" class="mb-4">
+
+                            <input asp-for="IsDiscipleshipRegistration" checked hidden />
+
+                            <div class="form-group">
+                                <div class="material-input">
+                                    <select name="type" asp-items="@(Html.GetEnumSelectList<DiscipleshipType>())" class="input select">
+                                        <option value="-1">Choose Type</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Member.CountryId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="material-input">
+                                    <input asp-for="LastName" class="input" placeholder="" />
+                                    <label asp-for="LastName" class="label">Last name</label>
+                                </div>
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="material-input">
+                                    <input asp-for="FirstName" class="input" placeholder="" />
+                                    <label asp-for="FirstName" class="label">First name</label>
+                                </div>
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="material-input">
+                                    <input asp-for="Email" class="input" placeholder="" />
+                                    <label asp-for="Email" class="label"></label>
+                                </div>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="material-input">
+                                    <input asp-for="PhoneNumber" class="input" placeholder="" />
+                                    <label asp-for="PhoneNumber" class="label">Phone Number</label>
+                                </div>
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="material-input">
+                                    <select asp-for="Member.CountryId" asp-items="@ViewBag.Countries" class="input select">
+                                        <option value="-1">Choose Country</option>
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Member.CountryId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="material-input">
+                                    <input asp-for="Member.Responsibility" class="input" placeholder="" />
+                                    <label asp-for="Member.Responsibility" class="label">Responsibility</label>
+                                </div>
+                                <span asp-validation-for="Member.Responsibility" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="material-input">
+                                    <input asp-for="Password" class="input" placeholder="" />
+                                    <label asp-for="Password" class="label"></label>
+                                </div>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="material-input">
+                                    <input asp-for="ConfirmPassword" class="input" placeholder="" />
+                                    <label asp-for="ConfirmPassword" class="label">Confirm Password</label>
+                                </div>
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+
+                            <button class="theme-button button-2">
+                                <i class="la la-plus"></i>
+                                Register
+                            </button>
+                        </form>
+
+                        <a asp-action="Member" class="d-block small">
+                            <i class="la la-angle-double-right"></i>
+                            I am a member
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

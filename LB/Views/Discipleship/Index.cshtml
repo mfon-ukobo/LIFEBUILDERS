@@ -1,0 +1,43 @@
+﻿@model AppUser
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <section class="s-p-100">
+        <div class="container">
+            <div class="section-header">
+                <span>We are Disciples of Christ</span>
+                <h2>Join a discipleship group</h2>
+            </div>
+
+            @(await Html.PartialAsync("_Alerts"))
+
+            <div class="row">
+                <div class="col-lg-6 position-relative overflow-hidden pd-y-200 mb-3">
+                    <img src="~/img/discipleship.jpg" class="image px-3 clip-right-arrow" alt="" />
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <p>
+                        Discipleship occurs in the context of an invitation. The master (Jesus) invites us to see things through His eyes, and wants us to respond by committing to learn from Him, together with others who follow Him. The outcome of this commitment to Him would be a total game changer for us. Jesus said, “If therefore thine eye be single, thy whole body shall be full of light.” (Matt 6:22 KJV). In other words, we would not only arrive at the same conclusions with our lord Jesus Christ, but we would also live the same life He lived. At Life Builders Discipleship, we respond to the master's (Jesus) invitation by evaluating all of life (knowledge, ideas, practices, philosophies, principles, etc.) from Jesus’ perspective.
+                    </p>
+
+                    <p>
+                        Join us as we meet online, specifically 2nd and 4th Saturdays of every month, 9pm - 10pm (GMT+1).
+                    </p>
+
+                    <p>
+                        At Life Builders Discipleship, participation is free but resolute commitment is required. Every group member is recommended to take part fully in every session as the studies are interactive with free study materials. As the discipleship session is online, every group member will need a good Bible, a good internet connection by phone or laptop, and ear plugs for undisturbed communication.
+                    </p>
+
+                    <p>
+                        To participate, fill out an application form here. You'll get a feedback with details on your participation.
+                    </p>
+
+                    <a asp-action="Member" class="theme-button button-2 mb-2">I am a registered member on this Website</a>
+                    <a asp-action="Register" asp-controller="Account" asp-route-discipleship="true" class="theme-button button-2 mb-2">I am not registered on this website</a>
+                </div>
+            </div>
+        </div>
+    </section>
+

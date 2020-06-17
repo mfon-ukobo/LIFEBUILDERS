@@ -1,0 +1,101 @@
+﻿@model AppUser
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+    <section class="pd-y-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <form asp-action="Register" method="post" class="p-4">
+
+                        <input asp-for="IsDiscipleshipRegistration" hidden />
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Member Registration</h4>
+                                <div asp-validation-summary="All" class="small text-danger"></div>
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <input asp-for="LastName" class="input" placeholder="" />
+                                        <label asp-for="LastName" class="label">Last name</label>
+                                    </div>
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <input asp-for="FirstName" class="input" placeholder="" />
+                                        <label asp-for="FirstName" class="label">First name</label>
+                                    </div>
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <input asp-for="Email" class="input" placeholder="" />
+                                        <label asp-for="Email" class="label"></label>
+                                    </div>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <input asp-for="PhoneNumber" class="input" placeholder="" />
+                                        <label asp-for="PhoneNumber" class="label">Phone Number</label>
+                                    </div>
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <select asp-for="Member.CountryId" asp-items="@(new SelectList(ViewBag.Countries, "Id", "Name"))" class="input select">
+                                            <option value="-1">Choose Country</option>
+                                        </select>
+                                    </div>
+                                    <span asp-validation-for="Member.CountryId" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <input asp-for="Member.Responsibility" class="input" placeholder="" />
+                                        <label asp-for="Member.Responsibility" class="label">Responsibility</label>
+                                    </div>
+                                    <span asp-validation-for="Member.Responsibility" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <input asp-for="Password" class="input" placeholder="" />
+                                        <label asp-for="Password" class="label"></label>
+                                    </div>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <input asp-for="ConfirmPassword" class="input" placeholder="" />
+                                        <label asp-for="ConfirmPassword" class="label">Confirm Password</label>
+                                    </div>
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="theme-button button-2 btn-block">
+                                        <i class="la la-plus"></i>
+                                        Register
+                                    </button>
+                                </div>
+
+                                <div class="small">
+                                    <a asp-action="Login">Already have an account?</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>

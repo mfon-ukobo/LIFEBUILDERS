@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewData["Title"] = "Images";
+}
+
+    <div id="galleryApp">
+        <div class="mb3 d-flex justify-content-between">
+            <div>
+                <button class="btn btn-primary" data-fancybox data-type="ajax" data-src="@Url.Action("Create")">
+                    Create
+                </button>
+            </div>
+            <div>
+                <ul class="pagination">
+                    <li class="page-item" v-if="data.hasPreviousPage"><a class="page-link" href="#" v-on:click.prevent="currentPage = 1"><i class="la la-angle-double-left"></i></a></li>
+                    <li class="page-item" v-if="data.hasPreviousPage"><a class="page-link" href="#" v-on:click.prevent="currentPage--"><i class="icon ion-ios-arrow-back"></i></a></li>
+                    <li class="page-item" :class="currentPage == item ? 'active' : null" v-for="item in data.totalPages" v-if="!(item < currentPage - 2) && !(item > currentPage + 2)"><a class="page-link" href="#" v-on:click.prevent="currentPage = item">{{item}}</a></li>
+                    <li class="page-item" v-if="data.hasNextPage"><a class="page-link" href="#" v-on:click.prevent="currentPage++"><i class="icon ion-ios-arrow-forward"></i></a></li>
+                    <li class="page-item" v-if="data.hasNextPage"><a class="page-link" href="#" v-on:click.prevent="currentPage = data.totalPages"><i class="la la-angle-double-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4 col-xl-3" v-for="item in data.data">
+                                <div class="card bg-dark mb-4">
+                                    <img :src="'/uploads/images/' + item.thumbnail" alt="" class="card-img-top rounded-0" style="height: 200px; object-fit: cover;" />
+                                    <div class="card-body">
+                                        <div class="btn-icon-list">
+                                            <a :href="'/uploads/images/' + item.image" data-fancybox="image" class="btn btn-primary btn-icon">
+                                                <i class="typcn typcn-eye"></i>
+                                            </a>
+                                            <button :data-src="'@Url.Action("Edit", "Gallery")/' + item.id" class="btn btn-indigo btn-icon" data-fancybox data-type="ajax">
+                                                <i class="typcn typcn-edit"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-icon" data-fancybox :data-src="'#delete-form-' + item.id">
+                                                <i class="typcn typcn-delete"></i>
+                                            </button>
+                                            <div :id="'delete-form-' + item.id" style="display: none">
+                                                <form v-on:submit.prevent="DeleteImage(item.id)">
+                                                    <h5>Are You Sure you want to delete this Image?</h5>
+                                                    <p>All Site resources linked to this image will be emptied.</p>
+                                                    <button class="btn btn-success btn-with-icon">
+                                                        <i class="la la-check"></i>
+                                                        Yes
+                                                    </button>
+                                                    <button class="btn btn-danger btn-with-icon" data-fancybox-close>
+                                                        <i class="la la-close"></i>
+                                                        No
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    var galleryApp = new Vue({
+        el: '#galleryApp',
+        data: {
+            list: [],
+            data: {},
+            currentPage: 1
+        },
+        methods: {
+            fetchPictures: function () {
+                this.list = [];
+                $.ajax({
+                    url: '@Url.Action("picturelist")',
+                    data: {
+                        p: this.currentPage
+                    },
+                    dataType: 'json',
+                    success: (data) => {
+                        console.log(data);
+                        this.data = data;
+                        this.list = data.data;
+                    }
+                });
+            },
+            DeleteImage: function (id) {
+                $.ajax({
+                    url: '@Url.Action("Delete")',
+                    dataType: 'json',
+                    method: 'post',
+                    data: {
+                        id: id
+                    },
+                    success: (data) => {
+                        if (data.success) {
+                            toastr.success(data.message);
+                            $.fancybox.close();
+                            this.fetchPictures();
+                        }
+                        else {
+                            toastr.error(data.message);
+                        }
+                    }
+                });
+            }
+        },
+        watch: {
+            currentPage: function () {
+                this.fetchPictures();
+            }
+        },
+        created: function () {
+            this.fetchPictures();
+        },
+        mounted: function () {
+            //this.fetchPictures();
+        }
+    });
+</script>

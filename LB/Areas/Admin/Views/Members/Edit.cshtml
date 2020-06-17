@@ -1,0 +1,85 @@
+﻿@model Member
+
+@{
+    ViewData["Title"] = "Edit Member";
+}
+
+<!--Begin Nav-->
+<nav class="mb-3">
+    <a asp-action="Index" class="btn btn-with-icon btn-indigo">
+        <i class="la la-arrow-left"></i>
+        Back to List
+    </a>
+</nav>
+<!--End Nav-->
+
+<form asp-action="Edit" method="post">
+    <input asp-for="AppUserId" name="id" hidden />
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label asp-for="AppUser.LastName"></label>
+                                <input asp-for="AppUser.LastName" class="form-control" />
+                                <span asp-validation-for="AppUser.LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label asp-for="AppUser.FirstName"></label>
+                                <input asp-for="AppUser.FirstName" class="form-control" />
+                                <span asp-validation-for="AppUser.FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="AppUser.Email"></label>
+                        <input asp-for="AppUser.Email" class="form-control" readonly />
+                        <span asp-validation-for="AppUser.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label asp-for="Responsibility"></label>
+                                <textarea asp-for="Responsibility" class="form-control" rows="5"></textarea>
+                                <span asp-validation-for="Responsibility" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label asp-for="Country"></label>
+                                <select asp-for="CountryId" asp-items="@(new SelectList(ViewBag.Countries, "Id", "Name"))" class="form-control select"></select>
+                                <span asp-validation-for="CountryId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="ResourceAccesses">Resource Access</label>
+                        <select asp-for="SelectedResourceAccess" asp-items="@(new MultiSelectList(ViewBag.ResourceAccesses, "Id", "Name", Model.ResourceAccesses.Select(x => x.ResourceAccessId)))" class="form-control select"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-with-icon btn-primary">
+                            <i class="la la-save"></i>
+                            Update
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

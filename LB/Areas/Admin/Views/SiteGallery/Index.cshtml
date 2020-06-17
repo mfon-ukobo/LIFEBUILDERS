@@ -1,0 +1,56 @@
+﻿@model PaginatedList<GalleryItem>
+
+@{
+    ViewData["Title"] = "Site Gallery";
+}
+
+    <div class="mb-3">
+        <button data-fancybox data-type="ajax" data-src="@Url.Action("Create")" class="btn btn-success btn-with-icon">
+            <i class="la la-plus"></i>
+            Create
+        </button>
+    </div>
+
+    <div id="app" class="row">
+        <div class="col-lg-4" v-for="item in list">
+            <div class="card mb-3">
+                <img :src="'/uploads/images/' + item.image.thumbnail" class="card-img-top" alt="" />
+                <div class="card-body">
+                    <h6 class="card-title">{{item.title}}</h6>
+                    <p>{{item.caption}}</p>
+                </div>
+                <div class="card-footer">
+                    <a data-fancybox data-type="ajax" :href="'@Url.Action("Edit")?id=' + item.id">
+                        Edit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+        el: '#app',
+        data: {
+            list: []
+        },
+        methods: {
+            fetchPictures: function () {
+                this.list = [];
+                $.ajax({
+                    url: '@Url.Action("picturelist")',
+                    dataType: 'json',
+                    success: (data) => {
+                        this.list = data;
+                    }
+                });
+            }
+        },
+        created: function () {
+            this.fetchPictures();
+        },
+        mounted: function () {
+            //this.fetchPictures();
+        }
+    });
+    </script>

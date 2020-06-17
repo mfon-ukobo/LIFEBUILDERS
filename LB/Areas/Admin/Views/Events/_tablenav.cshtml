@@ -1,0 +1,61 @@
+﻿<div class="d-sm-flex justify-content-md-between">
+    <form method="get" class="mr-2 mb-2">
+        @if (ViewData["search"] != null)
+        {
+            <input type="hidden" name="search" value="@ViewData["search"]" />
+        }
+        <div class="input-group mr-2 mb-2">
+            <div class="input-group-prepend">
+                <a asp-route-search="@ViewData["search"]" asp-route-p="" asp-route-s="" class="btn bg-white border btn-with-icon px-2">
+                    <i class="la la-close"></i>
+                </a>
+                <a asp-route-s="@Model.TotalItems" class="btn bg-white border btn-with-icon px-2">
+                    <i class="la la-list"></i>
+                </a>
+            </div>
+            <input type="text" name="s" class="form-control wd-50-f" placeholder="@Model.PageSize" />
+            <div class="input-group-append">
+                <button class="btn bg-white border btn-with-icon px-2">
+                    <i class="la la-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+    <form class="mb-2" method="get">
+        <input type="hidden" value="@Model.PageSize" name="s" />
+        <div class="input-group mr-2 mb-2">
+            <div class="input-group-prepend">
+                <a asp-route-search="" asp-route-p="@Model.PageIndex" asp-route-s="@Model.PageSize" class="btn bg-white border btn-with-icon px-2">
+                    <i class="la la-close"></i>
+                </a>
+            </div>
+            <input type="text" name="search" value="@ViewData["search"]" class="form-control" placeholder="Search" />
+            <div class="input-group-append">
+                <button class="btn bg-white border btn-with-icon px-2">
+                    <i class="la la-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Advanced Filters -->
+<div id="accordion" class="accordion mb-3" role="tablist" aria-multiselectable="true">
+    <div class="card">
+        <div class="card-header" role="tab" id="headingOne">
+            <a data-toggle="collapse" href="#advancedFilter" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
+                Advanced Filters
+                <i class="la la-caret-down float-right"></i>
+            </a>
+        </div><!-- card-header -->
+
+        <div id="advancedFilter" data-parent="#accordion" class="collapse" role="tabpanel" aria-labelledby="headingOne" style="">
+            <div class="card-body form-inline">
+                <div class="form-group">
+                    <input id="filterSearch" type="text" class="form-control" placeholder="Search" oninput="FilterTable('filterSearch','table')" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Advanced Filters-->

@@ -1,0 +1,90 @@
+﻿@model ResourceAccess
+
+<div id="createform" class="accordion" role="tablist" aria-multiselectable="true">
+    <div class="card">
+        <div class="card-header" role="tab" id="headingOne">
+            <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="">
+                Create Access
+                <i class="la la-caret-down float-right"></i>
+            </a>
+        </div><!-- card-header -->
+
+        <div id="collapseOne" data-parent="#createform" class="collapse show" role="tabpanel" aria-labelledby="headingOne" style="">
+            <div class="card-body">
+                <form id="app" asp-action="CreateAccess" method="post">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Members">Access Members</label>
+                        @*<select asp-for="SelectedMembers" asp-items="@(new MultiSelectList(ViewBag.Members, "Id", "FullName"))" class="form-control select-multiple"></select>*@
+
+                        <input asp-for="SelectedMembers" :value="selectedMembers" hidden />
+
+                        <button data-fancybox data-src="#members-table" class="btn btn-purple btn-with-icon btn-block">
+                            <i class="la la-plus"></i>
+                            Choose Members
+                        </button>
+                    </div>
+
+
+                    <div hidden>
+                        @{
+                            var members = ViewBag.Members as List<AppUser>;
+                        }
+                        <div id="members-table">
+                            <table class="table table-bordered table-2">
+                                <thead>
+                                    <tr>
+                                        <th>S/N</th>
+                                        <th>Fullname</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var member in members)
+                                    {
+                                        <tr>
+                                            <th class="text-nowrap">
+                                                <label class="ckbox">
+                                                    <input type="checkbox" value="@member.Id" v-model="selectedMembers" />
+                                                    <span>@(members.IndexOf(member) + 1)</span>
+                                                </label>
+                                            </th>
+                                            <td>@member.FullName</td>
+                                            <td>@member.Email</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-with-icon btn-indigo">
+                        <i class="la la-plus"></i>
+                        Create
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            selectedMembers: []
+        }
+    })
+</script>

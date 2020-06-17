@@ -1,0 +1,114 @@
+﻿@model PaginatedList<DiscipleshipRegistration>
+
+@{
+    ViewData["Title"] = "Requests";
+}
+
+<!--Begin Nav-->
+<nav class="mb-3">
+    <a asp-action="Index" class="btn btn-with-icon btn-success">
+        <i class="la la-users"></i>
+        Discipleship Groups
+    </a>
+</nav>
+<!--End Nav-->
+
+@(await Html.PartialAsync("_tablenav"))
+
+<div id="app" class="table-responsive">
+    <table id="table" class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="not-sort">
+                    <label class="ckbox">
+                        <input type="checkbox" onchange="checkAll(this)" />
+                        <span></span>
+                    </label>
+                </th>
+                <th>S/N</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Type</th>
+                <th>Created</th>
+                <th>Completed</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @(await Html.PartialAsync("_emptytable"))
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <label class="ckbox">
+                            <input type="checkbox" value="@item.Id" name="id" class="bulk-select" form="bulk-form" />
+                            <span></span>
+                        </label>
+                    </td>
+                    <th>@Model.GetIndex(item)</th>
+                    <td>
+                        <a target="_blank" asp-action="Edit" asp-controller="Members" asp-route-id="@item.Member.AppUserId">@item.Member.AppUser.FullName</a>
+                    </td>
+                    <td>@item.Member.AppUser.Email</td>
+                    <td>@item.Type</td>
+                    <td>@item.Created.MyString(true)</td>
+                    <td>
+                        <div class="az-toggle @(item.Completed ? "on" : null)" v-on:click="toggleComplete('@item.Id')">
+                            <span></span>
+                            <input type="checkbox" value="@item.Id" hidden />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-purple dropdown-toggle" data-toggle="dropdown">Actions</button>
+                            <div class="dropdown-menu">
+                                <a target="_blank" asp-action="Edit" asp-controller="Members" asp-route-id="@item.Member.AppUserId" class="dropdown-item">Goto Member</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="mb-3">
+    <form id="bulk-form" asp-action="IndexBulkAction" asp-route-s="@Model.PageSize" asp-route-search="@ViewData["search"]">
+        <div class="form-inline">
+            <select name="bulk" asp-items="@(Html.GetEnumSelectList<BulkActionsIndex>())" class="form-control select">
+                <option value="">Select Bulk Option</option>
+            </select>
+            <button class="btn btn-purple btn-with-icon">
+                <i class="la la-arrow-right"></i>
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
+
+@(await Html.PartialAsync("_pagination"))
+
+<script>
+    new Vue({
+        el: '#app',
+        methods: {
+            toggleComplete: function (id) {
+                $.ajax({
+                    url: '@Url.Action("ToggleComplete")',
+                    data: {
+                        id: id
+                    },
+                    type: 'POST',
+                    success: (data) => {
+                        if (data.status) {
+                            toastr.success(data.message);
+                        }
+                        else {
+                            toastr.error(data.message);
+                        }
+                    }
+                });
+            }
+        }
+    })
+</script>

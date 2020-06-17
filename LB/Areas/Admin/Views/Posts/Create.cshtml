@@ -1,0 +1,124 @@
+﻿@model Post
+
+@{
+    ViewData["Title"] = "New Post";
+}
+<div class="mb-3">
+    <a asp-action="Index" class="btn btn-with-icon btn-az-primary">
+        <i class="la la-arrow-left"></i>
+        Back to List
+    </a>
+</div>
+
+<form asp-action="Create" method="post" id="app" class="row">
+    <div class="col-lg-8">
+        <div class="form-group">
+            <select asp-for="Type" asp-items="Html.GetEnumSelectList<PostTypes>()" class="form-control select" onchange="app.postType = SelectedText(this)"></select>
+        </div>
+
+        <div class="form-group">
+            <input asp-for="Title" class="form-control form-control-lg" placeholder="Title" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <textarea asp-for="Body" class="editor"></textarea>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label asp-for="Categories">Categories</label>
+                    <select asp-for="SelectedCategories" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))" class="form-control select-multiple"></select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Tags">Tags</label>
+                    <select asp-for="SelectedTags" asp-items="@(new SelectList(ViewBag.Tags, "Id", "Name"))" class="form-control select-multiple"></select>
+                </div>
+
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea asp-for="Caption" rows="5" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group" v-if="postType == '@PostTypes.Default'">
+                    <label>Featured Image</label>
+                    <input type="hidden" asp-for="ImageId" />
+                    <img id="featuredImage" src="" class="img-fluid" alt="" />
+                    <div class="btn-group w-100">
+                        <button type="button" class="btn btn-block btn-primary" onclick="GetFeaturedImage()">Choose Image</button>
+                        <button type="button" class="btn btn-indigo btn-icon" onclick="ResetFeaturedImage()">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group" v-if="postType == '@PostTypes.Audio'">
+                    <label asp-for="AudioUrl">Audio Embed</label>
+                    <textarea asp-for="AudioUrl" class="form-control" rows="5" placeholder="Resource"></textarea>
+                    <span asp-validation-for="AudioUrl" class="text-danger"></span>
+                </div>
+
+                <div class="form-group" v-if="postType == '@PostTypes.Video'">
+                    <label asp-for="VideoUrl">Embed Video Object</label>
+                    <textarea asp-for="VideoUrl" class="form-control" rows="5" placeholder="Resource"></textarea>
+                    <span asp-validation-for="VideoUrl" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Published"></label>
+                    <select asp-for="Published" asp-items="Html.GetEnumSelectList<Published>()" class="form-control select"></select>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary btn-with-icon">
+                        <i class="la la-plus"></i>
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            body: '',
+            postType: '@PostTypes.Default'
+        },
+        methods: {
+            UpdateBody: function () {
+                var b = $('#editor .ql-editor').html();
+                this.body = b;
+            }
+        }
+    });
+
+    function GetFeaturedImage() {
+        $.fancybox.open({
+            src: '@Url.Action("ImageGetter", "Gallery")',
+            type: 'ajax',
+            afterClose: function (instance, current, e) {
+                var button = e ? e.target || e.currentTarget : null;
+                var thumb = button ? $(button).attr('src') : 0;
+                var imageId = button ? $(button).data('id') : 0;
+
+                $('#featuredImage').attr('src', thumb);
+                $('#ImageId').val(imageId);
+            }
+        })
+    }
+
+    function ResetFeaturedImage() {
+        $('#featuredImage').attr('src', '');
+        $('#ImageId').val('');
+    }
+
+    function SelectedText(el) {
+        return el.options[el.selectedIndex].text;
+    }
+</script>

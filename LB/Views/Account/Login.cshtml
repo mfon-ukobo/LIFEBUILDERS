@@ -1,0 +1,55 @@
+﻿@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+    <section class="pd-y-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <form asp-action="Login" method="post">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Member Login</h4>
+
+                                @if (ViewBag.Error != null)
+                                {
+                                    <div class="small alert mb-4 alert-danger">
+                                        You must be logged in to view this page!
+                                    </div>
+                                }
+
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <input asp-for="Username" required class="input" placeholder="" />
+                                        <label asp-for="Username" class="label"></label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <input asp-for="Password" class="input" required placeholder="" />
+                                        <label asp-for="Password" class="label"></label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="theme-button button-2 btn-block">
+                                        <i class="la la-sign-in"></i>
+                                        Login
+                                    </button>
+                                </div>
+
+                                <div class="small">
+                                    <a asp-action="ResetPassword">Forgot Password?</a> <br />
+                                    <a asp-action="ResendConfirmationEmail">Resend Confirmation Email</a> <br />
+                                    <a asp-action="Register">Dont have an account? <b><u>Register Here.</u></b></a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+

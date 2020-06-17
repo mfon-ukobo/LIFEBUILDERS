@@ -1,0 +1,70 @@
+﻿@inject Context  context
+<!-- sidebar -->
+<div class="blog-sidebar mt-4 mt-lg-0 row">
+    <!-- Sermon widget -->
+    <div class="col-lg-12 col-md-6">
+        <div class="widget sermon-widget">
+            <h5>Categories</h5>
+            <ul class="list-group list-group-flush">
+                @foreach (var category in context.Categories.Include(x => x.Posts))
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        <a href="">@category.Name</a>
+                        <span>(@category.Posts.Count)</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <!-- widget (latest posts) -->
+    <div class="col-lg-12 col-md-6">
+        <div class="widget latest-posts">
+            <h5 class="title">Recent Posts</h5>
+            @foreach (var post in context.Posts.Include(x => x.Image).OrderByDescending(x => x.Id).Take(5))
+            {
+                <article class="post-item">
+                    <div class="d-flex align-content-start">
+                        @if (post.Image != null)
+                        {
+                            <img src="/uploads/images/@post.Image.Thumbnail" alt="" class="img-fluid">
+                        }
+                        else
+                        {
+                            <img src="/img/about_top-page.jpg" alt="" class="img-fluid">
+                        }
+                        <div class="meta mb-0">
+                            <h6 class="title"><a asp-action="single" asp-controller="blog" asp-route-id="@post.Slug">@post.Title</a></h6>
+                            <span class="date">@post.Modified.ToString("dddd, MMMM dd, yyyy")</span>
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+    <!-- /latest posts -->
+    <!-- Tags -->
+    <div class="col-lg-12 col-md-6">
+        <div class="widget post-tags">
+            <h5>Tags</h5>
+            <div class="tag-cloud">
+                @foreach (var tag in context.Tags.OrderByDescending(x => x.Id).Take(5))
+                {
+                    <a asp-action="Index" asp-controller="Blog" asp-route-tag="@tag.Slug" class="theme-badge">@tag.Name</a>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- /tags -->
+    <!-- search -->
+    <div class="col-lg-12">
+        <div class="widget search">
+            <form asp-action="search" asp-controller="blog" method="get" class="widget-search">
+                <input type="search" name="q" id="" placeholder="Search" class="search-input">
+                <button class="search-button"><i class="icofont-search"></i></button>
+            </form>
+        </div>
+    </div>
+    <!-- /search -->
+</div>
+<!-- /sidebar -->

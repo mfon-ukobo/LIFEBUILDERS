@@ -1,0 +1,28 @@
+﻿@model List<DiscipleshipMember>
+
+    <div class="w-75">
+        <h5>Discipleship Groups</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered datatable">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Resource</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th>@(Model.IndexOf(item) + 1)</th>
+                            <td class="text-nowrap">@item.DiscipleshipGroup.Name</td>
+                            <td class="text-nowrap">@item.DiscipleshipGroup.Created.MyString(true)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="~/admin/js/partials.js"></script>

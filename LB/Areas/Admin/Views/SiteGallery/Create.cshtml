@@ -1,0 +1,100 @@
+﻿@model GalleryItem
+
+    <div>
+        <div id="gi-create-app" class="position-relative">
+            <div id="gi-create-overlay" class="overlay">
+                <div>
+                    <i class="fa fa-spinner fa-spin fa-2x"></i>
+                </div>
+            </div>
+            <form id="gi-create-form" v-on:submit.prevent="SubmitForm()">
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Caption"></label>
+                    <textarea asp-for="Caption" class="form-control"></textarea>
+                    <span asp-validation-for="Caption" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ImageId">Featured Image</label>
+                    <input type="hidden" asp-for="ImageId" />
+                    <img id="featuredImage" src="" class="img-fluid d-block" style="max-width: 400px" alt="" />
+                    <div class="btn-group w-100">
+                        <button type="button" class="btn btn-block btn-primary" onclick="GetFeaturedImage()">Choose Image</button>
+                        <button type="button" class="btn btn-indigo btn-icon" onclick="ResetFeaturedImage()">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-with-icon">
+                    <i class="la la-plus"></i>
+                    Create
+                </button>
+            </form>
+        </div>
+
+        <script>
+            var giCreateApp = new Vue({
+                el: '#gi-create-app',
+                data: {
+
+                },
+                methods: {
+                    SubmitForm: function () {
+                    var form = $('#gi-create-form');
+                    var formData = new FormData(form[0]);
+                    $.ajax({
+                        url: '@Url.Action("Create", "SiteGallery")',
+                        method: 'POST',
+                        dataType: 'json',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function () {
+                            $('#gi-create-overlay').show();
+                        },
+                        success: function (data) {
+                            if (data.success) {
+                                toastr.success(data.message);
+                                $.fancybox.close();
+                                app.fetchPictures();
+                            }
+                            else {
+                                toastr.error(data.message);
+                            }
+                        },
+                        error: function (a, b, c) {
+                            alert(c);
+                            $('#create-overlay').hide();
+                        }
+                    });
+                }
+                }
+            });
+            function GetFeaturedImage() {
+                $.fancybox.open({
+                    src: '@Url.Action("ImageGetter", "Gallery")',
+                    type: 'ajax',
+                    afterClose: function (instance, current, e) {
+                        var button = e ? e.target || e.currentTarget : null;
+                        var thumb = button ? $(button).attr('src') : 0;
+                        var imageId = button ? $(button).data('id') : 0;
+
+                        $('#featuredImage').attr('src', thumb);
+                        $('#ImageId').val(imageId);
+                    }
+                })
+            }
+
+            function ResetFeaturedImage() {
+                $('#featuredImage').attr('src', '');
+                $('#ImageId').val('');
+            }
+        </script>
+    </div>

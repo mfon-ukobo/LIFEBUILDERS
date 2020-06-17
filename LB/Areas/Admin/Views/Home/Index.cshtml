@@ -1,0 +1,214 @@
+﻿@inject Context  context
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+    <div id="dashboard-app" class="row">
+        <div class="col-lg-12">
+            <div class="row mb-4 text-center">
+                <div class="col-lg-4">
+                    <div class="card bg-black-8 text-white">
+                        <div class="card-body">
+                            <h1 class="display-4">{{members}}</h1>
+                            <h6 class="text-uppercase">Members</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card bg-black-8 text-white">
+                        <div class="card-body">
+                            <h1 class="display-4">{{posts}}</h1>
+                            <h6 class="text-uppercase">Posts</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card bg-black-8 text-white">
+                        <div class="card-body">
+                            <h1 class="display-4">{{events}}</h1>
+                            <h6 class="text-uppercase">Events</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card card-dashboard-twentyfour">
+                        <div class="card-body">
+                            <h6 class="az-notification-title">Tasks</h6>
+                            <p class="az-notification-text">You have {{tasks.length}} uncompleted tasks</p>
+                            <form id="task-form" v-on:submit.prevent="AddTask()" class="mb-3">
+                                <div class="input-group">
+                                    <input type="text" name="task" class="form-control" placeholder="Task Description" />
+                                    <div class="input-group-append">
+                                        <button class="btn btn-icon">
+                                            <i class="la la-check"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="az-notification-list dashboard-tasks">
+                                <div class="media" v-for="task in tasks">
+                                    <div class="media-body">
+                                        <p v-html="task.description"></p>
+                                        <span>{{task.createdString}}</span>
+                                        <span class="">
+                                            <a href="" v-on:click.prevent="ToggleTask(task.id)" v-if="!task.finished" class="text-success">
+                                                <i class="la la-check"></i>
+                                                Check
+                                            </a>
+                                            <a href="" v-on:click.prevent="ToggleTask(task.id)" v-if="task.finished" class="text-primary">
+                                                <i class="la la-minus"></i>
+                                                Uncheck
+                                            </a>
+                                            <label>|</label>
+                                            <a href="" v-on:click.prevent="DeleteTask(task.id)" class="text-danger">
+                                                <i class="la la-close"></i>
+                                                Remove
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card card-dashboard-twentyfour">
+                        <div class="card-body">
+                            <h6 class="az-notification-title">Notifications</h6>
+                            <p class="az-notification-text">You have {{notifications.length}} new notifications</p>
+                            <div class="az-notification-list">
+                                <a :href="notif.url" class="media new" v-for="notif in notifications">
+                                    <div class="media-body">
+                                        <p v-html="notif.description"></p>
+                                        <span>{{notif.readableDateTime}}</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var dashboardApp = new Vue({
+            el: '#dashboard-app',
+            data: {
+                notifications: [],
+                tasks: [],
+                members: 0,
+                posts: 0,
+                events: 0
+            },
+            methods: {
+                GetNotifications: function() {
+                    $.ajax({
+                        url: '@Url.Action("UnreadNotifications", "Home")',
+                        dataType: 'json',
+                        success: (data) => {
+                            this.notifications = data;
+                        }
+                    });
+                },
+                GetTasks: function() {
+                    $.ajax({
+                        url: '@Url.Action("Tasks", "Home")',
+                        dataType: 'json',
+                        success: (data) => {
+                            this.tasks = data;
+                        }
+                    });
+                },
+                AddTask: function() {
+                    let form = $('#task-form')[0];
+                    let formData = new FormData(form);
+                    
+                    $.ajax({
+                        url: '@Url.Action("CreateTask", "Home")',
+                        dataType: 'json',
+                        method: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: (data) => {
+                            if (data.success) {
+                                this.GetTasks();
+                                toastr.success(data.message);
+                            }
+                            else {
+                                toastr.error(data.message);
+                            }
+                        }
+                    });
+                },
+                DeleteTask: function(id) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteTask", "Home")',
+                        dataType: 'json',
+                        method: 'POST',
+                        data: {id: id},
+                        success: (data) => {
+                            if (data.success) {
+                                this.GetTasks();
+                                toastr.success(data.message);
+                            }
+                            else {
+                                toastr.error(data.message);
+                            }
+                        }
+                    });
+                },
+                ToggleTask: function(id) {
+                    $.ajax({
+                        url: '@Url.Action("ToggleTask", "Home")',
+                        dataType: 'json',
+                        method: 'POST',
+                        data: {id: id},
+                        success: (data) => {
+                            if (data.success) {
+                                this.GetTasks();
+                                toastr.success(data.message);
+                            }
+                            else {
+                                toastr.error(data.message);
+                            }
+                        }
+                    });
+                },
+                GetSingleCounts: function () {
+                    $.ajax({
+                        url: '@Url.Action("GetSingleValues", "Home")',
+                        dataType: 'json',
+                        success: (data) => {
+                            if (data.success) {
+                                this.members = data.data.members;
+                            }
+                            else {
+                                toastr.error(data.data);
+                            }
+                        }
+                    });
+                }
+            },
+            created: function () {
+                this.GetNotifications();
+                this.GetTasks();
+                this.GetSingleCounts();
+            },
+            updated: function () {
+                setTimeout(() => {
+                    this.GetNotifications();
+                    this.GetSingleCounts();
+                }, 5000);
+            },
+            beforeDestroy: function () {
+                clearTimeout();
+            }
+        })
+    </script>

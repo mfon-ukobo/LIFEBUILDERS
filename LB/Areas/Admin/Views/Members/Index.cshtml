@@ -1,0 +1,89 @@
+﻿@model PaginatedList<Member>
+
+@{
+    ViewData["Title"] = "Member List";
+}
+
+@(await Html.PartialAsync("_tablenav"))
+
+<div class="table-responsive">
+    <table id="table" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    <label class="ckbox">
+                        <input type="checkbox" onchange="checkAll(this)" />
+                        <span></span>
+                    </label>
+                </th>
+                <th>S/N</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Country</th>
+                <th>Responsibility</th>
+                <th>Downloaded <br /> Resources</th>
+                <th>Discipleship <br /> Groups</th>
+                <th>Modified</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @(await Html.PartialAsync("_emptytable"))
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <label class="ckbox">
+                            <input type="checkbox" value="@item.AppUserId" name="id" class="bulk-select" form="bulk-form" />
+                            <span></span>
+                        </label>
+                    </td>
+                    <th>@(Model.CompleteList.IndexOf(item) + 1)</th>
+                    <td>@item.AppUser.FullName</td>
+                    <td>@item.AppUser.Email</td>
+                    <td>@item.Country.Name</td>
+                    <td>@item.Responsibility</td>
+                    <td>
+                        <a asp-action="Resources" asp-route-id="@item.AppUserId" data-fancybox data-type="ajax" class="btn btn-purple btn-with-icon">
+                            <i class="la la-download"></i>
+                            Resources
+                            <span class="badge badge-light">@item.ResourceDownloads.Count()</span>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Discipleship" asp-route-id="@item.AppUserId" data-fancybox data-type="ajax" class="btn btn-purple btn-with-icon">
+                            <i class="la la-users"></i>
+                            Groups
+                            <span class="badge badge-light">@item.Groups.Count()</span>
+                        </a>
+                    </td>
+                    <td>@item.Modified.MyString(true)</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-indigo dropdown-toggle" data-toggle="dropdown">Actions</button>
+                            <div class="dropdown-menu">
+                                <a asp-action="Edit" asp-route-id="@item.AppUserId" class="dropdown-item text-primary">Edit</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="my-3">
+    <form id="bulk-form" asp-action="IndexBulkAction" asp-route-s="@Model.PageSize" asp-route-search="@ViewData["search"]">
+        <div class="form-inline">
+            <select name="bulk" asp-items="@(Html.GetEnumSelectList<BulkActionsIndex>())" class="form-control select">
+                <option value="">Select Bulk Option</option>
+            </select>
+            <button class="btn btn-purple btn-with-icon">
+                <i class="la la-arrow-right"></i>
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
+
+@(await Html.PartialAsync("_pagination"))

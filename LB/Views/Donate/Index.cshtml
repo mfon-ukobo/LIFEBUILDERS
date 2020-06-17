@@ -1,0 +1,64 @@
+﻿@model Donation
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="alert alert-info small  text-center">
+        This page is still under construction
+    </div>
+
+    <section class="s-p-100">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-4">
+                    <div class="section-header">
+                        <span>So we can get back to you</span>
+                        <h2>Donate Form</h2>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <form asp-action="Confirm">
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <input asp-for="Fullname" class="input" placeholder="" />
+                                        <label asp-for="Fullname" class="label required">Fullname</label>
+                                    </div>
+                                    <span asp-validation-for="Fullname" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <input asp-for="Email" class="input" placeholder="" />
+                                        <label asp-for="Email" class="label required"></label>
+                                    </div>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <input asp-for="Amount" class="input" placeholder="" />
+                                        <label asp-for="Amount" class="label"></label>
+                                    </div>
+                                    <span asp-validation-for="Amount" class="text-danger"></span>
+                                </div>
+
+                                <button class="theme-button button-2">
+                                    <i class="la la-money tx-16-f"></i>
+                                    Donate
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="section-header">
+                        <span>Giving is an act of service to God</span>
+                        <h2>How to Give?</h2>
+                    </div>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </section>
+

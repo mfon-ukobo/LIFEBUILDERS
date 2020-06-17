@@ -1,0 +1,50 @@
+﻿@model ResourceView
+
+@{
+    ViewData["Title"] = "Resources";
+}
+
+<!-- header start -->
+@*<header class="page-heading s-p-100" style="background-image: url('/img/about_top-page.jpg');">
+    <div class="container text-center">
+        <h1>Resources</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Resources</li>
+            </ol>
+        </nav>
+    </div>
+</header>*@
+<!-- /header end -->
+<!-- Content Start -->
+<section class="s-p-100">
+    <div class="container">
+        @foreach (var category in Model.ResourceCategories)
+        {
+            <div class="card message-card mb-5">
+                <div class="card-body">
+                    <div class="clearfix">
+                        <h6 class="card-title float-left">@category.Name</h6>
+                        <a asp-action="Category" asp-route-id="@category.Slug" class="theme-button button-sm button-1 float-right">View All</a>
+                    </div>
+                    <div class="row">
+                        @foreach (var item in Model.Resources.Where(x => x.CategoryId == category.Id).Take(4))
+                        {
+                            <div class="col-lg-3">
+                                <div class="card resource-card">
+                                    <div class="image-container image-10-9">
+                                        <img src="/uploads/images/@item.Image.Thumbnail" alt="" class="image" />
+                                    </div>
+                                    <div class="card-body">
+                                        <a asp-action="Resource" asp-route-id="@item.Slug" class="link" style="font-size: 14px">@item.Title</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>

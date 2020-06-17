@@ -1,0 +1,92 @@
+﻿@model Message
+@{
+    ViewData["Title"] = "Contact";
+}
+
+    <section class="s-p-100">
+        <!-- ##### Contact Area Start ##### -->
+        <section class="contact-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="contact-info-area">
+                            <div class="row">
+                                <!-- Contact Information -->
+                                <div class="col-12 col-lg-6 mb-5">
+                                    <div class="section-header">
+                                        <span>Say hello</span>
+                                        <h2>Contact</h2>
+                                        <p>We love to hear from you.</p>
+                                    </div>
+
+                                    <div class="contact-information">
+                                        <h5>Contact us</h5>
+                                        <!-- Single Contact Area -->
+                                        <div class="mg-b-30">
+                                            <p>Address:</p>
+                                            <span></span>
+                                        </div>
+
+                                        <!-- Single Contact Area -->
+                                        <div class="mg-b-30">
+                                            <p>Phone:</p>
+                                            <span>
+                                                <a href="tel:+2348023331970">+(234) 802 333 1970</a>
+                                            </span>
+                                        </div>
+
+                                        <!-- Single Contact Area -->
+                                        <div class="single-contact-area mb-30">
+                                            <p>Email:</p>
+                                            <a href="mailto:tralright@gmail.com">tralright@gmail.com</a> <br />
+                                            <a href="mailto:info@lifebuildersresource.org">info@lifebuildersresource.org</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Contact Form Area -->
+                                <div class="col-12 col-lg-6">
+                                    <div class="contact-form-area">
+                                        <h5>Send us a message</h5>
+
+                                        @(await Html.PartialAsync("_Alerts"))
+
+                                        <form asp-action="Contact" method="post">
+                                            <div class="form-group">
+                                                <div class="material-input">
+                                                    <input asp-for="Name" class="input" placeholder="">
+                                                    <label asp-for="Name" class="label">Name</label>
+                                                    <span asp-validation-for="Name" class="text-danger small"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="material-input">
+                                                    <input asp-for="Email" type="email" class="input" placeholder="">
+                                                    <label asp-for="Email" class="label">E-Mail</label>
+                                                    <span asp-validation-for="Email" class="text-danger small"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="material-input">
+                                                    <textarea asp-for="Body" class="input h-auto" cols="30" rows="10" placeholder=""></textarea>
+                                                    <label asp-for="Body" class="label">Message</label>
+                                                    <span asp-validation-for="Body" class="text-danger small"></span>
+                                                </div>
+                                            </div>
+
+                                            <button class="theme-button button-2" type="submit">Contact Us</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ##### Contact Area End ##### -->
+        <!-- ##### Google Maps ##### -->
+        <div class="map-area">
+            <div id="googleMap"></div>
+        </div>
+    </section>

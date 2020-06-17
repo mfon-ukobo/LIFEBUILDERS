@@ -1,0 +1,70 @@
+﻿@model PaginatedList<AdminUser>
+@{
+    ViewData["Title"] = "Admin Accounts";
+}
+
+<nav class="d-md-flex justify-content-between align-items-stretch">
+    <div class="mb-2">
+        <a asp-action="Create" asp-controller="Accounts" class="btn btn-success btn-with-icon">
+            <i class="la la-plus"></i>
+            Create New
+        </a>
+        <a asp-action="Trash" asp-controller="Accounts" class="btn btn-danger btn-with-icon">
+            <i class="la la-trash"></i>
+            Trash
+        </a>
+    </div>
+</nav>
+
+<div asp-validation-summary="All" class="text-danger alert-danger"></div>
+
+<!--Begin Table-->
+<div class="table-responsive">
+    <table class="table table-bordered w-100">
+        <thead class="thead-light">
+            <tr>
+                <th>S/N</th>
+                <th>
+                    Username
+                </th>
+                <th>Last Login</th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@(Model.CompleteList.IndexOf(item) + 1)</td>
+                    <td>@item.AppUser.UserName</td>
+                    <td>@item.LastLogin</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-indigo dropdown-toggle" data-toggle="dropdown">Actions</button>
+                            <div class="dropdown-menu">
+                                <a asp-action="Edit" asp-route-id="@item.AppUserId" class="dropdown-item text-primary">Edit</a>
+                                <a href="javascript:;" class="dropdown-item text-danger" data-fancybox data-src="#delete-form-@item.AppUserId">Delete</a>
+                            </div>
+                        </div>
+                        <div hidden>
+                            <form id="delete-form-@item.AppUserId" asp-action="Delete" asp-route-id="@item.AppUserId" method="post">
+                                <p>Are you sure you want to delete the user '<b>@item.AppUser.NormalizedUserName</b>' ?</p>
+                                <button type="submit" class="btn btn-success btn-with-icon">
+                                    <i class="la la-check"></i>
+                                    Yes
+                                </button>
+                                <button type="button" data-fancybox-close class="btn btn-danger btn-with-icon">
+                                    <i class="la la-close"></i>
+                                    No
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<!--End Table-->

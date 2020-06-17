@@ -1,0 +1,83 @@
+﻿@model LB.Models.Post
+
+@{
+    ViewData["Title"] = "Blog";
+}
+
+<!-- header start -->
+<header class="page-heading s-p-100" style="background-image: url('/img/about_top-page.jpg');">
+    <div class="container text-center">
+        <h1>@Model.Title</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent">
+                <li class="breadcrumb-item"><a asp-action="index" asp-controller="home">Home</a></li>
+                <li class="breadcrumb-item"><a asp-action="index" asp-controller="blog">Blog</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+            </ol>
+        </nav>
+    </div>
+</header>
+<!-- /header end -->
+<!-- content start -->
+<section class="s-p-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-8">
+                @if (Model.Type == PostTypes.Default)
+                {
+                    <div class="image-container image-16-9">
+                        @if (Model.Image != null)
+                        {
+                            <img src="/uploads/images/@Model.Image.Thumbnail" alt="" class="image">
+                        }
+                        <a href="" class="hover-overlay">
+                            <i class="hover-icon icofont-ui-zoom-in icofont-3x"></i>
+                        </a>
+                    </div>
+                }
+                else if (Model.Type == PostTypes.Video)
+                {
+                    <div class="image-container image-16-9">
+                        <div class="div position-absolute" style="top: 0; left: 0; width: 100%; height: 100%;">
+                            @Html.Raw(Model.VideoUrl)
+                        </div>
+                    </div>
+                }
+
+                <div class="meta mt-3">
+                    <span class="author">Posted by @Model.Author</span> /
+                    <span class="tags">
+                        in
+                        @foreach (var category in Model.Categories)
+                        {
+                            <a asp-action="Index" asp-route-category="@category.Category.Slug">@category.Category.Name</a>
+                            @(Model.Categories.Last() != category ? "," : null)
+                        }
+                    </span> /
+                    <span class="views">Views 49</span>
+                </div>
+
+                <div class="content-body position-relative">
+                    @Html.Raw(Model.Body)
+                </div>
+
+                <div class="tag-cloud">
+                    <div class="card bg-light border-0">
+                        <div class="card-body">
+                            @foreach (var tag in Model.Tags)
+                            {
+                                <a asp-action="Index" asp-route-tag="@tag.Tag.Slug" class="theme-badge">@tag.Tag.Name</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 px-4">
+                <!-- sidebar -->
+                @Html.RenderAction("_Sidebar", "Home")
+                <!-- /sidebar -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /content end -->

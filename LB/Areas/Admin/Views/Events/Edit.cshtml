@@ -1,0 +1,139 @@
+﻿@model LBEvent
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<!--Begin Nav-->
+    <nav class="mb-3">
+        <a asp-action="Index" class="btn btn-with-icon btn-indigo">
+            <i class="la la-arrow-left"></i>
+            Back to List
+        </a>
+
+        <a asp-action="Create" class="btn btn-with-icon btn-success">
+            <i class="la la-plus"></i>
+            New Event
+        </a>
+    </nav>
+<!--End Nav-->
+
+<form asp-action="Edit" method="post" id="app">
+    <div class="row">
+        <input asp-for="Id" hidden />
+        <div class="col-lg-8">
+            <div class="form-group">
+                <input asp-for="Title" class="form-control form-control-lg" placeholder="Title" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <textarea asp-for="Body" class="form-control editor"></textarea>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Caption"></label>
+                        <textarea asp-for="Caption" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Caption"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="StartDate"></label>
+                        <input asp-for="StartDate" class="form-control" />
+                        <span asp-validation-for="StartDate"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="EndDate"></label>
+                        <input asp-for="EndDate" class="form-control" />
+                        <span asp-validation-for="EndDate"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="StartTime"></label>
+                        <input asp-for="StartTime" class="form-control" />
+                        <span asp-validation-for="StartTime"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="EndTime"></label>
+                        <input asp-for="EndTime" class="form-control" />
+                        <span asp-validation-for="EndTime"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Venue"></label>
+                        <input asp-for="Venue" class="form-control" />
+                        <span asp-validation-for="Venue"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Address"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Featured Image</label>
+                        <input type="hidden" asp-for="ImageId" />
+                        <img id="featuredImage" src="~/uploads/images/@Model.Image.Thumbnail" class="img-fluid" alt="" />
+                        <div class="btn-group w-100">
+                            <button type="button" class="btn btn-block btn-primary" onclick="GetFeaturedImage()">Choose Image</button>
+                            <button type="button" class="btn btn-indigo btn-icon" onclick="ResetFeaturedImage()">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Published"></label>
+                        <select asp-for="Published" asp-items="Html.GetEnumSelectList<Published>()" class="form-control select"></select>
+                    </div>
+
+                    <button v-on:click="UpdateBody()" class="btn btn-with-icon btn-primary">
+                        <i class="la la-plus"></i>
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            body: '@Html.Raw(Model.Body)'
+        },
+        methods: {
+            UpdateBody: function () {
+                var b = $('#editor .ql-editor').html();
+                this.body = b;
+            }
+        }
+    });
+
+    function GetFeaturedImage() {
+        $.fancybox.open({
+            src: '@Url.Action("ImageGetter", "Gallery")',
+            type: 'ajax',
+            afterClose: function (instance, current, e) {
+                var button = e ? e.target || e.currentTarget : null;
+                var thumb = button ? $(button).attr('src') : 0;
+                var imageId = button ? $(button).data('id') : 0;
+
+                $('#featuredImage').attr('src', thumb);
+                $('#ImageId').val(imageId);
+            }
+        })
+    }
+
+    function ResetFeaturedImage() {
+        $('#featuredImage').attr('src', '');
+        $('#ImageId').val('');
+    }
+</script>

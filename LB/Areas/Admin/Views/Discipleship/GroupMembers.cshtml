@@ -1,0 +1,29 @@
+﻿@model List<DiscipleshipMember>
+
+    <div class="wd-700">
+        <div class="table-responsive">
+            <table class="table table-bordered datatable table-2">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th>@(Model.IndexOf(item) + 1)</th>
+                            <td>@item.Member.AppUser.FullName</td>
+                            <td>@item.Member.AppUser.Email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        $('.table').DataTable();
+    </script>

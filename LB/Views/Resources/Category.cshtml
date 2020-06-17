@@ -1,0 +1,52 @@
+﻿@model PaginatedList<Resource>
+
+@{
+    ViewData["Title"] = "Resources";
+}
+
+<!-- header start -->
+@*<header class="page-heading s-p-100" style="background-image: url('/img/about_top-page.jpg');">
+    <div class="container text-center">
+        <h1>Resources</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Resources</li>
+            </ol>
+        </nav>
+    </div>
+</header>*@
+<!-- /header end -->
+
+
+<section class="s-p-100 tx-14">
+    <div class="container">
+        <table class="table">
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="@(Model.IndexOf(item) != 0 ? "border-top" : null)">
+                        <th class="d-none d-md-block border-0">
+                            <div class="image-container image-1-1">
+                                <img src="~/uploads/images/@item.Image.Thumbnail" alt="" class="image" />
+                            </div>
+                        </th>
+                        <th class="d-md-none border-0">
+                            @(Model.CompleteList.IndexOf(item) + 1)
+                        </th>
+                        <td class="border-0">
+                            <div>
+                                <h6>@item.Title</h6>
+                                <div class="meta">
+                                    <span>Category: @item.Category.Name</span> <br />
+                                    <span>Created: @item.Created.ToString("MMM dd, yyyy")</span>
+                                </div>
+                                <a asp-action="Resource" asp-route-id="@item.Slug">Open</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

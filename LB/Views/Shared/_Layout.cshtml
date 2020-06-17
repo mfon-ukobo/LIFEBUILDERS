@@ -1,0 +1,201 @@
+﻿@inject SignInManager<AppUser> SignInManager
+
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Lifebuilders</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <!-- Playfair Font -->
+    <link href="https://fonts.googleapis.com/css?family=Caveat:400,700|Lato:400,700|Raleway:400,600,700&display=swap"
+          rel="stylesheet">
+
+
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/vendors/icofont/icofont.css">
+    <link rel="stylesheet" href="/vendors/swiper/css/swiper.min.css">
+    <link href="~/admin/lib/line-awesome/css/line-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/helpers.css">
+
+    <!-- Jquery + Bootstrap -->
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.bundle.js"></script>
+
+    <!-- Slider Revolution -->
+    <link rel="stylesheet" href="/vendors/revslider/css/settings.css">
+    <link rel="stylesheet" href="/vendors/revslider/css/plugin.revslider.min.css">
+    <script src="/vendors/revslider/jquery.themepunch.tools.min.js"></script>
+    <script src="/vendors/revslider/jquery.themepunch.revolution.min.js"></script>
+
+    <script src="/vendors/revslider/revolution.extension.kenburn.min.js"></script>
+    <script src="/vendors/revslider/revolution.extension.layeranimation.min.js"></script>
+    <script src="/vendors/revslider/revolution.extension.navigation.min.js"></script>
+    <script src="/vendors/revslider/revolution.extension.parallax.min.js"></script>
+    <script src="/vendors/revslider/revolution.extension.slideanims.min.js"></script>
+
+    <!-- Masonry -->
+    <script src="/vendors/masonry/masonry.pkgd.min.js"></script>
+
+    <!-- Fancybox -->
+    <link rel="stylesheet" href="~/vendors/fancybox/jquery.fancybox.min.css" />
+    <script src="~/vendors/fancybox/jquery.fancybox.min.js"></script>
+
+    <!-- Swiper -->
+    <link rel="stylesheet" href="~/vendors/swiper/css/swiper.css" />
+    <script src="~/vendors/swiper/js/swiper.js"></script>
+
+    <link rel="stylesheet" href="~/admin/lib/select2/css/select2.min.css" />
+    <script src="~/admin/lib/select2/js/select2.full.min.js"></script>
+
+    @* Main *@
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/special.css">
+
+
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+    <!-- Add your site or application content here -->
+    <div style="height: 115px; display: none;" id="header-placeholder"></div>
+    @if (ViewData["IsHomePage"] == null)
+    {
+        <header class="top-header">
+            <div class="container pd-x-40 pd-y-10">
+                <div class="row text-center">
+                    <div class="col-lg-6">
+                        <div>
+                            Contact us on <a href="tel:+2348023331970">(+234) 802 333 1970</a> or <a href="mailto:info@lifebuildersresource.org">info@lifebuildersresource.org</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-lg-right">
+                        <a asp-action="Login" asp-controller="Account" class="text-secondary mr-lg-2">
+                            <i class="la la-user-secret"></i>
+                            Login
+                        </a> |
+                        <a asp-action="Register" asp-controller="Account" class="text-secondary ml-lg-2">
+                            <i class="la la-user-plus"></i>
+                            Register
+                        </a> |
+                        <a asp-action="Index" asp-controller="Discipleship" class="text-secondary ml-lg-2">
+                            <i class="la la-users"></i>
+                            Discipleship
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    }
+    <nav id="homenav" class="navbar navbar-expand-lg navbar-light align-items-center snaptarget">
+        <div class="container mx-auto">
+            <a class="navbar-brand" href="/">Lifebuilders</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item @((string)ViewData["title"] == "Home" ? "active" : null)">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown @((string)ViewData["title"] == "About" ? "active" : null)">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" asp-action="about" asp-controller="home">About</a>
+                        <div class="dropdown-menu">
+                            <a asp-action="about" asp-controller="home" class="dropdown-item">About Us</a>
+                            <a asp-action="index" asp-controller="discipleship" class="dropdown-item">Discipleship</a>
+                            <a asp-action="sundaymeetings" asp-controller="home" class="dropdown-item">Sunday Meetings</a>
+                        </div>
+                    </li>
+                    <li class="nav-item @((string)ViewData["title"] == "Events" ? "active" : null)">
+                        <a class="nav-link" asp-action="index" asp-controller="events">Events</a>
+                    </li>
+                    <li class="nav-item @((string)ViewData["title"] == "Blog" ? "active" : null)">
+                        <a class="nav-link" asp-action="index" asp-controller="blog">Blog</a>
+                    </li>
+                    <li class="nav-item @((string)ViewData["title"] == "Resources" ? "active" : null)">
+                        <a class="nav-link" asp-action="index" asp-controller="resources">Resources</a>
+                    </li>
+                    <li class="nav-item @((string)ViewData["title"] == "Contact" ? "active" : null)">
+                        <a class="nav-link" asp-action="contact" asp-controller="home">Contact</a>
+                    </li>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" asp-action="Login" asp-controller="Account">
+                                Account
+                            </a>
+                            <div class="dropdown-menu">
+                                <a asp-action="Register" asp-controller="Account" class="dropdown-item">
+                                    <i class="la la-user-plus"></i>
+                                    Register
+                                </a>
+                                <a href="javascript:;" class="dropdown-item" onclick="$(this).next().submit()">
+                                    <i class="la la-sign-out"></i>
+                                    Logout
+                                </a>
+                                <form asp-action="Logout" asp-controller="Account" hidden>
+                                    <button type="submit" class="btn btn-link btn-block px-0 py-0 text-left">
+                                        <i class="la la-sign-out"></i>
+                                        Logout
+                                    </button>
+                                </form>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" asp-action="Login" asp-controller="Account">
+                                Account
+                            </a>
+                            <div class="dropdown-menu">
+                                <a asp-action="Login" asp-controller="Account" class="dropdown-item">
+                                    <i class="la la-sign-in"></i>
+                                    Login
+                                </a>
+                                <a asp-action="Register" asp-controller="Account" class="dropdown-item">
+                                    <i class="la la-user-plus"></i>
+                                    Register
+                                </a>
+                            </div>
+                        </li>
+                    }
+                    <li class="nav-item">
+                        <a class="theme-button button-2 nav-button" href="/donate" tabindex="-1"
+                           aria-disabled="true"><span>Give</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    @*@(await Html.PartialAsync("_Alerts"))*@
+
+    @RenderBody()
+
+
+    @(await Html.PartialAsync("_Footer"))
+
+    <!-- <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script> -->
+    <script src="/vendors/swiper/js/swiper.min.js"></script>
+    <script src="/js/main.js"></script>
+
+    <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+    <script>
+        window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+        ga('create', 'UA-XXXXX-Y', 'auto'); ga('send', 'pageview')
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+</body>
+
+</html>

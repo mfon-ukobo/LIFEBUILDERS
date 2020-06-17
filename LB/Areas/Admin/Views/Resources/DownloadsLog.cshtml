@@ -1,0 +1,33 @@
+﻿@model PaginatedList<ResourceDownload>
+
+@{
+    ViewData["Title"] = "Resource Downloads Log";
+}
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>S/N</th>
+                    <th>Resource</th>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Downloaded</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th>@(Model.CompleteList.IndexOf(item) + 1)</th>
+                        <td>@item.Resource.Title</td>
+                        <td>@item.Member.AppUser.FullName</td>
+                        <td>@item.Member.AppUser.Email</td>
+                        <td>
+                            
+                        </td>
+                    </tr>                    
+                }
+            </tbody>
+        </table>
+    </div>

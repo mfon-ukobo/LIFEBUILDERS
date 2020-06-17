@@ -1,0 +1,83 @@
+﻿@model LBEvent
+
+@{
+    ViewData["Title"] = "Events";
+}
+
+<!-- header start -->
+<header class="page-heading s-p-100" style="background-image: url('/img/h2-2.jpg');">
+    <div class="container text-center">
+        <h1>@Model.Title</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Events">Events</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+            </ol>
+        </nav>
+    </div>
+</header>
+<!-- /header end -->
+<!-- content start -->
+<section class="s-p-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 single-event">
+                <header>
+                    <h1>@Model.Title</h1>
+                    @{ 
+                        var startDate = Model.StartDate;
+                        var endDate = Model.EndDate;
+                    }
+                    <h4>
+                        <span>@DateTime.Parse(Model.StartDate).ToString("MMMM dd, yyyy")</span> to
+                        @if (!string.IsNullOrEmpty(Model.EndDate))
+                        {
+                            <span>@DateTime.Parse(Model.EndDate).ToString("MMMM dd, yyyy")</span>
+                        }
+                        <span>@@ @Model.StartTime - @Model.EndTime</span>
+                    </h4>
+                </header>
+                <article class="row">
+                    <div class="col-lg-8">
+                        @Html.Raw(Model.Body)
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="/uploads/images/@Model.Image.Thumbnail" alt="" class="img-fluid">
+                    </div>
+                </article>
+                <details>
+                    <summary><span class="theme-button button-sm button-2 mb-2">Event Details</span></summary>
+                    <div class="details p-4">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h6>Details</h6>
+                                    <dl>
+                                        <dt>Date:</dt>
+                                        <dd>@Model.StartDate to @Model.EndDate</dd>
+
+                                        <dt>Time:</dt>
+                                        <dd>@Model.StartTime - @Model.EndTime</dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Venue</h6>
+
+                                    <dl>
+                                        <dd>@Model.Venue</dd>
+                                        <dd>
+                                            @Model.Address
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /content end -->

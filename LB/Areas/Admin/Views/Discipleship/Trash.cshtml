@@ -1,0 +1,113 @@
+﻿@model PaginatedList<DiscipleshipGroup>
+
+@{
+    ViewData["Title"] = "Discipleship Groups (Trash)";
+}
+
+<!--Begin Nav-->
+<nav class="mb-3">
+    <a asp-action="Index" class="btn btn-with-icon btn-purple">
+        <i class="la la-arrow-left"></i>
+        Back to List
+    </a>
+</nav>
+<!--End Nav-->
+
+@(await Html.PartialAsync("_tablenav"))
+
+<div class="table-responsive">
+    <table id="table" class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="not-sort">
+                    <label class="ckbox">
+                        <input type="checkbox" onchange="checkAll(this)" />
+                        <span></span>
+                    </label>
+                </th>
+                <th>S/N</th>
+                <th>Name</th>
+                <th>Members</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @(await Html.PartialAsync("_emptytable"))
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>
+                        <label class="ckbox">
+                            <input type="checkbox" value="@item.Id" name="id" class="bulk-select" form="bulk-form" />
+                            <span></span>
+                        </label>
+                    </th>
+                    <th>@Model.GetIndex(item)</th>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">@item.Name</a>
+                    </td>
+                    <td>
+                        <a data-fancybox asp-action="GroupMembers" asp-route-id="@item.Id" data-type="ajax" class="btn btn-purple btn-with-icon">
+                            <i class="la la-users"></i>
+                            <span class="badge badge-light">@item.Members.Count</span>
+                        </a>
+                    </td>
+                    <td>@item.Created.MyString(true)</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-purple dropdown-toggle" data-toggle="dropdown">Actions</button>
+                            <div class="dropdown-menu">
+                                <a href="#restore-form-@item.Id" data-fancybox class="dropdown-item text-warning">Restore</a>
+                                <a href="#delete-form-@item.Id" data-fancybox class="dropdown-item text-danger">Delete</a>
+                            </div>
+                        </div>
+
+                        <div hidden>
+                            <form id="restore-form-@item.Id" asp-action="Restore" asp-route-id="@item.Id">
+                                <p>Are you sure you want to restore '<b>@item.Name</b>'</p>
+                                <button class="btn btn-success btn-with-icon">
+                                    <i class="la la-check"></i>
+                                    Yes
+                                </button>
+                                <button data-fancybox-close class="btn btn-danger btn-with-icon">
+                                    <i class="la la-close"></i>
+                                    No
+                                </button>
+                            </form>
+
+                            <form id="delete-form-@item.Id" asp-action="DeletePermanent" asp-route-id="@item.Id">
+                                <p>Are you sure you want to premanently delete '<b>@item.Name</b>'</p>
+                                <button class="btn btn-success btn-with-icon">
+                                    <i class="la la-check"></i>
+                                    Yes
+                                </button>
+                                <button data-fancybox-close class="btn btn-danger btn-with-icon">
+                                    <i class="la la-close"></i>
+                                    No
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="mb-3">
+    <form id="bulk-form" asp-action="TrashBulkAction" asp-route-s="@Model.PageSize" asp-route-search="@ViewData["search"]">
+        <div class="form-inline">
+            <select name="bulk" asp-items="@(Html.GetEnumSelectList<BulkActionsTrash>())" class="form-control select">
+                <option value="">Select Bulk Option</option>
+            </select>
+            <button class="btn btn-purple btn-with-icon">
+                <i class="la la-arrow-right"></i>
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
+
+
+@(await Html.PartialAsync("_pagination"))

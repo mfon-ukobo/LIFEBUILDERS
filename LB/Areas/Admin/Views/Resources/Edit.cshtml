@@ -1,0 +1,151 @@
+﻿@model Resource
+@{
+    ViewData["Title"] = "Edit Resource";
+}
+
+<!--Begin Nav-->
+    <nav class="mb-3">
+        <a asp-action="Index" class="btn btn-with-icon btn-indigo">
+            <i class="la la-arrow-left"></i>
+            Back To List
+        </a>
+
+        <a asp-action="Create" class="btn btn-with-icon btn-success">
+            <i class="la la-plus"></i>
+            Create New
+        </a>
+    </nav>
+<!--End Nav-->
+
+<div id="app" class="card">
+    <div class="card-body">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-action="Edit" method="post" v-on:submit="UpdateBody()" enctype="multipart/form-data">
+            <input asp-for="Id" hidden />
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="Title"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control editor"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="Category"></label>
+                        <select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name", Model.CategoryId))" class="form-control select"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ResourceAccesses">Resource Access</label>
+                        <select asp-for="SelectedAccesses" asp-items="@(new MultiSelectList(ViewBag.Accesses, "Id", "Name", Model.ResourceAccesses.Select(x => x.ResourceAccessId)))" class="form-control select-multiple"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="IsLocalResource">Is Local Resource</label>
+                        <div class="az-toggle @(Model.IsLocalResource ? "on" : null)">
+                            <span></span>
+                            <input type="checkbox" asp-for="IsLocalResource" onchange="app.IsLocalResource = this.checked" hidden />
+                        </div>
+                    </div>
+
+                    <div class="form-group" v-if="!IsLocalResource">
+                        <label asp-for="ResourceUrl"></label>
+                        <input asp-for="ResourceUrl" class="form-control" />
+                        <span asp-validation-for="ResourceUrl" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group" v-if="IsLocalResource">
+                        <label asp-for="LocalFile">Local File</label>
+                        <input asp-for="LocalFile" class="form-control-file" />
+                        <span asp-validation-for="LocalFile"></span>
+                    </div>
+
+                    <div class="form-group">
+                        @if (Model.IsLocalResource)
+                        {
+                            <a href="/uploads/resources/@Model.ResourceUrl" data-fancybox class="btn btn-with-icon btn-purple">
+                                <i class="la la-file"></i>
+                                Local File
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Model.ResourceUrl" data-fancybox data-type="ajax" class="btn btn-with-icon btn-indigo">
+                                <i class="la la-globe"></i>
+                                Remote File
+                            </a>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label>Featured Image</label>
+                        <input type="hidden" asp-for="ImageId" />
+                        <img id="featuredImage" src="~/uploads/images/@Model.Image.Thumbnail" class="img-fluid w-100" alt="" />
+                        <div class="btn-group w-100">
+                            <button type="button" class="btn btn-block btn-primary" onclick="GetFeaturedImage()">Choose Image</button>
+                            <button type="button" class="btn btn-indigo btn-icon" onclick="ResetFeaturedImage()">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-with-icon btn-primary">
+                        <i class="la la-plus"></i>
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+        console.log($('#IsLocalResource')[0]);
+        var app = new Vue({
+            el: '#app',
+            data: {
+                body: '@Html.Raw(Model.Description)',
+                IsLocalResource: @Model.IsLocalResource.ToString().ToLower()
+            },
+            methods: {
+                UpdateBody: function () {
+                    var b = $('#editor .ql-editor').html();
+                    this.body = b;
+                },
+                Toggle: function () {
+                    alert();
+                }
+            },
+            created: function () {
+                this.IsLocalResource = $('#IsLocalResource')[0].checked;
+            }
+        });
+
+        function GetFeaturedImage() {
+            $.fancybox.open({
+                src: '@Url.Action("ImageGetter", "Gallery")',
+                type: 'ajax',
+                afterClose: function (instance, current, e) {
+                    var button = e ? e.target || e.currentTarget : null;
+                    var thumb = button ? $(button).attr('src') : 0;
+                    var imageId = button ? $(button).data('id') : 0;
+
+                    $('#featuredImage').attr('src', thumb);
+                    $('#ImageId').val(imageId);
+                }
+            })
+        }
+
+        function ResetFeaturedImage() {
+            $('#featuredImage').attr('src', '');
+            $('#ImageId').val('');
+        }
+</script>

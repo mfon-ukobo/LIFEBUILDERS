@@ -1,0 +1,52 @@
+﻿@model FrontPageCarousel
+
+    <form asp-action="AddCarousel">
+        <div class="form-group">
+            <label>Featured Image</label>
+            <input type="hidden" asp-for="ImageId" />
+            <img id="featuredImage" src="" class="img-fluid" alt="" />
+            <div class="btn-group w-100">
+                <button type="button" class="btn btn-block btn-primary" onclick="GetFeaturedImage()">Choose Image</button>
+                <button type="button" class="btn btn-indigo btn-icon" onclick="ResetFeaturedImage()">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="az-form-group mb-3">
+            <label asp-for="Caption"></label>
+            <input asp-for="Caption" class="form-control" />
+            <span asp-validation-for="Caption" class="text-danger"></span>
+        </div>
+
+        <div class="az-form-group mb-3">
+            <label asp-for="Details"></label>
+            <textarea asp-for="Details" class="form-control h-auto"></textarea>
+            <span asp-validation-for="Details" class="text-danger"></span>
+        </div>
+
+        <div class="az-form-group mb-3">
+            <label asp-for="HasButton" class="ckbox">
+                <input asp-for="HasButton" v-model="hasButton" />
+                <span>Has Button</span>
+            </label>
+            <span asp-validation-for="HasButton" class="text-danger"></span>
+        </div>
+
+        <div class="az-form-group mb-3" v-if="hasButton">
+            <label asp-for="ButtonText"></label>
+            <input asp-for="ButtonText" class="form-control" />
+            <span asp-validation-for="ButtonText" class="text-danger"></span>
+        </div>
+
+        <div class="az-form-group mb-3" v-if="hasButton">
+            <label asp-for="ButtonLink"></label>
+            <input asp-for="ButtonLink" class="form-control" />
+            <span asp-validation-for="ButtonLink" class="text-danger"></span>
+        </div>
+
+        <button class="btn btn-primary btn-with-icon">
+            <i class="la la-plus"></i>
+            Submit
+        </button>
+    </form>

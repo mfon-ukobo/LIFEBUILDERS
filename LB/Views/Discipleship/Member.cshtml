@@ -1,0 +1,52 @@
+﻿@model DiscipleshipMemberRegistration
+@{
+    ViewData["Title"] = "Member";
+}
+
+
+<section class="s-p-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="section-header">
+                            <span>Our response to the Master's Invitation</span>
+                            <h2>Discipleship Registration</h2>
+                        </div>
+
+                        @(await Html.PartialAsync("_Alerts"))
+
+                        <form asp-action="Member" class="mb-4">
+                            <div class="form-group">
+                                <div class="material-input">
+                                    <select asp-for="Type" asp-items="@(Html.GetEnumSelectList<DiscipleshipType>())" class="input select">
+                                        <option value="-1">Choose Discipleship Type</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="material-input">
+                                    <input type="email" asp-for="Email" class="input" placeholder="" />
+                                    <label class="label">Email</label>
+                                </div>
+                            </div>
+
+                            <button class="theme-button button-2">
+                                <i class="la la-plus"></i>
+                                Register
+                            </button>
+                        </form>
+
+                        <a asp-action="Register" asp-controller="Account" asp-route-discipleship="true" class="d-block small">
+                            <i class="la la-angle-double-right"></i>
+                            I am not yet a member
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,23 @@
+﻿@{ 
+    var err = ViewData["AppError"] as SiteResponse;
+}
+@if (err != null)
+{
+    var cl = "";
+    if (err.Code == ResponseStatus.Error)
+    {
+        cl = "alert-danger";
+    }
+    else if (err.Code == ResponseStatus.Success)
+    {
+        cl = "alert-success";
+    }
+    else
+    {
+        cl = "alert-warning";
+    }
+    <div class="alert @cl">
+        <a href="" class="close" data-dismiss="alert">&times;</a>
+        @err.Message
+    </div>
+}

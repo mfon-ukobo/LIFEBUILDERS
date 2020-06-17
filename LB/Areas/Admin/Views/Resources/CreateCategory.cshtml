@@ -1,0 +1,36 @@
+﻿@model ResourceCategory
+
+    <div id="createform" class="accordion" role="tablist" aria-multiselectable="true">
+        <div class="card">
+            <div class="card-header" role="tab" id="headingOne">
+                <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="">
+                    Create Category
+                    <i class="la la-caret-down float-right"></i>
+                </a>
+            </div><!-- card-header -->
+
+            <div id="collapseOne" data-parent="#createform" class="collapse show" role="tabpanel" aria-labelledby="headingOne" style="">
+                <div class="card-body">
+                    <form asp-action="CreateCategory" method="post">
+                        <div class="form-group">
+                            <label asp-for="Name"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Description"></label>
+                            <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                            <span asp-validation-for="Description"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-with-icon btn-primary">
+                            <i class="la la-plus"></i>
+                            Create
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>    
+    

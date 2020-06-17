@@ -1,0 +1,26 @@
+﻿@{
+    var err = ViewData["AppError"] as SiteResponse;
+}
+    <div class="small">
+        @if (err != null)
+        {
+            if (err.Code == ResponseStatus.Error)
+            {
+                <div class="alert alert-danger">
+                    @err.Message
+                </div>
+            }
+            else if (err.Code == ResponseStatus.Success)
+            {
+                <div class="alert alert-success">
+                    @err.Message
+                </div>
+            }
+            else if (err.Code == ResponseStatus.Warning)
+            {
+                <div class="alert alert-warning">
+                    @err.Message
+                </div>
+            }
+        }
+    </div>

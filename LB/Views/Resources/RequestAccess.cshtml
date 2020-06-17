@@ -1,0 +1,57 @@
+﻿@model ResourceAccessRequest
+
+@{
+    ViewData["Title"] = "Resources";
+}
+
+    <section class="s-p-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">Access Request Form</h2>
+                            <form asp-action="RequestAccess" method="post" class=" tx-14 tx-gray-800">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+
+                                <input type="hidden" asp-for="MemberId" />
+                                <input type="hidden" asp-for="ResourceId" />
+
+                                <div class="row mb-3">
+                                    <div class="col-lg-6">
+                                        <div class="image-container image-16-9">
+                                            <img src="~/uploads/images/@Model.Resource.Image.Thumbnail" alt="" class="image" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <dl>
+                                                <dt>Resource Title</dt>
+                                                <dd>@Model.Resource.Title</dd>
+
+                                                <dt>Resource Category</dt>
+                                                <dd>@Model.Resource.Category.Name</dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="material-input">
+                                        <textarea asp-for="Reason" class="input" rows="10" style="height: auto;" required></textarea>
+                                        <label asp-for="Reason" class="label">Reason</label>
+                                    </div>
+                                    <span asp-validation-for="Reason" class="text-danger"></span>
+                                </div>
+
+                                <button class="theme-button button-1">
+                                    <i class="la la-check"></i>
+                                    Submit
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

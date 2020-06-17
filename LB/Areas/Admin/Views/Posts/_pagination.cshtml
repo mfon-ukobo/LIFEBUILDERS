@@ -1,0 +1,21 @@
+﻿<ul class="pagination">
+    <li class="page-item"><a class="page-link" asp-route-p="1" asp-route-search="@ViewData["search"]" asp-route-s="@Model.PageSize"><i class="la la-angle-double-left"></i></a></li>
+    @if (Model.HasPreviousPage)
+    {
+        <li class="page-item"><a class="page-link" asp-route-p="@(Model.PageIndex - 1)" asp-route-search="@ViewData["search"]" asp-route-s="@Model.PageSize"><i class="icon ion-ios-arrow-back"></i></a></li>
+    }
+
+    @for (var i = 1; i <= Model.TotalPages; i++)
+    {
+        if (i <= (Model.PageIndex + 2) && i >= (Model.PageIndex - 2))
+        {
+            <li class="page-item @(i == Model.PageIndex ? "active" : null)"><a class="page-link" asp-route-p="@i" asp-route-search="@ViewData["search"]" asp-route-s="@Model.PageSize">@i</a></li>
+        }
+    }
+
+    @if (Model.HasNextPage)
+    {
+        <li class="page-item"><a class="page-link" asp-route-p="@(Model.PageIndex + 1)" asp-route-search="@ViewData["search"]" asp-route-s="@Model.PageSize"><i class="icon ion-ios-arrow-forward"></i></a></li>
+    }
+    <li class="page-item"><a class="page-link" asp-route-p="@(Model.TotalPages)" asp-route-search="@ViewData["search"]" asp-route-s="@Model.PageSize"><i class="la la-angle-double-right"></i></a></li>
+</ul>

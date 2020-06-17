@@ -1,0 +1,96 @@
+﻿@model PaginatedList<MimeKit.MimeMessage>
+
+@{
+    ViewData["Title"] = "Mail Box";
+}
+
+
+<div class="card bd-0">
+    <div class="card-header bg-gray-400 bd-b-0-f pd-b-0">
+        <nav class="nav nav-tabs">
+            <a class="nav-link active" href="">
+                <i class="la la-inbox"></i>
+                Inbox
+            </a>
+            <a class="nav-link" href="">
+                <i class="la la-arrow-up"></i>
+                Sent
+            </a>
+        </nav>
+    </div>
+    <div class="card-body tab-content p-0">
+        <div id="inbox" class="tab-pane active show">
+            <div class="az-mail-options">
+                <label class="ckbox">
+                    <input type="checkbox" value="" />
+                    <span></span>
+                </label>
+                <div class="btn-group">
+                    <button class="btn btn-light" onclick="$('#inbox').load('@Url.Action("Index") #inbox')">
+                        <i class="la la-refresh"></i>
+                    </button>
+                    @if (Model.HasPreviousPage)
+                    {
+                        <a class="btn btn-light" asp-route-p="@(Model.PageIndex - 1)" onclick="LoadMailList(event, this)">
+                            <i class="icon ion-ios-arrow-back"></i>
+                        </a>
+                    }
+
+                    @if (Model.HasNextPage)
+                    {
+                        <a class="btn btn-light" asp-route-p="@(Model.PageIndex + 1)" onclick="LoadMailList(event, this)">
+                            <i class="icon ion-ios-arrow-forward"></i>
+                        </a>
+                    }
+                </div>
+            </div>
+
+            <div class="mailbox-list">
+                <div class="list-group list-group-flush maillist mb-3">
+                    @foreach (var item in Model)
+                    {
+                        <div class="list-group-item">
+                            <div class="d-flex align-items-center">
+                                <label class="ckbox px-2">
+                                    <input type="checkbox" value="@item.MessageId" id="" />
+                                    <span></span>
+                                </label>
+                                <div class="px-4">
+                                    <span>@item.From</span> <br />
+                                    <b>@item.Subject</b> <span>@item.TextBody.Substring(0, 50) ...</span>
+                                </div>
+                                <div class="ml-auto">
+                                    <span>@item.Date.ToString("dd MMM, yyyy")</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="loader-ellips page-load-status" style="display: none">
+                <span class="loader-ellips__dot"></span>
+                <span class="loader-ellips__dot"></span>
+                <span class="loader-ellips__dot"></span>
+                <span class="loader-ellips__dot"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    console.log(window.history);
+
+    var LoadMailList = function (e, element) {
+        e.preventDefault();
+        toastr.info("Loading...", {
+            timeOut: 0,
+            extendedTimeOut: 0,
+            closeButton: true
+        });
+        let url = $(element).attr('href');
+        $('#inbox').load(url + ' #inbox', function () {
+            window.history.replaceState(null, "", url);
+            toastr.clear();
+        });
+    }
+</script>

@@ -1,0 +1,71 @@
+﻿@model PaginatedList<Message>
+
+@{
+    ViewData["Title"] = "Messages";
+}
+
+
+<!--Begin Nav-->
+<nav class="mb-3">
+    <a asp-action="Create" class="btn btn-with-icon btn-success">
+        <i class="la la-plus"></i>
+        Create New
+    </a>
+    <a asp-action="Trash" class="btn btn-with-icon btn-danger">
+        <i class="la la-trash"></i>
+        Trash
+    </a>
+</nav>
+<!--End Nav-->
+
+<div class="table-responsive">
+    <table class="table table-bordered datatable">
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>@Model.GetIndex(item)</th>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">@item.Name</a>
+                    </td>
+                    <td>
+                        <a href="mailto:@item.Email">@item.Email</a>
+                    </td>
+                    <td>@item.Created.MyString(true)</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-purple dropdown-toggle" data-toggle="dropdown">Actions</button>
+                            <div class="dropdown-menu">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="dropdown-item">Reply</a>
+                                <a href="#delete-form-@item.Id" data-fancybox class="dropdown-item text-danger">Delete</a>
+                            </div>
+                        </div>
+
+                        <div hidden>
+                            <form id="delete-form-@item.Id" asp-action="Delete" asp-route-id="@item.Id">
+                                <p>Are you sure you want to delete '<b>@item.Name</b>'</p>
+                                <button class="btn btn-success btn-with-icon">
+                                    <i class="la la-check"></i>
+                                    Yes
+                                </button>
+                                <button data-fancybox-close class="btn btn-danger btn-with-icon">
+                                    <i class="la la-close"></i>
+                                    No
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

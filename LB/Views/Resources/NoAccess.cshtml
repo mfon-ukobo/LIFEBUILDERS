@@ -1,0 +1,18 @@
+﻿@model ResourceAccessError
+
+@{
+    ViewData["Title"] = "Resources";
+}
+
+    <div class="text-center mg-y-100">
+        <h1>You do not have access to this resource</h1>
+        <a href="javascript:;" onclick="window.history.back()" class="theme-button button-1">
+            <i class="la la-arrow-left"></i>
+            Return to Previous
+        </a>
+        <a asp-action="RequestAccess" asp-route-slug="@Model.Resource" class="theme-button button-2">
+            <i class="la la-key"></i>
+            Request Access
+        </a>
+    </div>
+

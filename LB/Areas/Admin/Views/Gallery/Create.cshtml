@@ -1,0 +1,86 @@
+﻿@model SiteImage
+
+<div class="w-75" style="min-width: 300px">
+    <div id="create-overlay" class="overlay">
+        <div>
+            <i class="fa fa-spinner fa-spin fa-2x"></i>
+        </div>
+    </div>
+    <div id="create-app" class="container-fluid">
+        <form id="create-form" asp-action="Create" method="post" v-on:submit.prevent="SubmitForm()">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="file" id="fileUpload" name="file" class="form-control-file" accept="image/*" onchange="createApp.LoadPicture(this)" />
+                        </div>
+                        <img src="" id="create-image" class="card-img-bottom rounded-0" alt="" style="max-height: 300px; object-fit: cover;" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Alt"></label>
+                        <input asp-for="Alt" class="form-control" />
+                        <span asp-validation-for="Alt"></span>
+                    </div>
+
+                    <div class="form-group text-right">
+                        <button class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        var createApp = new Vue({
+            el: '#create-app',
+            data: {
+                
+            },
+            methods: {
+                LoadPicture: function (e) {
+                    var f = e.files[0];
+                    var b = URL.createObjectURL(f);
+                    $('img#create-image').attr('src', b);
+                    $('#Name').val(f['name']);
+                    $('#Alt').val(f['name']);
+                },
+                SubmitForm: function () {
+                    var form = $('#create-form');
+                    var formData = new FormData(form[0]);
+                    $.ajax({
+                        url: '@Url.Action("Create", "gallery")',
+                        method: 'POST',
+                        dataType: 'json',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        beforeSend: function () {
+                            $('#create-overlay').show();
+                        },
+                        success: function (data) {
+                            if (data.success) {
+                                toastr.success(data.message);
+                                $.fancybox.close();
+                                galleryApp.fetchPictures();
+                            }
+                            else {
+                                toastr.error(data.message);
+                            }
+                        },
+                        error: function (a, b, c) {
+                            alert(c);
+                            $('#create-overlay').hide();
+                        }
+                    });
+                }
+            }
+        })
+    </script>
+</div>

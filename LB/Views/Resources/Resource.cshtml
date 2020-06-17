@@ -1,0 +1,37 @@
+﻿@model Resource
+
+@{
+    ViewData["Title"] = "Resources";
+}
+
+    <section class="s-p-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 mb-4 tx-14">
+                    <a href="javascript:;" onclick="window.history.back()" class="d-block mb-3">
+                        <i class="la la-arrow-left"></i>
+                        Previous Page
+                    </a>
+                    <div class="image-container image-10-9">
+                        <img src="~/uploads/images/@Model.Image.Thumbnail" alt="" class="image" />
+                    </div>
+                    <a asp-action="Download" asp-route-id="@Model.Slug" class="theme-button button-1 button-sm mt-2 btn-block d-none d-lg-block">Download File</a>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <h6>@Model.Title</h6>
+                        @Html.Raw(Model.Description)
+                    </div>
+
+                    <div class="meta">
+                        <span>Category: @Model.Category.Name</span> <br />
+                        <span>Created: @Model.Created.ToString("MMM dd, yyyy")</span> <br />
+                        <span>Access: @string.Join(",", Model.ResourceAccesses.Select(x => x.ResourceAccess.Name))</span>
+                    </div>
+
+                    <a asp-action="Download" asp-route-id="@Model.Slug" class="theme-button button-1 button-sm mt-2 btn-block d-lg-none">Download File</a>
+                </div>
+            </div>
+        </div>
+    </section>
+

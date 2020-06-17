@@ -1,0 +1,55 @@
+﻿@model PaginatedList<ResourceAccessRequest>
+
+@{
+    ViewData["Title"] = "Resource Requests";
+}
+
+<!--Begin Nav-->
+<nav class="page-nav">
+    <a asp-action="Index" class="btn btn-with-icon btn-primary">
+        <i class="la la-arrow-left"></i>
+        Resources
+    </a>
+    <a asp-action="Categories" class="btn btn-with-icon btn-purple">
+        <i class="la la-list"></i>
+        Categories
+    </a>
+    <a asp-action="Accesses" class="btn btn-with-icon btn-purple">
+        <i class="la la-key"></i>
+        Accesses
+    </a>
+</nav>
+<!--End Nav-->
+
+@(await Html.PartialAsync("_tablenav"))
+
+<div class="table-responsive">
+    <table id="table" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>Member</th>
+                <th>Email</th>
+                <th>Resource</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @(await Html.PartialAsync("_emptytable"))
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th></th>
+                    <td>@item.Member.AppUser.FullName</td>
+                    <td>@item.Member.AppUser.Email</td>
+                    <td>@item.Resource.Title</td>
+                    <td>@item.Created</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@(await Html.PartialAsync("_pagination"))

@@ -1,0 +1,135 @@
+﻿@model DiscipleshipGroup
+@inject Context context;
+
+@{
+    ViewData["Title"] = "Create Group";
+}
+
+<div class="mb-3">
+    <a asp-action="Index" class="btn btn-with-icon btn-az-primary">
+        <i class="la la-arrow-left"></i>
+        Back to List
+    </a>
+</div>
+
+<form id="app" method="post">
+    <div class="row mb-4">
+        <div class="col-lg-5">
+            <div class="az-form-group mb-3">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="az-form-group mb-3">
+                <a href="#memberTable" data-fancybox class="btn btn-purple btn-with-icon">
+                    <i class="la la-users"></i>
+                    Select Members
+                </a>
+
+                <table class="table table-bordered mt-3" v-if="members.length > 0">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tr v-for="item in members">
+                        <th>{{members.indexOf(item) + 1}}</th>
+                        <td>{{item.fullName}}</td>
+                        <td>{{item.email}}</td>
+                        <td>
+                            <a href="javascript:;" v-on:click.prevent="RemoveMember(item.id)" class="text-danger">
+                                <i class="la la-close"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <button class="btn btn-primary btn-with-icon">
+                <i class="la la-plus"></i>
+                Submit
+            </button>
+        </div>
+    </div>
+
+    <div hidden>
+        <div id="memberTable" class="wd-700">
+            <div class="table-responsive">
+                <table class="table table-bordered datatable table-2">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Confirmed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var members = context.Members.Include(x => x.AppUser);
+                        }
+                        @foreach (var item in members)
+                        {
+                            <tr>
+                                <th>
+                                    <label class="ckbox">
+                                        <input type="checkbox" v-model="ids" name="SelectedMembers" value="@item.AppUserId" />
+                                        <span></span>
+                                    </label>
+                                </th>
+                                <td class="text-nowrap">@item.AppUser.FullName</td>
+                                <td>@item.AppUser.Email</td>
+                                <td>@item.AppUser.EmailConfirmed</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+</form>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            ids: [],
+            members: []
+        },
+        methods: {
+            GetMembers: function () {
+                $.ajax({
+                    url: '@Url.Action("GetMembers")',
+                    type: 'POST',
+                    data: {
+                        id: this.ids
+                    },
+                    dataType: 'json',
+                    success: (data) => {
+                        this.members = data;
+                    }
+                })
+            },
+            RemoveMember: function (member) {
+                if (this.ids.length == 1) {
+                    this.ids = [];
+                    this.members = [];
+                }
+                else {
+                    let index = this.ids.indexOf(member);
+                    this.ids.splice(index, 1);
+                }
+            }
+        },
+        watch: {
+            ids: function () {
+                this.GetMembers();
+            }
+        }
+    })
+</script>

@@ -1,0 +1,61 @@
+﻿@inject Context  context
+
+<!-- footer -->
+<footer>
+    <div class="s-p-100 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h5>About our church</h5>
+                        <p>
+                            God has given Lifebuilders Resource, the job of bringing solutions to the problems attacking biblical Christianity in the heart of today’s youths, leaders and young families.
+                        </p>
+                        <div class="footer-contact">
+                            <span class="">
+                                <i class="icofont-email mr-2"></i> <a href="mailto:tralright@gmail.com">tralright@gmail.com</a> <br />
+                                <i class="icofont-email mr-2"></i> <a href="mailto:info@lifebuildersresource.org">info@lifebuildersresource.org</a>
+                            </span>
+                            <span class="">
+                                <i class="icofont-ui-dial-phone mr-2"></i> <a href="tel:+2348023331970">
+                                    +(234) 802 333 1970
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h5>Latest Events</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h5>Facebook</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h5>Recent Posts</h5>
+                        <ul class="list-group list-group-flush">
+                            @foreach (var post in context.Posts.Include(x => x.Image).Take(5))
+                            {
+                                <li class="list-group-item list-group-item-light">
+                                    <h6><a asp-action="Single" asp-controller="Blog" asp-route-id="@post.Slug">@post.Title</a></h6>
+                                    <div class="meta mb-0">
+                                        By @post.Author @@ @post.Created.ToString("MMM, dd yyyy")
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-dark py-3 text-center">
+        <div class="container text-white">
+            <small>Copyright hello world</small>
+        </div>
+    </div>
+</footer>

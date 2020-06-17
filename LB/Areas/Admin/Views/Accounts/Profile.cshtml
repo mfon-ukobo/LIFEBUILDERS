@@ -1,0 +1,29 @@
+﻿@model AppUser
+@{
+    ViewData["Title"] = "Profile";
+}
+
+    <div class="row">
+        <div class="col-lg-6">
+            <form>
+                <div class="az-form-group mb-3">
+                    <label asp-for="UserName"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+
+                <div class="az-form-group mb-3">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="az-form-group mb-3">
+                    <label asp-for="Password"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+

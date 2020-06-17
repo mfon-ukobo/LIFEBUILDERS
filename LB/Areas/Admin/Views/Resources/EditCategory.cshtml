@@ -1,0 +1,52 @@
+﻿@model ResourceCategory
+
+@{
+    var query = this.Context.Request.Query;
+}
+
+<nav class="mb-3">
+    <a asp-route-id="" class="btn btn-with-icon btn-success">
+        <i class="la la-plus"></i>
+        Create New
+    </a>
+</nav>
+
+<div id="accordion" class="accordion" role="tablist" aria-multiselectable="true">
+    <div class="card">
+        <div class="card-header" role="tab" id="headingOne">
+            <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="">
+                Update Category
+                <i class="la la-caret-down float-right"></i>
+            </a>
+        </div><!-- card-header -->
+
+        <div id="collapseOne" data-parent="#accordion" class="collapse show" role="tabpanel" aria-labelledby="headingOne" style="">
+            <div class="card-body">
+                <form asp-action="EditCategory" 
+                      asp-route-p="@query["p"]"
+                      asp-route-s="@query["s"]"
+                      asp-route-search="@query["search"]" method="post">
+
+                    <input asp-for="Id" hidden />
+
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Description"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-with-icon btn-primary">
+                        <i class="la la-save"></i>
+                        Update
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
