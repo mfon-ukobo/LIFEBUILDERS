@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace LB.Areas.Admin.Controllers
 {
@@ -20,13 +22,16 @@ namespace LB.Areas.Admin.Controllers
     public class GalleryController : Controller
     {
         private readonly Context context;
-        private readonly IHostingEnvironment env;
+        private readonly IWebHostEnvironment env;
+        private readonly string baseUrl;
 
-        public GalleryController(Context context, IHostingEnvironment env)
+        public GalleryController(Context context, IWebHostEnvironment env, IConfiguration config)
         {
             this.context = context;
             this.env = env;
+            baseUrl = config.GetValue<string>("BaseURL") + "/uploads/images/";
         }
+
         public IActionResult Index()
         {
             return View();
@@ -55,14 +60,18 @@ namespace LB.Areas.Admin.Controllers
                 {
                     file.CopyTo(stream);
                 }
-                siteImage.Image = fileName;
+
+                siteImage.Image = baseUrl + fileName;
+
                 var image = Image.FromFile(filePath);
                 var scaleImage = ImageResize.Scale(image, 480, 480);
                 thumbName = "thumb" + "_" + fileName;
                 thumbPath = Path.Combine(uploadsFolder, thumbName);
                 scaleImage.Save(thumbPath);
                 scaleImage.Dispose();
-                siteImage.Thumbnail = thumbName;
+
+
+                siteImage.Thumbnail = baseUrl + thumbName;
 
                 try
                 {
@@ -107,14 +116,15 @@ namespace LB.Areas.Admin.Controllers
                     {
                         file.CopyTo(stream);
                     }
-                    fileItem.Image = fileName;
+                    fileItem.Image = baseUrl + fileName;
+                    
                     var image = Image.FromFile(filePath);
                     var scaleImage = ImageResize.Scale(image, 480, 480);
                     thumbName = "thumb" + "_" + fileName;
                     thumbPath = Path.Combine(uploadsFolder, thumbName);
                     scaleImage.Save(thumbPath);
                     scaleImage.Dispose();
-                    fileItem.Thumbnail = thumbName;
+                    fileItem.Thumbnail = baseUrl + thumbName;
                 }
 
                 if (await TryUpdateModelAsync(fileItem))

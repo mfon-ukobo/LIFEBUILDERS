@@ -14,7 +14,6 @@ using IOFile = System.IO.File;
 
 namespace LB.Controllers
 {
-    [Authorize]
     public class ResourcesController : Controller
     {
         private readonly Context context;
@@ -74,16 +73,18 @@ namespace LB.Controllers
         [GetErrors]
         public async Task<IActionResult> Resource(string id)
         {
-            var userId = Guid.Parse(userManager.GetUserId(User));
-            var member = await context.Members.Include(x => x.ResourceAccesses).FirstOrDefaultAsync(x => x.AppUserId == userId);
-            var admin = await context.AdminUsers.FirstOrDefaultAsync(x => x.AppUserId == userId);
+            //var userId = Guid.Parse(userManager.GetUserId(User));
+            //var member = await context.Members.Include(x => x.ResourceAccesses).FirstOrDefaultAsync(x => x.AppUserId == userId);
+            //var admin = await context.AdminUsers.FirstOrDefaultAsync(x => x.AppUserId == userId);
 
-            var resource = await context.Resources.Include(x => x.Image).Include(x => x.Category).Include(x => x.ResourceAccesses).ThenInclude(x => x.ResourceAccess).Where(x => x.Slug == id).FirstOrDefaultAsync();
+            ViewBag.Resources = (await context.Resources.Include(x => x.Image).ToListAsync()).TakeLast(5);
+
+            var resource = (await context.Resources.Include(x => x.Image).Include(x => x.Category).Include(x => x.ResourceAccesses).ThenInclude(x => x.ResourceAccess).ToListAsync()).FirstOrDefault(x => x.Slug == id);
 
             if (resource == null)
                 return View("NotFound");
 
-            if (member != null)
+            /*if (member != null)
             {
                 if (!HasResourceAccess(resource, member))
                     return View("NoAccess", new ResourceAccessError { Resource = id });
@@ -92,7 +93,7 @@ namespace LB.Controllers
             if (admin == null && member == null)
             {
                 return View("NoAccess", new ResourceAccessError { Resource = id });
-            }
+            }*/
 
             return View(resource);
         }

@@ -1,440 +1,456 @@
 ﻿@model HomePageView
 
 @{
-    ViewData["IsHomePage"] = "true";
-    ViewData["title"] = "Home";
+	ViewData["IsHomePage"] = "true";
+	ViewData["title"] = "Home";
 }
 
 <!-- Homepage Slider -->
 
 <div class="rev_slider_wrapper fullwidthbanner-container">
-    <div id="rev_slider_1" class="rev_slider fullwidthabanner" data-version="5.4.8" style="display: none">
-        <ul>
-            @foreach (var carousel in Model.Carousels)
-            {
-                <li data-transition="random-premium">
-                    <img src="~/uploads/images/@carousel.Image.Image" class="rev-slidebg" alt="">
+	<div id="rev_slider_1" class="rev_slider fullwidthabanner" data-version="5.4.8" style="display: none">
+		<ul>
+			@foreach (var carousel in Model.Carousels)
+			{
+				<li data-transition="random-premium">
+					<img src="@carousel.Image.Image" class="rev-slidebg" alt="">
 
-                    @if (!string.IsNullOrEmpty(carousel.Caption) && !string.IsNullOrWhiteSpace(carousel.Caption))
-                    {
-                        <div class="tp-caption tp-resizeme text-center caption font-weight-bold" id="slide-4-layer-1" data-x="center"
-                             data-y="center" data-voffset="-50%"
-                             data-fontsize="50" data-lineheight="60"
-                             data-width="100%" data-height="none"
-                             data-whitespace="normal" data-transform_idle="o:1;"
-                             data-transform_in="y:-50px;opacity:0;s:800;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;"
-                             data-start="1000" data-color="white" data-splitin="none" data-splitout="none" data-responsive_offset="on">
-                            @carousel.Caption
-                        </div>
-                    }
+					@if (!string.IsNullOrEmpty(carousel.Caption) && !string.IsNullOrWhiteSpace(carousel.Caption))
+					{
+						<div class="tp-caption tp-resizeme text-center caption font-weight-bold" id="slide-4-layer-1" data-x="center"
+							 data-y="center" data-voffset="-50%"
+							 data-fontsize="50" data-lineheight="60"
+							 data-width="100%" data-height="none"
+							 data-whitespace="normal" data-transform_idle="o:1;"
+							 data-transform_in="y:-50px;opacity:0;s:800;e:Power3.easeInOut;" data-transform_out="opacity:0;s:300;"
+							 data-start="1000" data-color="white" data-splitin="none" data-splitout="none" data-responsive_offset="on">
+							@carousel.Caption
+						</div>
+					}
 
-                    @if (!string.IsNullOrEmpty(carousel.Details) && !string.IsNullOrWhiteSpace(carousel.Details))
-                    {
-                        <div class="tp-caption tp-resizeme"
-                             data-fontsize="[24]"
-                             data-fontweight="600"
-                             data-color="white"
-                             data-start="2000"
-                             data-x="center"
-                             data-y="center"
-                             data-transform_in="y:100;e:easeInOut"
-                             data-transform_out="y:-50px;x:-100px;"
-                             data-hoffset="0" data-voffset="10" data-width="['auto']" data-height="['auto']">
-                            @carousel.Details
-                        </div>
-                    }
+					@if (!string.IsNullOrEmpty(carousel.Details) && !string.IsNullOrWhiteSpace(carousel.Details))
+					{
+						<div class="tp-caption tp-resizeme"
+							 data-fontsize="[24]"
+							 data-fontweight="600"
+							 data-color="white"
+							 data-start="2000"
+							 data-x="center"
+							 data-y="center"
+							 data-transform_in="y:100;e:easeInOut"
+							 data-transform_out="y:-50px;x:-100px;"
+							 data-hoffset="0" data-voffset="10" data-width="['auto']" data-height="['auto']">
+							@carousel.Details
+						</div>
+					}
 
-                    @if (carousel.HasButton)
-                    {
-                        <div class="tp-caption tp-resizeme"
-                             data-fontsize="[24]"
-                             data-fontweight="600"
-                             data-color="white"
-                             data-start="2000"
-                             data-x="center"
-                             data-y="center"
-                             data-transform_in="y:100;e:easeInOut"
-                             data-transform_out="y:-50px;x:-100px;"
-                             data-hoffset="0" data-voffset="100" data-width="['auto']" data-height="['auto']">
-                            <a href="@carousel.ButtonLink" class="theme-button button-1 text-center">@carousel.ButtonText</a>
-                        </div>
-                    }
-                </li>
-            }
-        </ul>
-    </div>
+					@if (carousel.HasButton)
+					{
+						<div class="tp-caption tp-resizeme"
+							 data-fontsize="[24]"
+							 data-fontweight="600"
+							 data-color="white"
+							 data-start="2000"
+							 data-x="center"
+							 data-y="center"
+							 data-transform_in="y:100;e:easeInOut"
+							 data-transform_out="y:-50px;x:-100px;"
+							 data-hoffset="0" data-voffset="100" data-width="['auto']" data-height="['auto']">
+							<a href="@carousel.ButtonLink" class="theme-button button-1 text-center">@carousel.ButtonText</a>
+						</div>
+					}
+				</li>
+			}
+		</ul>
+	</div>
 </div>
 
 <!-- Next Event Countdown -->
 <section class="py-5 bg-theme-1">
-    <div class="container">
-        <div class="row justify-content-between text-white">
-            <div class="col-md-4">
-                <h4>Next Event in:</h4>
-                <span>@(Model.NextEvent?.Title ?? "No Upcoming Event")</span>
-            </div>
-            <div class="col-md-4 mb-3 mb-md-0">
-                <div class="timer">
+	<div class="container">
+		<div class="row justify-content-between text-white">
+			<div class="col-md-4">
+				<h4>Next Event in:</h4>
+				<span>@(Model.NextEvent?.Title ?? "No Upcoming Event")</span>
+			</div>
+			<div class="col-md-4 mb-3 mb-md-0">
+				<div class="timer">
 
-                </div>
-            </div>
-            <div class="col-auto">
-                <a asp-action="Single" asp-controller="Events" asp-route-id="@Model.NextEvent?.Slug" class="theme-button button-4">
-                    <span>Event Details</span>
-                </a>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+			<div class="col-auto">
+				<a asp-action="Single" asp-controller="Events" asp-route-id="@Model.NextEvent?.Slug" class="theme-button button-4">
+					<span>Event Details</span>
+				</a>
+			</div>
+		</div>
+	</div>
 </section>
 
 <!-- About Lifebuilders -->
 <section class="section s-p-100">
-    <div class="container">
-        <div class="row justify-content-between">
-            <div class="col-md-5 image-container d-none d-lg-block mb-5">
-                <img src="~/img/home3.png" alt="" class="img-fluid" />
-            </div>
-            <div class="col-lg-5 image-container image-16-9 mb-5 d-none d-md-block d-lg-none">
-                <img src="~/img/home3.png" alt="" class="image p-3" />
-            </div>
-            <div class="col-lg-6">
-                <header class="section-header">
-                    <span>Welcome</span>
-                    <h2>Loving God, Loving Others and Serving the World</h2>
-                </header>
-                <article>
-                    <p>
-                        We’d love to meet you! Come check us out this SUNDAY where you can meet us and see people truly following Jesus. Our heart and soul is to introduce and connect people with the living and powerful God.
-                    </p>
-                </article>
-                <div class="services">
-                    <div class="service-item">
-                        <span class="service-icon icofont-ui-home"></span>
-                        <div class="service-content">
-                            <h4 class="title">Follow with us</h4>
-                            <p>
-                                We would love to see you and your family & friends this weekend.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="service-item">
-                        <span class="service-icon icofont-book"></span>
-                        <div class="service-content">
-                            <h4 class="title">What we believe</h4>
-                            <details>
-                                <summary class="p">
-                                    We believe in God, the Father almighty,
-                                    creator of heaven and earth...
-                                </summary>
-                                <p>
-                                    We believe in God, the Father almighty,
-                                    creator of heaven and earth. <br />
-                                    We believe in Jesus Christ, his only Son, our Lord. <br />
-                                    He was conceived by the power of the Holy Spirit
-                                    and born of the Virgin Mary. <br />
-                                    He suffered under Pontius Pilate,
-                                    was crucified, died, and was buried. <br />
-                                    He descended to the dead. <br />
-                                    On the third day he rose again. <br />
-                                    He ascended into heaven,
-                                    and is seated at the right hand of the Father. <br />
-                                    He will come again to judge the living and the dead. <br />
-                                    We believe in the Holy Spirit,
-                                    the holy Universal Church,
-                                    the communion of saints,
-                                    the forgiveness of sins,
-                                    the resurrection of the body,
-                                    and the life everlasting. <br />
-                                    We believe that the Bible is God's Word. It is accurate, authoritative and applicable to our every day lives.
-                                </p>
-                            </details>
-                        </div>
-                    </div>
-                    <div class="service-item">
-                        <span class="service-icon icofont-user-alt-1"></span>
-                        <div class="service-content">
-                            <h4 class="title">New Here?</h4>
-                            <p>
-                                Tell us about yourself to begin your journey with connecting to our community.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row justify-content-between">
+			<div class="col-md-5 image-container d-none d-lg-block mb-5">
+				<img src="~/img/home3.png" alt="" class="img-fluid" />
+			</div>
+			<div class="col-lg-5 image-container image-16-9 mb-5 d-none d-md-block d-lg-none">
+				<img src="~/img/home3.png" alt="" class="image p-3" />
+			</div>
+			<div class="col-lg-6">
+				<header class="section-header">
+					<span>Welcome</span>
+					<h2>Loving God, Loving Others and Serving the World</h2>
+				</header>
+				<article>
+					<p>
+						We’d love to meet you! Come check us out this SUNDAY where you can meet us and see people truly following Jesus. Our heart and soul is to introduce and connect people with the living and powerful God.
+					</p>
+				</article>
+				<div class="services">
+					<div class="service-item">
+						<span class="service-icon icofont-ui-home"></span>
+						<div class="service-content">
+							<h4 class="title">Follow with us</h4>
+							<p>
+								We would love to see you and your family & friends this weekend.
+							</p>
+						</div>
+					</div>
+					<div class="service-item">
+						<span class="service-icon icofont-book"></span>
+						<div class="service-content">
+							<h4 class="title">What we believe</h4>
+							<details>
+								<summary class="p">
+									We believe in God, the Father almighty,
+									creator of heaven and earth...
+								</summary>
+								<p>
+									We believe in God, the Father almighty,
+									creator of heaven and earth. <br />
+									We believe in Jesus Christ, his only Son, our Lord. <br />
+									He was conceived by the power of the Holy Spirit
+									and born of the Virgin Mary. <br />
+									He suffered under Pontius Pilate,
+									was crucified, died, and was buried. <br />
+									He descended to the dead. <br />
+									On the third day he rose again. <br />
+									He ascended into heaven,
+									and is seated at the right hand of the Father. <br />
+									He will come again to judge the living and the dead. <br />
+									We believe in the Holy Spirit,
+									the holy Universal Church,
+									the communion of saints,
+									the forgiveness of sins,
+									the resurrection of the body,
+									and the life everlasting. <br />
+									We believe that the Bible is God's Word. It is accurate, authoritative and applicable to our every day lives.
+								</p>
+							</details>
+						</div>
+					</div>
+					<div class="service-item">
+						<span class="service-icon icofont-user-alt-1"></span>
+						<div class="service-content">
+							<h4 class="title">New Here?</h4>
+							<p>
+								Tell us about yourself to begin your journey with connecting to our community.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 
 <!-- Mission -->
 <section class="section mission-section py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5 offset-lg-1 text-lg-right border-right border-light pr-5">
-                <h2 class="mission-text">Our mission is to ignite passion to follow Jesus and recover a Biblical Worldview in every sphere of life</h2>
-            </div>
-            <div class="col-lg-6 pl-lg-5">
-                <p>
-                    “The church is the body of Christ on earth, empowered by the Holy Spirit to continue the task of reaching the lost and discipling the saved, helping them become fully devoted followers of Christ.”
-                </p>
-                <p>Ephesians 4:1-16</p>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-5 offset-lg-1 text-lg-right border-right border-light pr-5">
+				<h2 class="mission-text">Our mission is to ignite passion to follow Jesus and recover a Biblical Worldview in every sphere of life</h2>
+			</div>
+			<div class="col-lg-6 pl-lg-5">
+				<p>
+					“The church is the body of Christ on earth, empowered by the Holy Spirit to continue the task of reaching the lost and discipling the saved, helping them become fully devoted followers of Christ.”
+				</p>
+				<p>Ephesians 4:1-16</p>
+			</div>
+		</div>
+	</div>
 </section>
 
 <section class="s-p-100 bg-image" style="background-image: url('img/arena.jpg');">
-    <div class="container">
-        <h1 class="section-title text-white text-center">Get Connected. What’s Your Next Step? <br> Follow. Connect. Go.</h1>
-        <div class="custom-heading-1 text-white">
-            Following Jesus as disciples and connecting with others as part of a spiritual family
-        </div>
-        <div class="text-center">
-            <a target="_blank" asp-action="Index" asp-controller="Discipleship" class="theme-button button-1 mr-2 mb-3">
-                <span>join a discipleship <br /> group</span>
-            </a>
-            <a target="_blank" asp-action="Index" asp-controller="Donate" class="theme-button button-1 mr-2 mb-3">
-                <span>missions &amp; <br> donation</span>
-            </a>
-            <a target="_blank" asp-action="Index" asp-controller="Resources" class="theme-button button-1 mr-2 mb-3">
-                <span>resource <br> materials </span>
-            </a>
-        </div>
-    </div>
+	<div class="container">
+		<h1 class="section-title text-white text-center">Get Connected. What’s Your Next Step? <br> Follow. Connect. Go.</h1>
+		<div class="custom-heading-1 text-white">
+			Following Jesus as disciples and connecting with others as part of a spiritual family
+		</div>
+		<div class="text-center">
+			<a target="_blank" asp-action="Index" asp-controller="Discipleship" class="theme-button button-1 mr-2 mb-3">
+				<span>join a discipleship <br /> group</span>
+			</a>
+			<a target="_blank" asp-action="Index" asp-controller="Donate" class="theme-button button-1 mr-2 mb-3">
+				<span>missions &amp; <br> donation</span>
+			</a>
+			<a target="_blank" asp-action="Index" asp-controller="Resources" class="theme-button button-1 mr-2 mb-3">
+				<span>resource <br> materials </span>
+			</a>
+		</div>
+	</div>
 </section>
 
 
 <section class="s-p-100">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <header class="section-header">
-                    <span>Resources</span>
-                    <h2 class="title">Teaching Videos &amp; Audios</h2>
-                </header>
-                <div>
-                    @foreach (var resource in Model.Resources)
-                    {
-                        <div class="card message-card">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="image-container image-10-9">
-                                        <img src="/uploads/images/@resource.Image.Thumbnail" alt="" class="image">
-                                        <a href="" class="hover-overlay">
-                                            <i class="hover-icon icofont-link icofont-2x"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="card-body">
-                                        <h5>@resource.Title</h5>
-                                        <div class="small">
-                                            @if (!string.IsNullOrEmpty(resource.Description))
-                                            {
-                                                @if (resource.Description.Length > 50)
-                                                {
-                                                    @Html.Raw(resource.Description.Substring(0, 50))
-                                                }
-                                                else
-                                                {
-                                                    @Html.Raw(resource.Description)
-                                                }
-                                            }
-                                            ...
-                                        </div>
-                                        <div class="meta small">
-                                            by Ifiok Ukobo / Friday, Juy 31, 2016
-                                        </div>
-                                        <a asp-action="Resource" asp-controller="Resources" asp-route-id="@resource.Slug" class="small">View More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <header class="section-header">
-                    <span>Upcoming Events</span>
-                    <h2 class="title">Conferences &amp; Events</h2>
-                </header>
-                <div class="homepage-events">
-                    @foreach (var ev in Model.Events)
-                    {
-                        <div class="event">
-                            <span class="date">
-                                @{
-                                    var date = DateTime.Parse(ev.StartDate);
-                                }
-                                <span class="month">@date.ToString("MMM")</span>
-                                <span class="day">@date.ToString("dd")</span>
-                            </span>
-                            <h6 class="title">
-                                <a asp-action="single" asp-controller="events" asp-route-id="@ev.Slug">@ev.Title</a>
-                            </h6>
-                            <span class="time d-none d-xl-block">@ev.StartTime - @ev.EndTime</span>
-                            <span class="details">
-                                <a asp-action="single" asp-controller="events" asp-route-id="@ev.Slug">Details</a>
-                            </span>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<header class="section-header">
+					<span>Resources</span>
+					<h2 class="title">Teaching Videos &amp; Audios</h2>
+				</header>
+				<div>
+					@foreach (var sermon in Model.Sermons)
+					{
+						<div class="card message-card">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="image-container image-10-9">
+										@if (sermon.SiteImage != null)
+										{
+											<img src="@(sermon.SiteImage?.Thumbnail)" alt="" class="image">
+										}
+										else
+										{
+											var ytId = sermon.FileURL.Split("/").LastOrDefault();
+											<img src="https://img.youtube.com/vi/@ytId/0.jpg" alt="" class="image">
+										}
+										<a asp-action="Sermon" asp-controller="Sermons" asp-route-id="@sermon.Id" class="hover-overlay">
+											<i class="hover-icon icofont-link icofont-2x"></i>
+										</a>
+									</div>
+								</div>
+								<div class="col">
+									<div class="card-body">
+										<h5>
+											<a asp-action="Sermon" asp-controller="Sermons" asp-route-id="@sermon.Id">@sermon.Title</a>
+										</h5>
+										<div class="small">
+											@if (!string.IsNullOrEmpty(sermon.Description))
+											{
+												@if (sermon.Description.Length > 50)
+												{
+													@Html.Raw(sermon.Description.Substring(0, 50))
+												}
+												else
+												{
+													@Html.Raw(sermon.Description)
+												}
+											}
+											...
+										</div>
+										<div class="meta small">
+											by Ifiok Ukobo / Friday, Juy 31, 2016
+										</div>
+										<a asp-action="Sermon" asp-controller="Sermons" asp-route-id="@sermon.Id" class="small">View More</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<header class="section-header">
+					<span>Upcoming Events</span>
+					<h2 class="title">Conferences &amp; Events</h2>
+				</header>
+				<div class="homepage-events">
+					@foreach (var ev in Model.Events)
+					{
+						<div class="event">
+							<span class="date">
+								@{
+									var date = DateTime.Parse(ev.StartDate);
+								}
+								<span class="month">@date.ToString("MMM")</span>
+								<span class="day">@date.ToString("dd")</span>
+							</span>
+							<h6 class="title">
+								<a asp-action="single" asp-controller="events" asp-route-id="@ev.Slug">@ev.Title</a>
+							</h6>
+							<span class="time d-none d-xl-block">@ev.StartTime - @ev.EndTime</span>
+							<span class="details">
+								<a asp-action="single" asp-controller="events" asp-route-id="@ev.Slug">Details</a>
+							</span>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 
 <!-- Gallery -->
 <section class="s-p-100">
-    <div class="grid">
-        @foreach (var galleryItem in Model.Gallery)
-        {
-            <div class="grid-item">
-                <img src="~/uploads/images/@galleryItem.Image.Thumbnail" alt="" class="" />
-                <div class="hover">
-                    <a href="~/uploads/images/@galleryItem.Image.Image" data-fancybox="images" data-caption="@galleryItem.Caption" class="link">
-                        <i class="icofont-ui-zoom-in tx-14"></i>
-                    </a>
-                    <h5 class="title">@galleryItem.Title</h5>
-                </div>
-            </div>
-        }
-    </div>
+	<div class="grid">
+		@foreach (var galleryItem in Model.Gallery)
+		{
+			<div class="grid-item">
+				<img src="@galleryItem.Image.Thumbnail" alt="" class="" />
+				<div class="hover">
+					<a href="~/uploads/images/@galleryItem.Image.Image" data-fancybox="images" data-caption="@galleryItem.Caption" class="link">
+						<i class="icofont-ui-zoom-in tx-14"></i>
+					</a>
+					<h5 class="title">@galleryItem.Title</h5>
+				</div>
+			</div>
+		}
+	</div>
 </section>
 
 <!-- Worship Team -->
 <section class="s-p-100 d-none">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6"></div>
-            <div class="col-lg-6">
-                <header class="section-header">
-                    <span>Lyrics, Chords &amp; Transitions</span>
-                    <h2>Worship Team Resources</h2>
-                </header>
-                <article>
-                    <p>
-                        We’re passionate about Jesus and leading others to worship Him! We hope these resources help equip you and your team as you lead worship.
-                    </p>
-                    <a href="" class="theme-button button-2">
-                        <span>View More</span>
-                    </a>
-                </article>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6"></div>
+			<div class="col-lg-6">
+				<header class="section-header">
+					<span>Lyrics, Chords &amp; Transitions</span>
+					<h2>Worship Team Resources</h2>
+				</header>
+				<article>
+					<p>
+						We’re passionate about Jesus and leading others to worship Him! We hope these resources help equip you and your team as you lead worship.
+					</p>
+					<a href="" class="theme-button button-2">
+						<span>View More</span>
+					</a>
+				</article>
+			</div>
+		</div>
+	</div>
 </section>
 
-
-<!-- Donation -->
-<section class="s-p-100 bg-image" style="background-image: url('/img/littlegirl_orange.jpg'); background-position: -70px;">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-7 offset-lg-1 text-center">
-                <h1 class="text-white mb-4">
-                    Giving is an action of worship, <br>
-                    affection & love for Jesus.
-                </h1>
-                <h2 class="section-title-cursive mb-5">
-                    Making a difference
-                </h2>
-                <a href="/donate" class="theme-button button-3 mr-sm-3 mb-2"><span>Give now</span></a>
-                <a href="/donate" class="theme-button button-4 mb-2"><span>Ways to give</span></a>
-            </div>
-        </div>
-    </div>
-</section>
 
 
 <!-- Blog Section -->
 <section class="s-p-100">
-    <div class="container">
-        <header class="section-header">
-            <span>Latest News</span>
-            <h2>From our blog</h2>
-        </header>
-        <div class="row justify-content-center">
-            @foreach (var post in Model.Posts)
-            {
-                <div class="col-lg-4 col-md-6">
-                    <div class="card news-card">
-                        <div alt="" class="image-container image-16-9">
-                            @if (post.Type == PostTypes.Default)
-                            {
-                                @if (post.Image != null)
-                                {
-                                    <img src="/uploads/images/@post.Image.Thumbnail" class="image" alt="">
-                                }
-                            }
-                            else if (post.Type == PostTypes.Video)
-                            {
-                                <div class="div position-absolute" style="top: 0; left: 0; width: 100%; height: 100%;">
-                                    @Html.Raw(post.VideoUrl)
-                                </div>
-                            }
-                            else if (post.Type == PostTypes.Audio)
-                            {
-                                <div class="div position-absolute" style="top: 0; left: 0; width: 100%; height: 100%;">
-                                    @Html.Raw(post.AudioUrl)
-                                </div>
-                            }
-                            <a asp-action="single" asp-controller="blog" asp-route-id="@post.Slug" class="hover-overlay">
-                                <i class="hover-icon icofont-link icofont-2x"></i>
-                            </a>
-                            <div class="date">
-                                <span class="month">@post.Modified.ToString("MMM")</span>
-                                <span class="day">@post.Modified.ToString("dd")</span>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title">
-                                <a asp-action="single" asp-controller="blog" asp-route-id="@post.Slug">@post.Title</a>
-                            </h5>
-                            <div class="meta">
-                                <span>
-                                    by @post.Author
-                                </span>
-                                <span>
-                                    / 0 Comments
-                                </span>
-                            </div>
-                            <div class="description">
-                                <p>
-                                    @post.Caption
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
+	<div class="container">
+		<header class="section-header">
+			<span>Latest News</span>
+			<h2>From our blog</h2>
+		</header>
+		<div class="row justify-content-center">
+			@foreach (var post in Model.Posts)
+			{
+				<div class="col-lg-4 col-md-6">
+					<div class="card news-card">
+						<div alt="" class="image-container image-16-9">
+							@if (post.Type == PostTypes.Default)
+							{
+								@if (post.Image != null)
+								{
+									<img src="@post.Image.Thumbnail" class="image" alt="">
+								}
+							}
+							else if (post.Type == PostTypes.Video)
+							{
+								<div class="div position-absolute" style="top: 0; left: 0; width: 100%; height: 100%;">
+									@Html.Raw(post.VideoUrl)
+								</div>
+							}
+							else if (post.Type == PostTypes.Audio)
+							{
+								<div class="div position-absolute" style="top: 0; left: 0; width: 100%; height: 100%;">
+									@Html.Raw(post.AudioUrl)
+								</div>
+							}
+							<a asp-action="single" asp-controller="blog" asp-route-id="@post.Slug" class="hover-overlay">
+								<i class="hover-icon icofont-link icofont-2x"></i>
+							</a>
+							<div class="date">
+								<span class="month">@post.Modified.ToString("MMM")</span>
+								<span class="day">@post.Modified.ToString("dd")</span>
+							</div>
+						</div>
+						<div class="card-body">
+							<h5 class="title">
+								<a asp-action="single" asp-controller="blog" asp-route-id="@post.Slug">@post.Title</a>
+							</h5>
+							<div class="meta">
+								<span>
+									by @post.Author
+								</span>
+								<span>
+									/ 0 Comments
+								</span>
+							</div>
+							<div class="description">
+								<p>
+									@post.Caption
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
 
-        <div class="text-center"><a asp-action="index" asp-controller="blog" class="theme-button button-2"><span>Read More</span></a></div>
-    </div>
+		<div class="text-center"><a asp-action="index" asp-controller="blog" class="theme-button button-2"><span>Read More</span></a></div>
+	</div>
 </section>
 
+
+<!-- Donation -->
+<section class="s-p-100 bg-image" style="background-image: url('/img/give.jpg');">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-7 text-center">
+				<h1 class="text-white mb-4">
+					Giving is an action of worship, <br>
+					affection & love for Jesus.
+				</h1>
+				<h2 class="section-title-cursive mb-5 text-warning">
+					Making a difference
+				</h2>
+				<a href="/donate" class="theme-button button-5 mr-sm-3 mb-2"><span>Give now</span></a>
+				<a href="/donate" class="theme-button button-4 mb-2"><span>Ways to give</span></a>
+			</div>
+		</div>
+	</div>
+</section>
+
+
 <section class="pt-5 pb-4 bg-theme-2 join-us-section">
-    <div class="container">
-        <div class="row justify-content-center text-white text-center text-md-left">
-            <div class="col-lg-6 mb-4">
-                <h5 class="join-us-text m-0">If you are interested in joining a small group please fill out the Small Group form, or email us directly »</h5>
-            </div>
-            <div class="col-lg-5 d-flex flex-column flex-md-row justify-content-between align-items-center border-left border-light">
-                <div>
-                    <h6>Email Us</h6>
-                    <h5>info@lifebuildersresource.org</h5>
-                </div>
-                <div class="mt-3 mt-md-0">
-                    <a href="/discipleship" class="theme-button button-4"><span>Join Group</span></a>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row justify-content-center text-white text-center">
+			<div class="col-lg-6 mb-4 text-md-right">
+				<h5 class="join-us-text m-0">
+					If you are interested in joining a Discipleship group <br />
+					fill out the Discipleship Group form,
+					or email us directly.
+				</h5>
+
+				<div class="mt-3">
+					<h5>info@lifebuildersresource.org</h5>
+				</div>
+			</div>
+			<div class="col-lg-5 text-md-left">
+				<div class="">
+					<a href="/discipleship" class="theme-button button-4 btn-lg"><span>Join Discipleship Group</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 
 <script>
-    $('[data-fancybox="gallery"]').fancybox({
-        thumbs: {
-            autoStart: true
-        }
-    });
+	$('[data-fancybox="gallery"]').fancybox({
+		thumbs: {
+			autoStart: true
+		}
+	});
 </script>

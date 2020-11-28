@@ -28,10 +28,10 @@
                         <div class="row">
                             <div class="col-sm-6 col-md-4 col-xl-3" v-for="item in data.data">
                                 <div class="card bg-dark mb-4">
-                                    <img :src="'/uploads/images/' + item.thumbnail" alt="" class="card-img-top rounded-0" style="height: 200px; object-fit: cover;" />
+                                    <img :src="item.thumbnail" alt="" class="card-img-top rounded-0" style="height: 200px; object-fit: cover;" />
                                     <div class="card-body">
                                         <div class="btn-icon-list">
-                                            <a :href="'/uploads/images/' + item.image" data-fancybox="image" class="btn btn-primary btn-icon">
+                                            <a :href="item.image" data-fancybox="image" class="btn btn-primary btn-icon">
                                                 <i class="typcn typcn-eye"></i>
                                             </a>
                                             <button :data-src="'@Url.Action("Edit", "Gallery")/' + item.id" class="btn btn-indigo btn-icon" data-fancybox data-type="ajax">

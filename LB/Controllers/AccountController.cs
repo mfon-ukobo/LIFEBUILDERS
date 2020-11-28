@@ -98,7 +98,7 @@ namespace LB.Controllers
         /// <returns></returns>
         public async Task<IActionResult> Register(bool? discipleship)
         {
-            if (await roleManager.FindByNameAsync("Member") == null)
+            if (!await roleManager.RoleExistsAsync("Member"))
             {
                 await roleManager.CreateAsync(new IdentityRole<Guid>
                 {
@@ -167,7 +167,7 @@ namespace LB.Controllers
                     /*var emailResult = await emailSender.SendEmailAsync(appEmail, user.Email, "Confirm your email",
                     message.ToString(), appEmail, appEmailPassword);*/
 
-                    try
+                    /*try
                     {
                         EmailMessage emailMessage = new EmailMessage
                         {
@@ -201,7 +201,7 @@ namespace LB.Controllers
                     else
                     {
                         return View("RegistrationSuccess");
-                    }
+                    }*/
                 }
                 else
                 {

@@ -41,7 +41,7 @@ namespace LB.Areas.Admin.Controllers
 
 			if (search != null)
 			{
-				posts = posts.Where(x => x.Title.ToLower().Contains(search.ToLower()));
+				posts = posts.Where(x => x.Title.Contains(search, StringComparison.OrdinalIgnoreCase));
 				ViewData["search"] = search;
 			}
 
@@ -63,7 +63,7 @@ namespace LB.Areas.Admin.Controllers
 
 			if (search != null)
 			{
-				posts = posts.Where(x => x.Title.ToLower().Contains(search.ToLower()));
+				posts = posts.Where(x => x.Title.Contains(search, StringComparison.OrdinalIgnoreCase));
 				ViewData["search"] = search;
 			}
 
@@ -129,19 +129,19 @@ namespace LB.Areas.Admin.Controllers
 			return View(post);
 		}
 
-		[Route("/admin/posts/edit/{slug?}")]
+		[Route("/admin/posts/edit/{slug}")]
 		[GetErrors]
-		public async Task<ActionResult> Edit(string slug, int? id)
+		public async Task<ActionResult> Edit(string slug)
 		{
 			ViewBag.Categories = context.Categories.ToList();
 			ViewBag.Tags = context.Tags.ToList();
-			Post post = await context.Posts.Include(x => x.Categories).Include(x => x.Tags).Include(x => x.Image).FirstOrDefaultAsync(x => x.Slug == slug || x.Id == id);
+			Post post = context.Posts.Include(x => x.Categories).Include(x => x.Tags).Include(x => x.Image).AsEnumerable().FirstOrDefault(x => x.Slug == slug);
 			return View(post);
 		}
 
 		[HttpPost]
 		[GetErrors]
-		[Route("/admin/posts/edit/{slug?}")]
+		[Route("/admin/posts/edit/{slug}")]
 		public async Task<ActionResult> Edit(int id)
 		{
 			Post post = await context.Posts.Include(x => x.Categories).Include(x => x.Tags).Include(x => x.Image).FirstOrDefaultAsync(x => x.Id == id);

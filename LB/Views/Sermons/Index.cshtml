@@ -1,0 +1,49 @@
+﻿@model PaginatedList<Sermon>
+
+@{
+	ViewData["Title"] = "Sermons";
+}
+
+<!-- header start -->
+<header class="page-heading s-p-100" style="background-image: url('/img/about_top-page.jpg');">
+	<div class="container text-center">
+		<h1>Sermons</h1>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb bg-transparent">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Sermons</li>
+			</ol>
+		</nav>
+	</div>
+</header>
+
+<section class="s-p-100">
+	<div class="container">
+		<div class="row">
+			@foreach (var item in Model)
+			{
+				<div class="col-lg-4 col-md-6 mb-3 align-items-stretch">
+					<div class="card shadow">
+						<a asp-action="Sermon" asp-route-id="@item.Id">
+							<img src="@(item.SiteImage?.Thumbnail)" alt="@item.Title" class="card-img-top" />
+						</a>
+						<div class="card-body">
+							<h5 class="mg-b-20">
+								<a asp-action="Sermon" asp-route-id="@item.Id">@item.Title</a>
+							</h5>
+
+							<div class="description">
+								@Html.Raw(item.Description)
+							</div>
+
+							@if (item.FileType == FileType.Audio)
+							{
+								<audio src="@item.FileURL" preload="metadata" class="w-100" controls />
+							}
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</section>

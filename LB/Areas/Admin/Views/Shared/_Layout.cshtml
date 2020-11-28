@@ -4,297 +4,307 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Twitter -->
-    <meta name="twitter:site" content="themepixels">
-    <meta name="twitter:creator" content="themepixels">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Azia">
-    <meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
-    <meta name="twitter:image" content="http://themepixels.me/azia/img/azia-social.png">
+	<!-- Twitter -->
+	<meta name="twitter:site" content="themepixels">
+	<meta name="twitter:creator" content="themepixels">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Azia">
+	<meta name="twitter:description" content="Responsive Bootstrap 4 Dashboard Template">
+	<meta name="twitter:image" content="http://themepixels.me/azia/img/azia-social.png">
 
-    <!-- Facebook -->
-    <meta property="og:url" content="http://themepixels.me/azia">
-    <meta property="og:title" content="Azia">
-    <meta property="og:description" content="Responsive Bootstrap 4 Dashboard Template">
+	<!-- Facebook -->
+	<meta property="og:url" content="http://themepixels.me/azia">
+	<meta property="og:title" content="Azia">
+	<meta property="og:description" content="Responsive Bootstrap 4 Dashboard Template">
 
-    <meta property="og:image" content="http://themepixels.me/azia/img/azia-social.png">
-    <meta property="og:image:secure_url" content="http://themepixels.me/azia/img/azia-social.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="600">
+	<meta property="og:image" content="http://themepixels.me/azia/img/azia-social.png">
+	<meta property="og:image:secure_url" content="http://themepixels.me/azia/img/azia-social.png">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="600">
 
-    <!-- Meta -->
-    <meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
-    <meta name="author" content="ThemePixels">
+	<!-- Meta -->
+	<meta name="description" content="Responsive Bootstrap 4 Dashboard Template">
+	<meta name="author" content="ThemePixels">
 
-    <title>Lifebuilders Resource Admin - @ViewData["title"]</title>
+	<title>Lifebuilders Resource Admin - @ViewData["title"]</title>
 
-    <!-- vendor css -->
-    <link href="/admin/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="/admin/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-    <link href="/admin/lib/typicons.font/typicons.css" rel="stylesheet">
-    <link href="~/vendors/lineicon/css/line-awesome.css" rel="stylesheet">
+	<!-- vendor css -->
+	<link href="/admin/lib/fontawesome-free/css/all.min.css" rel="stylesheet">
+	<link href="/admin/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+	<link href="/admin/lib/typicons.font/typicons.css" rel="stylesheet">
+	<link href="~/vendors/lineicon/css/line-awesome.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
+	<script src="/js/jquery-3.4.1.min.js"></script>
+	<script src="/js/vue.js"></script>
+
+	@* Infinite Scroll *@
+	<script src="~/vendors/infinitescroll/infinite-scroll.pkgd.min.js"></script>
+
+	@* Fancybox *@
+	<link rel="stylesheet" href="/admin/lib/fancybox/jquery.fancybox.css" />
+	<script src="/admin/lib/fancybox/jquery.fancybox.min.js"></script>
+
+	@* Select2 *@
+	<link rel="stylesheet" href="~/admin/lib/select2/css/select2.min.css" />
+	<script src="~/admin/lib/select2/js/select2.min.js"></script>
+
+	@* Toastr *@
+	<link rel="stylesheet" href="~/vendors/toastr/toastr.css" />
+	<script src="~/vendors/toastr/toastr.min.js"></script>
+
+	@* Quill *@
+	<link rel="stylesheet" href="~/admin/lib/quill/quill.core.css" />
+	<link rel="stylesheet" href="~/admin/lib/quill/quill.snow.css" />
+	<script src="~/admin/lib/quill/quill.min.js"></script>
+
+	@* CKeditor *@
+	<script src="~/admin/lib/ckeditor/ckeditor.js"></script>
+
+	@* Datatables *@
+	<link rel="stylesheet" href="~/admin/lib/datatables/datatables.min.css" />
+	<script src="~/admin/lib/datatables/datatables.min.js"></script>
 
 
-    <script src="/js/jquery-3.4.1.min.js"></script>
-    <script src="/js/vue.js"></script>
+	<!-- azia CSS -->
+	<link rel="stylesheet" href="/admin/css/azia.css">
+	<link rel="stylesheet" href="/admin/css/style.css">
 
-    @* Infinite Scroll *@
-    <script src="~/vendors/infinitescroll/infinite-scroll.pkgd.min.js"></script>
-
-    @* Fancybox *@
-    <link rel="stylesheet" href="/admin/lib/fancybox/jquery.fancybox.css" />
-    <script src="/admin/lib/fancybox/jquery.fancybox.min.js"></script>
-
-    @* Select2 *@
-    <link rel="stylesheet" href="~/admin/lib/select2/css/select2.min.css" />
-    <script src="~/admin/lib/select2/js/select2.min.js"></script>
-
-    @* Toastr *@
-    <link rel="stylesheet" href="~/vendors/toastr/toastr.css" />
-    <script src="~/vendors/toastr/toastr.min.js"></script>
-
-    @* Quill *@
-    <link rel="stylesheet" href="~/admin/lib/quill/quill.core.css" />
-    <link rel="stylesheet" href="~/admin/lib/quill/quill.snow.css" />
-    <script src="~/admin/lib/quill/quill.min.js"></script>
-
-    @* CKeditor *@
-    <script src="~/admin/lib/ckeditor/ckeditor.js"></script>
-
-    @* Datatables *@
-    <link rel="stylesheet" href="~/admin/lib/datatables/datatables.min.css" />
-    <script src="~/admin/lib/datatables/datatables.min.js"></script>
-
-
-    <!-- azia CSS -->
-    <link rel="stylesheet" href="/admin/css/azia.css">
-    <link rel="stylesheet" href="/admin/css/style.css">
-
-    <script src="/admin/js/main.js"></script>
+	<script src="/admin/js/main.js"></script>
 </head>
 <body class="az-body az-body-sidebar">
 
-    @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-    {
-        <div class="az-sidebar">
-            <div class="az-sidebar-header">
-                <a href="../template/index.html" class="az-logo">Life<span>builders</span></a>
-            </div><!-- az-sidebar-header -->
-            <div class="az-sidebar-loggedin">
-                <div class="az-img-user online">
-                    <i class="la la-user-circle la-3x"></i>
-                </div>
-                <div class="media-body">
-                    <h6>@((await userManager.GetUserAsync(User)).FullName)</h6>
-                    <span>@((await userManager.GetUserAsync(User)).Email)</span>
-                </div><!-- media-body -->
-            </div><!-- az-sidebar-loggedin -->
-            <div class="az-sidebar-body">
-                <ul class="nav">
-                    <li class="nav-label">Main Menu</li>
-                    <li class="nav-item">
-                        <a asp-action="Index" asp-controller="Home" class="nav-link"><i class="la la-laptop"></i>Dashboard</a>
-                    </li><!-- nav-item -->
-                    <li class="nav-item">
-                        <a asp-action="Index" asp-controller="Messages" class="nav-link"><i class="typcn typcn-messages"></i>Messages</a>
-                    </li><!-- nav-item -->
-                    <li class="nav-item">
-                        <a asp-action="Index" asp-controller="Mail" class="nav-link"><i class="typcn typcn-mail"></i>MailBox</a>
-                    </li><!-- nav-item -->
-                    <li class="nav-item">
-                        <a asp-action="Index" asp-controller="Gallery" class="nav-link"><i class="la la-file-image-o"></i>Images Manager</a>
-                    </li><!-- nav-item -->
-                    <li class="nav-item">
-                        <a href="" class="nav-link with-sub"><i class="la la-users"></i>Members</a>
-                        <nav class="nav-sub">
-                            <a asp-action="Index" asp-controller="Members" class="nav-sub-link">Members</a>
-                            <a asp-action="Create" asp-controller="Members" class="nav-sub-link">Create</a>
-                            <a asp-action="Trash" asp-controller="Members" class="nav-sub-link">Trash</a>
-                        </nav>
-                    </li><!-- nav-item -->
-                    <li class="nav-item">
-                        <a href="" class="nav-link with-sub"><i class="la la-users"></i>Discipleship</a>
-                        <nav class="nav-sub">
-                            <a asp-action="Index" asp-controller="Discipleship" class="nav-sub-link">Discipleship Groups</a>
-                            <a asp-action="Requests" asp-controller="Discipleship" class="nav-sub-link">Requests</a>
-                            <a asp-action="Create" asp-controller="Discipleship" class="nav-sub-link">Create Group</a>
-                            <a asp-action="Trash" asp-controller="Discipleship" class="nav-sub-link">Trash</a>
-                        </nav>
-                    </li><!-- nav-item -->
-                    <li class="nav-item">
-                        <a href="" class="nav-link with-sub"><i class="la la-globe"></i>Blog</a>
-                        <nav class="nav-sub">
-                            <a asp-action="Index" asp-controller="Posts" class="nav-sub-link">Posts</a>
-                            <a asp-action="Create" asp-controller="Posts" class="nav-sub-link">Create</a>
-                            <a asp-action="Categories" asp-controller="Posts" class="nav-sub-link">Categories</a>
-                            <a asp-action="Tags" asp-controller="Posts" class="nav-sub-link">Tags</a>
-                            <a asp-action="Trash" asp-controller="Posts" class="nav-sub-link">Trash</a>
-                        </nav>
-                    </li><!-- nav-item -->
-                    <li class="nav-item">
-                        <a href="" class="nav-link with-sub"><i class="la la-calendar"></i>Events</a>
-                        <nav class="nav-sub">
-                            <a asp-action="Index" asp-controller="Events" class="nav-sub-link">Events</a>
-                            <a asp-action="Create" asp-controller="Events" class="nav-sub-link">Create</a>
-                            <a asp-action="Trash" asp-controller="Events" class="nav-sub-link">Trash</a>
-                        </nav>
-                    </li><!-- nav-item -->
-                    <li class="nav-item">
-                        <a asp-action="Index" asp-controller="SiteGallery" class="nav-link"><i class="la la-image"></i>Site Gallery</a>
-                    </li><!-- nav-item -->
-                    <li class="nav-item">
-                        <a href="" class="nav-link with-sub"><i class="la la-folder"></i>Resources</a>
-                        <nav class="nav-sub">
-                            <a asp-action="Index" asp-controller="Resources" class="nav-sub-link">Resources</a>
-                            <a asp-action="Create" asp-controller="Resources" class="nav-sub-link">Create</a>
-                            <a asp-action="Categories" asp-controller="Resources" class="nav-sub-link">Categories</a>
-                            <a asp-action="Accesses" asp-controller="Resources" class="nav-sub-link">Accesses</a>
-                            <a asp-action="ResourceRequests" asp-controller="Resources" class="nav-sub-link">Access Requests</a>
-                            <a asp-action="DownloadsLog" asp-controller="Resources" class="nav-sub-link">Downloads Log</a>
-                            <a asp-action="Trash" asp-controller="Resources" class="nav-sub-link">Trash</a>
-                        </nav>
-                    </li><!-- nav-item -->
-                    <li class="nav-item">
-                        <a href="" class="nav-link with-sub"><i class="la la-cogs"></i>General</a>
-                        <nav class="nav-sub">
-                            <a asp-action="Notifications" asp-controller="Home" class="nav-sub-link">Notifications</a>
-                        </nav>
-                    </li><!-- nav-item -->
-                    <li class="nav-item">
-                        <a href="" class="nav-link with-sub"><i class="la la-internet-explorer"></i>Website</a>
-                        <nav class="nav-sub">
-                            <a asp-action="FrontPageCarousel" asp-controller="Website" class="nav-sub-link">Frontpage Carousels</a>
-                        </nav>
-                    </li><!-- nav-item -->
-                    <li class="nav-item">
-                        <a href="" class="nav-link with-sub"><i class="la la-user"></i>Accounts</a>
-                        <nav class="nav-sub">
-                            <a asp-action="Index" asp-controller="Accounts" class="nav-sub-link">Accounts</a>
-                            <a asp-action="Create" asp-controller="Accounts" class="nav-sub-link">Create</a>
-                            <a asp-action="Trash" asp-controller="Accounts" class="nav-sub-link">Trash</a>
-                        </nav>
-                    </li><!-- nav-item -->
-                </ul><!-- nav -->
-            </div><!-- az-sidebar-body -->
-        </div><!-- az-sidebar -->
-    }
+	@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+	{
+		<div class="az-sidebar">
+			<div class="az-sidebar-header">
+				<a href="../template/index.html" class="az-logo">Life<span>builders</span></a>
+			</div><!-- az-sidebar-header -->
+			<div class="az-sidebar-loggedin">
+				<div class="az-img-user online">
+					<i class="la la-user-circle la-3x"></i>
+				</div>
+				<div class="media-body">
+					<h6>@((await userManager.GetUserAsync(User))?.FullName)</h6>
+					<span>@((await userManager.GetUserAsync(User))?.Email)</span>
+				</div><!-- media-body -->
+			</div><!-- az-sidebar-loggedin -->
+			<div class="az-sidebar-body">
+				<ul class="nav">
+					<li class="nav-label">Main Menu</li>
+					<li class="nav-item">
+						<a asp-action="Index" asp-controller="Home" class="nav-link"><i class="la la-laptop"></i>Dashboard</a>
+					</li><!-- nav-item -->
+					<li class="nav-item">
+						<a asp-action="Index" asp-controller="Messages" class="nav-link"><i class="typcn typcn-messages"></i>Messages</a>
+					</li><!-- nav-item -->
+					<li class="nav-item">
+						<a asp-action="Index" asp-controller="Mail" class="nav-link"><i class="typcn typcn-mail"></i>MailBox</a>
+					</li><!-- nav-item -->
+					<li class="nav-item">
+						<a asp-action="Index" asp-controller="Gallery" class="nav-link"><i class="la la-file-image-o"></i>Images Manager</a>
+					</li><!-- nav-item -->
+					<li class="nav-item">
+						<a href="" class="nav-link with-sub"><i class="la la-users"></i>Members</a>
+						<nav class="nav-sub">
+							<a asp-action="Index" asp-controller="Members" class="nav-sub-link">Members</a>
+							<a asp-action="Create" asp-controller="Members" class="nav-sub-link">Create</a>
+							<a asp-action="Trash" asp-controller="Members" class="nav-sub-link">Trash</a>
+						</nav>
+					</li><!-- nav-item -->
+					<li class="nav-item">
+						<a href="" class="nav-link with-sub"><i class="la la-users"></i>Discipleship</a>
+						<nav class="nav-sub">
+							<a asp-action="Index" asp-controller="Discipleship" class="nav-sub-link">Discipleship Groups</a>
+							<a asp-action="Requests" asp-controller="Discipleship" class="nav-sub-link">Requests</a>
+							<a asp-action="Create" asp-controller="Discipleship" class="nav-sub-link">Create Group</a>
+							<a asp-action="Trash" asp-controller="Discipleship" class="nav-sub-link">Trash</a>
+						</nav>
+					</li><!-- nav-item -->
+					<li class="nav-item">
+						<a href="" class="nav-link with-sub"><i class="la la-globe"></i>Blog</a>
+						<nav class="nav-sub">
+							<a asp-action="Index" asp-controller="Posts" class="nav-sub-link">Posts</a>
+							<a asp-action="Create" asp-controller="Posts" class="nav-sub-link">Create</a>
+							<a asp-action="Categories" asp-controller="Posts" class="nav-sub-link">Categories</a>
+							<a asp-action="Tags" asp-controller="Posts" class="nav-sub-link">Tags</a>
+							<a asp-action="Trash" asp-controller="Posts" class="nav-sub-link">Trash</a>
+						</nav>
+					</li><!-- nav-item -->
+					<li class="nav-item">
+						<a href="" class="nav-link with-sub"><i class="la la-calendar"></i>Events</a>
+						<nav class="nav-sub">
+							<a asp-action="Index" asp-controller="Events" class="nav-sub-link">Events</a>
+							<a asp-action="Create" asp-controller="Events" class="nav-sub-link">Create</a>
+							<a asp-action="Trash" asp-controller="Events" class="nav-sub-link">Trash</a>
+						</nav>
+					</li><!-- nav-item -->
+					<li class="nav-item">
+						<a asp-action="Index" asp-controller="SiteGallery" class="nav-link"><i class="la la-image"></i>Site Gallery</a>
+					</li><!-- nav-item -->
+					<li class="nav-item">
+						<a href="" class="nav-link with-sub"><i class="la la-folder"></i>Resources</a>
+						<nav class="nav-sub">
+							<a asp-action="Index" asp-controller="Resources" class="nav-sub-link">Resources</a>
+							<a asp-action="Create" asp-controller="Resources" class="nav-sub-link">Create</a>
+							<a asp-action="Categories" asp-controller="Resources" class="nav-sub-link">Categories</a>
+							<a asp-action="Accesses" asp-controller="Resources" class="nav-sub-link">Accesses</a>
+							<a asp-action="ResourceRequests" asp-controller="Resources" class="nav-sub-link">Access Requests</a>
+							<a asp-action="DownloadsLog" asp-controller="Resources" class="nav-sub-link">Downloads Log</a>
+							<a asp-action="Trash" asp-controller="Resources" class="nav-sub-link">Trash</a>
+						</nav>
+					</li><!-- nav-item -->
+					<li class="nav-item">
+						<a href="" class="nav-link with-sub"><i class="la la-folder"></i>Sermons</a>
+						<nav class="nav-sub">
+							<a asp-action="Index" asp-controller="Sermons" class="nav-sub-link">Sermons</a>
+							<a asp-action="Create" asp-controller="Sermons" class="nav-sub-link">Create</a>
+						</nav>
+					</li><!-- nav-item -->
+					<li class="nav-item">
+						<a href="" class="nav-link with-sub"><i class="la la-cogs"></i>General</a>
+						<nav class="nav-sub">
+							<a asp-action="Notifications" asp-controller="Home" class="nav-sub-link">Notifications</a>
+						</nav>
+					</li><!-- nav-item -->
+					<li class="nav-item">
+						<a href="" class="nav-link with-sub"><i class="la la-internet-explorer"></i>Website</a>
+						<nav class="nav-sub">
+							<a asp-action="FrontPageCarousel" asp-controller="Website" class="nav-sub-link">Frontpage Carousels</a>
+						</nav>
+					</li><!-- nav-item -->
+					<li class="nav-item">
+						<a href="" class="nav-link with-sub"><i class="la la-user"></i>Accounts</a>
+						<nav class="nav-sub">
+							<a asp-action="Index" asp-controller="Accounts" class="nav-sub-link">Accounts</a>
+							<a asp-action="Create" asp-controller="Accounts" class="nav-sub-link">Create</a>
+							<a asp-action="Trash" asp-controller="Accounts" class="nav-sub-link">Trash</a>
+						</nav>
+					</li><!-- nav-item -->
+				</ul><!-- nav -->
+			</div><!-- az-sidebar-body -->
+		</div><!-- az-sidebar -->
+	}
 
-    <div class="az-content az-content-dashboard-two">
-        @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-        {
-            <div id="admin-header-app" class="az-header">
-                <div class="container-fluid">
-                    <div class="az-header-left">
-                        <a href="" id="azSidebarToggle" class="az-header-menu-icon"><span></span></a>
-                    </div><!-- az-header-left -->
-                    <div class="az-header-center">
-                        <input type="search" class="form-control" placeholder="Search for anything...">
-                        <button class="btn"><i class="fas fa-search"></i></button>
-                    </div><!-- az-header-center -->
-                    <div class="az-header-right">
-                        <div class="az-header-message">
-                            <a href="app-chat.html"><i class="typcn typcn-messages"></i></a>
-                        </div><!-- az-header-message -->
-                        <div class="dropdown az-header-notification">
-                            <a href="" class="new"><i class="typcn typcn-bell"></i></a>
-                            <div class="dropdown-menu">
-                                <div class="az-dropdown-header mg-b-20 d-sm-none">
-                                    <a href="" class="az-header-arrow"><i class="icon ion-md-arrow-back"></i></a>
-                                </div>
-                                <h6 class="az-notification-title">Notifications</h6>
-                                <p class="az-notification-text">You have 2 unread notification</p>
-                                <div class="az-notification-list">
-                                    <div class="media new">
-                                        <div class="az-img-user">
-                                            <i class="la la-user-circle la-2x"></i>
-                                        </div>
-                                        <div class="media-body">
-                                            <p>Congratulate <strong>Socrates Itumay</strong> for work anniversaries</p>
-                                            <span>Mar 15 12:32pm</span>
-                                        </div><!-- media-body -->
-                                    </div><!-- media -->
-                                    <div class="media new">
-                                        <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
-                                        <div class="media-body">
-                                            <p><strong>Joyce Chua</strong> just created a new blog post</p>
-                                            <span>Mar 13 04:16am</span>
-                                        </div><!-- media-body -->
-                                    </div><!-- media -->
-                                    <div class="media">
-                                        <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
-                                        <div class="media-body">
-                                            <p><strong>Althea Cabardo</strong> just created a new blog post</p>
-                                            <span>Mar 13 02:56am</span>
-                                        </div><!-- media-body -->
-                                    </div><!-- media -->
-                                    <div class="media">
-                                        <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
-                                        <div class="media-body">
-                                            <p><strong>Adrian Monino</strong> added new comment on your photo</p>
-                                            <span>Mar 12 10:40pm</span>
-                                        </div><!-- media-body -->
-                                    </div><!-- media -->
-                                </div><!-- az-notification-list -->
-                                <div class="dropdown-footer"><a href="">View All Notifications</a></div>
-                            </div><!-- dropdown-menu -->
-                        </div><!-- az-header-notification -->
-                        <div class="dropdown az-profile-menu">
-                            <a href="" class="az-img-user"><i class="la la-user la-2x text-dark"></i></a>
-                            <div class="dropdown-menu">
-                                <div class="az-dropdown-header d-sm-none">
-                                    <a href="" class="az-header-arrow"><i class="icon ion-md-arrow-back"></i></a>
-                                </div>
-                                <div class="az-header-profile">
-                                    <div class="az-img-user">
-                                        <i class="la la-user-circle la-5x"></i>
-                                    </div><!-- az-img-user -->
-                                    <h6>Aziana Pechon</h6>
-                                    <span>Premium Member</span>
-                                </div><!-- az-header-profile -->
+	<div class="az-content az-content-dashboard-two">
+		@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+		{
+			<div id="admin-header-app" class="az-header">
+				<div class="container-fluid">
+					<div class="az-header-left">
+						<a href="" id="azSidebarToggle" class="az-header-menu-icon"><span></span></a>
+					</div><!-- az-header-left -->
+					<div class="az-header-center">
+						<input type="search" class="form-control" placeholder="Search for anything...">
+						<button class="btn"><i class="fas fa-search"></i></button>
+					</div><!-- az-header-center -->
+					<div class="az-header-right">
+						<div class="az-header-message">
+							<a href="app-chat.html"><i class="typcn typcn-messages"></i></a>
+						</div><!-- az-header-message -->
+						<div class="dropdown az-header-notification">
+							<a href="" class="new"><i class="typcn typcn-bell"></i></a>
+							<div class="dropdown-menu">
+								<div class="az-dropdown-header mg-b-20 d-sm-none">
+									<a href="" class="az-header-arrow"><i class="icon ion-md-arrow-back"></i></a>
+								</div>
+								<h6 class="az-notification-title">Notifications</h6>
+								<p class="az-notification-text">You have 2 unread notification</p>
+								<div class="az-notification-list">
+									<div class="media new">
+										<div class="az-img-user">
+											<i class="la la-user-circle la-2x"></i>
+										</div>
+										<div class="media-body">
+											<p>Congratulate <strong>Socrates Itumay</strong> for work anniversaries</p>
+											<span>Mar 15 12:32pm</span>
+										</div><!-- media-body -->
+									</div><!-- media -->
+									<div class="media new">
+										<div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+										<div class="media-body">
+											<p><strong>Joyce Chua</strong> just created a new blog post</p>
+											<span>Mar 13 04:16am</span>
+										</div><!-- media-body -->
+									</div><!-- media -->
+									<div class="media">
+										<div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
+										<div class="media-body">
+											<p><strong>Althea Cabardo</strong> just created a new blog post</p>
+											<span>Mar 13 02:56am</span>
+										</div><!-- media-body -->
+									</div><!-- media -->
+									<div class="media">
+										<div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
+										<div class="media-body">
+											<p><strong>Adrian Monino</strong> added new comment on your photo</p>
+											<span>Mar 12 10:40pm</span>
+										</div><!-- media-body -->
+									</div><!-- media -->
+								</div><!-- az-notification-list -->
+								<div class="dropdown-footer"><a href="">View All Notifications</a></div>
+							</div><!-- dropdown-menu -->
+						</div><!-- az-header-notification -->
+						<div class="dropdown az-profile-menu">
+							<a href="" class="az-img-user"><i class="la la-user la-2x text-dark"></i></a>
+							<div class="dropdown-menu">
+								<div class="az-dropdown-header d-sm-none">
+									<a href="" class="az-header-arrow"><i class="icon ion-md-arrow-back"></i></a>
+								</div>
+								<div class="az-header-profile">
+									<div class="az-img-user">
+										<i class="la la-user-circle la-5x"></i>
+									</div><!-- az-img-user -->
+									<h6>Aziana Pechon</h6>
+									<span>Premium Member</span>
+								</div><!-- az-header-profile -->
 
-                                <a asp-action="Profile" asp-controller="Accounts" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
-                                <a href="" class="dropdown-item"><i class="typcn typcn-edit"></i> Edit Profile</a>
-                                <a href="" class="dropdown-item"><i class="typcn typcn-time"></i> Activity Logs</a>
-                                <a href="" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account Settings</a>
-                                <a href="javascript:;" class="dropdown-item" onclick="$('#logout-form').submit()"><i class="typcn typcn-power-outline"></i> Sign Out</a>
-                                <form id="logout-form" asp-action="Logout" asp-controller="Accounts" hidden></form>
-                            </div><!-- dropdown-menu -->
-                        </div>
-                    </div><!-- az-header-right -->
-                </div><!-- container -->
-            </div><!-- az-header -->
-            <div class="az-content-header d-block d-md-flex">
-                <div>
-                    <h2 class="az-content-title mg-b-5 mg-b-lg-8">@ViewData["title"]</h2>
-                    <p class="mg-b-0">@ViewData["caption"]</p>
-                </div>
-            </div><!-- az-content-header -->
-        }
+								<a asp-action="Profile" asp-controller="Accounts" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
+								<a href="" class="dropdown-item"><i class="typcn typcn-edit"></i> Edit Profile</a>
+								<a href="" class="dropdown-item"><i class="typcn typcn-time"></i> Activity Logs</a>
+								<a href="" class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account Settings</a>
+								<a href="javascript:;" class="dropdown-item" onclick="$('#logout-form').submit()"><i class="typcn typcn-power-outline"></i> Sign Out</a>
+								<form id="logout-form" asp-action="Logout" asp-controller="Accounts" hidden></form>
+							</div><!-- dropdown-menu -->
+						</div>
+					</div><!-- az-header-right -->
+				</div><!-- container -->
+			</div><!-- az-header -->
+			<div class="az-content-header d-block d-md-flex">
+				<div>
+					<h2 class="az-content-title mg-b-5 mg-b-lg-8">@ViewData["title"]</h2>
+					<p class="mg-b-0">@ViewData["caption"]</p>
+				</div>
+			</div><!-- az-content-header -->
+		}
 
-        <div class="az-content-body">
-            <!-- your content goes here -->
-            @Html.PartialAsync("_SiteResponse").Result
-            @RenderBody()
-        </div><!-- az-content-body -->
-        <div class="az-footer">
-            <div class="container-fluid">
-                <span>&copy; 2018 Azia Responsive Bootstrap 4 Dashboard Template</span>
-                <span>Designed by: ThemePixels</span>
-            </div><!-- container -->
-        </div><!-- az-footer -->
-    </div><!-- az-content -->
-    @*<script src="/admin/lib/jquery/jquery.min.js"></script>*@
-    <script src="/admin/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    @*<script src="/admin/lib/ionicons/ionicons.js"></script>*@
+		<div class="az-content-body">
+			<!-- your content goes here -->
+			@Html.PartialAsync("_SiteResponse").Result
+			@RenderBody()
+		</div><!-- az-content-body -->
+		<div class="az-footer">
+			<div class="container-fluid">
+				<span>&copy; 2018 Azia Responsive Bootstrap 4 Dashboard Template</span>
+				<span>Designed by: ThemePixels</span>
+			</div><!-- container -->
+		</div><!-- az-footer -->
+	</div><!-- az-content -->
+	@*<script src="/admin/lib/jquery/jquery.min.js"></script>*@
+	<script src="/admin/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/admin/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+	@*<script src="/admin/lib/ionicons/ionicons.js"></script>*@
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script src="/js/jquery.form.js"></script>
+	
+	<script src="/admin/js/azia.js"></script>
 
-    <script src="/admin/js/azia.js"></script>
-
-    <script>
+	<script>
         var adminHeaderApp = new Vue({
             el: '#admin-header-app',
             data: {
@@ -363,6 +373,8 @@
           }
         })
       });
-    </script>
+	</script>
+
+	@RenderSection("Scripts", required: false)
 </body>
 </html>

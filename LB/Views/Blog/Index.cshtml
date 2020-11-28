@@ -31,7 +31,7 @@
                         <div class="image-container image-16-9">
                             @if (item.Image != null)
                             {
-                                <img src="/uploads/images/@item.Image.Thumbnail" alt="" class="image">
+                                <img src="@item.Image.Thumbnail" alt="" class="image">
                             }
                             <a asp-action="single" asp-controller="blog" asp-route-id="@item.Slug" class="hover-overlay">
                                 <i class="icofont-link-alt icofont-3x hover-icon"></i>

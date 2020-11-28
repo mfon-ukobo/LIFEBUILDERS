@@ -104,6 +104,9 @@ namespace LB.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Resource resource)
         {
+            ViewBag.Categories = context.ResourceCategories.ToList();
+            ViewBag.Accesses = context.ResourceAccesses.ToList();
+
             if (resource.SelectedAccesses != null && resource.SelectedAccesses.Length > 0)
             {
                 foreach (var access in resource.SelectedAccesses)
@@ -114,6 +117,27 @@ namespace LB.Areas.Admin.Controllers
                     });
                 }
             }
+
+
+            if (resource.CategoryId == 0)
+			{
+                var category = await context.ResourceCategories.FirstOrDefaultAsync(x => x.Name == "Uncategorized");
+                if (category == null)
+				{
+                    category = new ResourceCategory
+                    {
+                        Name = "Uncategorized",
+                        Created = DateTime.Now,
+                        Description = "For Uncategorized resources"
+                    };
+
+                    context.ResourceCategories.Add(category);
+                    await context.SaveChangesAsync();
+
+                    resource.CategoryId = category.Id;
+				}
+			}
+
             if (ModelState.IsValid)
             {
                 resource.Modified = resource.Created = DateTime.Now;
@@ -161,7 +185,6 @@ namespace LB.Areas.Admin.Controllers
                 }
             }
 
-            ViewBag.Categories = context.ResourceCategories.ToList();
             return View(resource);
         }
 

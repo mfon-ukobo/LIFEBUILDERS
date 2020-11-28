@@ -27,9 +27,15 @@
                 {
                     <tr class="@(Model.IndexOf(item) != 0 ? "border-top" : null)">
                         <th class="d-none d-md-block border-0">
-                            <div class="image-container image-1-1">
-                                <img src="~/uploads/images/@item.Image.Thumbnail" alt="" class="image" />
-                            </div>
+							<div class="image-container image-1-1">
+								@if (item.IsLocalResource) {
+								    <img src="/uploads/images/@(item.Image?.Thumbnail)" alt="" class="image" />
+								}
+								else {
+									var ytId = item.ResourceUrl.Split("/").LastOrDefault();
+						            <img src="https://img.youtube.com/vi/@ytId/0.jpg" alt="" class="image">
+								}
+							</div>
                         </th>
                         <th class="d-md-none border-0">
                             @(Model.CompleteList.IndexOf(item) + 1)

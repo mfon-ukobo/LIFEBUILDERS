@@ -205,3 +205,12 @@
     animation-name: reveal;
     animation-direction: reverse;
 }
+
+
+.fancybox-slide--iframe .fancybox-content {
+    width: 800px;
+    height: 600px;
+    max-width: 80%;
+    max-height: 80%;
+    margin: 0;
+}

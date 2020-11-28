@@ -24,14 +24,16 @@ namespace LB.Controllers
 
 		public async Task<IActionResult> Index()
 		{
+			var events = await context.Events.ToListAsync();
 			var model = new HomePageView
 			{
 				Posts = await context.Posts.Include(x => x.Image).OrderByDescending(x => x.Id).Where(x => x.Deleted == false).Take(3).ToListAsync(),
 				Events = await context.Events.OrderByDescending(x => x.StartDate).Where(x => x.Deleted == false).Take(5).ToListAsync(),
 				Gallery = await context.Gallery.Include(x => x.Image).OrderByDescending(x => x.Id).Take(8).ToListAsync(),
 				Resources = await context.Resources.Include(x => x.Image).OrderByDescending(x => x.Id).Where(x => x.Deleted == false).Take(2).ToListAsync(),
-				NextEvent = await context.Events.Where(x => DateTime.Parse(x.StartDate) > DateTime.Now && x.Deleted == false).OrderBy(x => DateTime.Parse(x.StartDate)).FirstOrDefaultAsync(),
-				Carousels = await context.FrontPageCarousels.Include(x => x.Image).ToListAsync()
+				NextEvent = events.Where(x => DateTime.Parse(x.StartDate) > DateTime.Now && x.Deleted == false).OrderBy(x => DateTime.Parse(x.StartDate)).FirstOrDefault(),
+				Carousels = await context.FrontPageCarousels.Include(x => x.Image).ToListAsync(),
+				Sermons = context.Sermons.Include(x => x.SiteImage).OrderByDescending(x => x.LastModified).Take(5)
 			};
 			return View(model);
 		}

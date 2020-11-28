@@ -53,115 +53,11 @@ namespace LB.Models
 		public virtual List<ResourceDownload> ResourceDownloads { get; set; }
 		public virtual List<ResourceAccessRequest> ResourceAccessRequests { get; set; }
 
+		//[DefaultValue(false)]
+		//public bool RequiresLogin { get; set; }
+
 
 		[NotMapped]
 		public string[] SelectedAccesses { get; set; }
-	}
-
-
-	/// <summary>
-	/// Resource Category
-	/// </summary>
-	public class ResourceCategory
-	{
-		public ResourceCategory()
-		{
-			Resources = new List<Resource>();
-		}
-
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
-		[Required]
-		public string Name { get; set; }
-		public string Slug => Utils.ConvertToSlug(Name);
-		public string Description { get; set; }
-		public DateTime Created { get; set; }
-		public DateTime Modified { get; set; }
-
-		public virtual List<Resource> Resources { get; set; }
-	}
-
-
-	/// <summary>
-	/// Resource Access
-	/// </summary>
-	public class ResourceAccess
-	{
-		public ResourceAccess()
-		{
-			Members = new List<ResourceAccessMember>();
-		}
-
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
-		[Required]
-		public string Name { get; set; }
-		public string Slug => Utils.ConvertToSlug(Name);
-		public string Description { get; set; }
-		public DateTime Created { get; set; }
-		public DateTime Modified { get; set; }
-
-		public virtual List<ResourceToAccess> Resources { get; set; }
-		public virtual List<ResourceAccessMember> Members { get; set; }
-
-
-		[NotMapped]
-		public string[] SelectedMembers { get; set; }
-	}
-
-	/// <summary>
-	/// Resource to ResourceAccess Mapping
-	/// </summary>
-	public class ResourceToAccess
-	{
-		public int ResourceId { get; set; }
-		public Resource Resource { get; set; }
-		public ResourceAccess ResourceAccess { get; set; }
-		public int ResourceAccessId { get; set; }
-	}
-
-	/// <summary>
-	/// Member to ResourceAccess Mapping
-	/// </summary>
-	public class ResourceAccessMember
-	{
-		public Guid MemberId { get; set; }
-		public Member Member { get; set; }
-		public ResourceAccess ResourceAccess { get; set; }
-		public int ResourceAccessId { get; set; }
-	}
-
-	/// <summary>
-	/// Resource Download Logs
-	/// </summary>
-	public class ResourceDownload
-	{
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
-		public Guid MemberId { get; set; }
-		public Member Member { get; set; }
-		public int ResourceId { get; set; }
-		public Resource Resource { get; set; }
-		public DateTime Created { get; set; }
-	}
-
-	/// <summary>
-	/// Resource Access Request
-	/// </summary>
-	public class ResourceAccessRequest
-	{
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
-		public Guid MemberId { get; set; }
-		public Member Member { get; set; }
-		public int ResourceId { get; set; }
-		public Resource Resource { get; set; }
-		public string Reason { get; set; }
-		public DateTime Created { get; set; }
-		public bool Finished { get; set; }
 	}
 }

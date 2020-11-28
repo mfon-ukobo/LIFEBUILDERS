@@ -11,6 +11,7 @@ namespace LB.Models.ViewModels
 		public List<Post> Posts { get; set; }
 		public List<GalleryItem> Gallery { get; set; }
 		public List<Resource> Resources { get; set; }
+		public IEnumerable<Sermon> Sermons { get; set; }
 		public LBEvent NextEvent { get; set; }
 		public List<FrontPageCarousel> Carousels { get; set; }
 	}

@@ -484,6 +484,22 @@ img.image {
         background-color: white;
     }
 
+.theme-button.button-5 {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-image: -webkit-gradient( linear, left top, right top, from(white), color-stop(50%, white), color-stop(50%, #ffa800), to(#ffa800) ) !important;
+    background-image: linear-gradient( 90deg, white 0%, white 50%, #ffa800 50%, #ffa800 100% ) !important;
+    color: white;
+}
+
+    .theme-button.button-5:hover {
+        color: #ffa800;
+    }
+
+    .theme-button.button-5:after {
+        background-color: #ffa800;
+    }
+
 .top-header {
     color: #999;
     font-size: 12px;
@@ -1281,4 +1297,10 @@ MESSAGES
 
 .card-img-top {
     border-radius: 0;
+}
+
+
+.page-heading h1 {
+    color: white;
+    mix-blend-mode: difference;
 }

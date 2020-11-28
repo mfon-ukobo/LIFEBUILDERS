@@ -14,10 +14,10 @@
                     <div class="row">
                         <div class="col-xl-3 col-lg-4 col-sm-6" v-for="item in list">
                             <div class="card mb-4" onclick="">
-                                <img :src="'/uploads/images/' + item.thumbnail" alt="" class="card-img-top rounded-0" style="height: 200px; object-fit: cover;" :data-path="item.thumbnail" :data-id="item.id" data-fancybox-close />
+                                <img :src="item.thumbnail" alt="" class="card-img-top rounded-0" style="height: 200px; object-fit: cover;" :data-path="item.thumbnail" :data-id="item.id" data-fancybox-close />
                                 <div class="card-body">
                                     <div class="btn-icon-list">
-                                        <a :href="'/uploads/images/' + item.image" data-fancybox="image" class="btn btn-primary btn-icon">
+                                        <a :href="item.image" data-fancybox="image" class="btn btn-primary btn-icon">
                                             <i class="typcn typcn-eye"></i>
                                         </a>
                                         <button class="btn btn-indigo btn-icon">

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace LB
@@ -97,6 +98,12 @@ namespace LB
 			{
 				return null;
 			}
+		}
+
+		public static string CleanString(this string value)
+		{
+			Regex rgx = new Regex("[^a-zA-Z0-9-_]");
+			return rgx.Replace(value, "");
 		}
 
 		/// <summary>

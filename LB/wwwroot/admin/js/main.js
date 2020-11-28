@@ -1,4 +1,25 @@
-﻿$.fn.dataTable.ext.classes.sLengthSelect = 'form-control form-control-sm select';
+﻿function GetFeaturedImage(el, preview) {
+	$.fancybox.open({
+		src: '/admin/gallery/imagegetter',
+		type: 'ajax',
+		afterClose: function (instance, current, e) {
+			var button = e ? e.target || e.currentTarget : null;
+			var thumb = button ? $(button).attr('src') : 0;
+			var imageId = button ? $(button).data('id') : 0;
+
+			$(preview).attr('src', thumb);
+			$(el).val(imageId);
+		}
+	})
+}
+
+function ResetFeaturedImage(el, preview) {
+	$(preview).attr('src', '');
+	$(el).val('');
+}
+
+
+$.fn.dataTable.ext.classes.sLengthSelect = 'form-control form-control-sm select';
 $.fn.dataTable.ext.classes.sPageButton = 'page-item';
 
 $.extend($.fn.dataTable.defaults, {

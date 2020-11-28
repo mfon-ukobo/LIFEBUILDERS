@@ -97,84 +97,94 @@
     }
     <nav id="homenav" class="navbar navbar-expand-lg navbar-light align-items-center snaptarget">
         <div class="container mx-auto">
-            <a class="navbar-brand" href="/">Lifebuilders</a>
+			@*<a class="navbar-brand" href="/" style="font-size: 18px; line-height: 20px">
+				Lifebuilders <br />
+                Resource <br />
+                Ministries
+			</a>*@
+			<a href="/" class="navbar-brand">
+				<img src="/img/logo.png" alt="" width="200" />
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item @((string)ViewData["title"] == "Home" ? "active" : null)">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item dropdown @((string)ViewData["title"] == "About" ? "active" : null)">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" asp-action="about" asp-controller="home">About</a>
-                        <div class="dropdown-menu">
-                            <a asp-action="about" asp-controller="home" class="dropdown-item">About Us</a>
-                            <a asp-action="index" asp-controller="discipleship" class="dropdown-item">Discipleship</a>
-                            <a asp-action="sundaymeetings" asp-controller="home" class="dropdown-item">Sunday Meetings</a>
-                        </div>
-                    </li>
-                    <li class="nav-item @((string)ViewData["title"] == "Events" ? "active" : null)">
-                        <a class="nav-link" asp-action="index" asp-controller="events">Events</a>
-                    </li>
-                    <li class="nav-item @((string)ViewData["title"] == "Blog" ? "active" : null)">
-                        <a class="nav-link" asp-action="index" asp-controller="blog">Blog</a>
-                    </li>
-                    <li class="nav-item @((string)ViewData["title"] == "Resources" ? "active" : null)">
-                        <a class="nav-link" asp-action="index" asp-controller="resources">Resources</a>
-                    </li>
-                    <li class="nav-item @((string)ViewData["title"] == "Contact" ? "active" : null)">
-                        <a class="nav-link" asp-action="contact" asp-controller="home">Contact</a>
-                    </li>
-                    @if (SignInManager.IsSignedIn(User))
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item @((string)ViewData["title"] == "Home" ? "active" : null)">
+						<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item @((string)ViewData["title"] == "Sermons" ? "active" : null)">
+						<a class="nav-link" asp-action="Index" asp-controller="Sermons">Sermons <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item dropdown @((string)ViewData["title"] == "About" ? "active" : null)">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" asp-action="about" asp-controller="home">About</a>
+						<div class="dropdown-menu">
+							<a asp-action="about" asp-controller="home" class="dropdown-item">About Us</a>
+							<a asp-action="index" asp-controller="discipleship" class="dropdown-item">Discipleship</a>
+							<a asp-action="sundaymeetings" asp-controller="home" class="dropdown-item">Sunday Meetings</a>
+						</div>
+					</li>
+					<li class="nav-item @((string)ViewData["title"] == "Events" ? "active" : null)">
+						<a class="nav-link" asp-action="index" asp-controller="events">Events</a>
+					</li>
+					<li class="nav-item @((string)ViewData["title"] == "Blog" ? "active" : null)">
+						<a class="nav-link" asp-action="index" asp-controller="blog">Blog</a>
+					</li>
+					<li class="nav-item @((string)ViewData["title"] == "Resources" ? "active" : null)">
+						<a class="nav-link" asp-action="index" asp-controller="resources">Resources</a>
+					</li>
+					<li class="nav-item @((string)ViewData["title"] == "Contact" ? "active" : null)">
+						<a class="nav-link" asp-action="contact" asp-controller="home">Contact</a>
+					</li>
+					@if (SignInManager.IsSignedIn(User))
                     {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" asp-action="Login" asp-controller="Account">
-                                Account
-                            </a>
-                            <div class="dropdown-menu">
-                                <a asp-action="Register" asp-controller="Account" class="dropdown-item">
-                                    <i class="la la-user-plus"></i>
-                                    Register
-                                </a>
-                                <a href="javascript:;" class="dropdown-item" onclick="$(this).next().submit()">
-                                    <i class="la la-sign-out"></i>
-                                    Logout
-                                </a>
-                                <form asp-action="Logout" asp-controller="Account" hidden>
-                                    <button type="submit" class="btn btn-link btn-block px-0 py-0 text-left">
-                                        <i class="la la-sign-out"></i>
-                                        Logout
-                                    </button>
-                                </form>
-                            </div>
-                        </li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" asp-action="Login" asp-controller="Account">
+							Account
+						</a>
+						<div class="dropdown-menu">
+							<a asp-action="Register" asp-controller="Account" class="dropdown-item">
+								<i class="la la-user-plus"></i>
+								Register
+							</a>
+							<a href="javascript:;" class="dropdown-item" onclick="$(this).next().submit()">
+								<i class="la la-sign-out"></i>
+								Logout
+							</a>
+							<form asp-action="Logout" asp-controller="Account" hidden>
+								<button type="submit" class="btn btn-link btn-block px-0 py-0 text-left">
+									<i class="la la-sign-out"></i>
+									Logout
+								</button>
+							</form>
+						</div>
+					</li>
                     }
                     else
                     {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" asp-action="Login" asp-controller="Account">
-                                Account
-                            </a>
-                            <div class="dropdown-menu">
-                                <a asp-action="Login" asp-controller="Account" class="dropdown-item">
-                                    <i class="la la-sign-in"></i>
-                                    Login
-                                </a>
-                                <a asp-action="Register" asp-controller="Account" class="dropdown-item">
-                                    <i class="la la-user-plus"></i>
-                                    Register
-                                </a>
-                            </div>
-                        </li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" asp-action="Login" asp-controller="Account">
+							Account
+						</a>
+						<div class="dropdown-menu">
+							<a asp-action="Login" asp-controller="Account" class="dropdown-item">
+								<i class="la la-sign-in"></i>
+								Login
+							</a>
+							<a asp-action="Register" asp-controller="Account" class="dropdown-item">
+								<i class="la la-user-plus"></i>
+								Register
+							</a>
+						</div>
+					</li>
                     }
-                    <li class="nav-item">
-                        <a class="theme-button button-2 nav-button" href="/donate" tabindex="-1"
-                           aria-disabled="true"><span>Give</span></a>
-                    </li>
-                </ul>
+					<li class="nav-item">
+						<a class="theme-button button-2 nav-button" href="/donate" tabindex="-1"
+						   aria-disabled="true"><span>Give</span></a>
+					</li>
+				</ul>
             </div>
         </div>
     </nav>

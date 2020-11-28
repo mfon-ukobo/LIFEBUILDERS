@@ -19,18 +19,4 @@ namespace LB.Models
 		public DateTime DateTime { get; set; }
 		public string ReadableDateTime => DateTime.ToString("MMM dd hh:mmtt");
 	}
-
-	public class AdminTask
-	{
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int Id { get; set; }
-		[Required]
-		public string Description { get; set; }
-		public DateTime Created { get; set; }
-		public bool Finished { get; set; }
-		public AdminUser AdminUser { get; set; }
-		public Guid AdminUserId { get; set; }
-		public string CreatedString => Created.ToString("MMM dd hh:mmtt");
-	}
 }

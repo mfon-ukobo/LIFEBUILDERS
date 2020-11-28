@@ -1,69 +1,32 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <UserSecretsId>3232e584-4e85-4f8f-9880-59bfa41ce08b</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\20191227101810_initialize-blog.cs" />
-    <Compile Remove="Migrations\20191227101810_initialize-blog.Designer.cs" />
-    <Compile Remove="Migrations\20191230105336_Initialize-LBEVENT-and-PERSON.cs" />
-    <Compile Remove="Migrations\20191230105336_Initialize-LBEVENT-and-PERSON.Designer.cs" />
-    <Compile Remove="Migrations\20191230113538_initialize.cs" />
-    <Compile Remove="Migrations\20191230113538_initialize.Designer.cs" />
-    <Compile Remove="Migrations\20191231094624_removed-person-from-eventregistrations.cs" />
-    <Compile Remove="Migrations\20191231094624_removed-person-from-eventregistrations.Designer.cs" />
-    <Compile Remove="Migrations\20191231095900_initialize.cs" />
-    <Compile Remove="Migrations\20191231095900_initialize.Designer.cs" />
-    <Compile Remove="Migrations\20191231114036_initialize.cs" />
-    <Compile Remove="Migrations\20191231114036_initialize.Designer.cs" />
-    <Compile Remove="Migrations\20191231172321_add-deleted-to-eventregistration.cs" />
-    <Compile Remove="Migrations\20191231172321_add-deleted-to-eventregistration.Designer.cs" />
-    <Compile Remove="Migrations\20200103104622_initialize.cs" />
-    <Compile Remove="Migrations\20200103104622_initialize.Designer.cs" />
-    <Compile Remove="Migrations\20200103174303_Initialize.cs" />
-    <Compile Remove="Migrations\20200103174303_Initialize.Designer.cs" />
-    <Compile Remove="Migrations\20200107142823_initialize-admin.cs" />
-    <Compile Remove="Migrations\20200107142823_initialize-admin.Designer.cs" />
-    <Compile Remove="Migrations\20200207070740_Initialize.cs" />
-    <Compile Remove="Migrations\20200207070740_Initialize.Designer.cs" />
-    <Compile Remove="Migrations\20200207073510_Initialize.cs" />
-    <Compile Remove="Migrations\20200207073510_Initialize.Designer.cs" />
-    <Compile Remove="Migrations\20200207082411_Initialize.cs" />
-    <Compile Remove="Migrations\20200207082411_Initialize.Designer.cs" />
-    <Compile Remove="Migrations\20200207082622_Initialize.cs" />
-    <Compile Remove="Migrations\20200207082622_Initialize.Designer.cs" />
-    <Compile Remove="Migrations\20200207191834_add-datetime-category.cs" />
-    <Compile Remove="Migrations\20200207191834_add-datetime-category.Designer.cs" />
-    <Compile Remove="Migrations\20200207201839_add-datetime-tag.cs" />
-    <Compile Remove="Migrations\20200207201839_add-datetime-tag.Designer.cs" />
-    <Compile Remove="Migrations\20200208053502_rename-field-in-event.cs" />
-    <Compile Remove="Migrations\20200208053502_rename-field-in-event.Designer.cs" />
-    <Compile Remove="Migrations\20200208075727_Create-Gallery.cs" />
-    <Compile Remove="Migrations\20200208075727_Create-Gallery.Designer.cs" />
-    <Compile Remove="Migrations\20200326025509_Initialize-Messages.cs" />
-    <Compile Remove="Migrations\20200326025509_Initialize-Messages.Designer.cs" />
-  </ItemGroup>
-
 
   <ItemGroup>
-    <PackageReference Include="LazZiya.ImageResize" Version="3.0.0" />
-    <PackageReference Include="MailKit" Version="2.5.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="LazZiya.ImageResize" Version="3.0.2" />
+    <PackageReference Include="MailKit" Version="2.8.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
+    <!--<PackageReference Include="Microsoft.AspNetCore.App" />-->
+    <!--<PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />-->
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.6">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="3.2.11" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.2.6" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.2" />
   </ItemGroup>
 
 
@@ -78,6 +41,7 @@
     <Folder Include="wwwroot\admin\lib\spectrum-colorpicker\build\" />
     <Folder Include="wwwroot\uploads\images\" />
     <Folder Include="wwwroot\uploads\resources\" />
+    <Folder Include="wwwroot\uploads\sermons\" />
   </ItemGroup>
 
 

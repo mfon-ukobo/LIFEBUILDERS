@@ -13,6 +13,8 @@ namespace LB
 	{
 		public Context(DbContextOptions<Context> options) : base(options) { }
 
+		public DbSet<Sermon> Sermons { get; set; }
+
 		public DbSet<SiteImage> SiteImages { get; set; }
 		public DbSet<GalleryItem> Gallery { get; set; }
 
@@ -44,7 +46,7 @@ namespace LB
 		public DbSet<DiscipleshipMember> DiscipleshipMembers { get; set; }
 		public DbSet<DiscipleshipRegistration> DiscipleshipRegistrations { get; set; }
 
-		public DbSet<Message> Messages { get; set; }
+		public DbSet<Message> Messages { get; set; } 
 
 
 		protected override void OnModelCreating(ModelBuilder builder)

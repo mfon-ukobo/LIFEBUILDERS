@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿
 using LB.Models;
-using LB.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using LB;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using LB.Services;
+using System.Threading.Tasks;
+using System.Net;
+using Microsoft.AspNetCore.Hosting;
 
 namespace LB
 {
@@ -33,6 +30,11 @@ namespace LB
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddControllersWithViews()
+				.AddNewtonsoftJson(options =>
+				{
+					options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+				}).AddCookieTempDataProvider();
 			services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
 			services.Configure<CookiePolicyOptions>(options =>
@@ -58,8 +60,8 @@ namespace LB
 			});
 
 
-			services.AddDbContext<Context>(options =>
-				options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+			//services.AddDbContextPool<Context>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+			services.AddDbContextPool<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
 			{
@@ -115,14 +117,13 @@ namespace LB
 			services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 			services.AddSingleton<Services.IEmailSender, EmailSender>();
 
-			services.AddMvc()
-				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+			/*services.AddMvc()
 				.AddJsonOptions(
 					options =>
 					{
 						options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 					}
-				);
+				);*/
 
 			services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
 			services.AddTransient<IEmailService, EmailService>();
@@ -137,7 +138,7 @@ namespace LB
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			//if (env.IsDevelopment())
 			//{
@@ -152,29 +153,27 @@ namespace LB
 
 			app.UseDeveloperExceptionPage();
 
+			app.UseRouting();
+
 			app.UseSession();
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
 
 			app.UseAuthentication();
+			app.UseAuthorization();
 
-			app.UseMvc(routes =>
+			app.UseEndpoints(endpoints =>
 			{
-				routes.MapRoute(
+				endpoints.MapControllerRoute(
+					name: "areas",
+					pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+				  );
+
+				endpoints.MapControllerRoute(
 					name: "default",
-					template: "{controller=Home}/{action=Index}/{id?}");
+					pattern: "{controller=Home}/{action=Index}/{id?}");
 			});
-
-			app.UseMvc(routes =>
-			{
-				routes.MapRoute(
-				  name: "areas",
-				  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-				);
-			});
-
-			
 		}
 	}
 }

@@ -30,54 +30,62 @@
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="form-group">
-                        <label asp-for="Category"></label>
-                        <select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))" class="form-control select"></select>
-                    </div>
+				<div class="col-lg-4">
+					<div class="form-group">
+						<label asp-for="Category"></label>
+						<select asp-for="CategoryId" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))" class="form-control select"></select>
+					</div>
 
-                    <div class="form-group">
-                        <label asp-for="ResourceAccesses">Resource Access</label>
-                        <select asp-for="SelectedAccesses" asp-items="@(new SelectList(ViewBag.Accesses, "Id", "Name"))" class="form-control select-multiple"></select>
-                    </div>
+					<div class="form-group">
+						<label asp-for="ResourceAccesses">Resource Access</label>
+						<select asp-for="SelectedAccesses" asp-items="@(new SelectList(ViewBag.Accesses, "Id", "Name"))" class="form-control select-multiple"></select>
+					</div>
 
-                    <div class="form-group">
-                        <label asp-for="IsLocalResource">Is Local Resource</label>
-                        <div class="az-toggle">
-                            <span></span>
-                            <input type="checkbox" asp-for="IsLocalResource" onchange="app.IsLocalResource = this.checked" hidden />
-                        </div>
-                    </div>
+					<div class="form-group">
+						<label asp-for="IsLocalResource">Is Local Resource</label>
+						<div class="az-toggle">
+							<span></span>
+							<input type="checkbox" asp-for="IsLocalResource" onchange="app.IsLocalResource = this.checked" hidden />
+						</div>
+					</div>
 
-                    <div class="form-group" v-if="!IsLocalResource">
-                        <label asp-for="ResourceUrl"></label>
-                        <input asp-for="ResourceUrl" class="form-control" />
-                        <span asp-validation-for="ResourceUrl" class="text-danger"></span>
-                    </div>
+					<div class="form-group" v-if="!IsLocalResource">
+						<label asp-for="ResourceUrl"></label>
+						<input asp-for="ResourceUrl" class="form-control" />
+						<span asp-validation-for="ResourceUrl" class="text-danger"></span>
+					</div>
 
-                    <div class="form-group" v-if="IsLocalResource">
-                        <label asp-for="LocalFile">Local File</label>
-                        <input asp-for="LocalFile" class="form-control-file" />
-                        <span asp-validation-for="LocalFile"></span>
-                    </div>
+					<div class="form-group" v-if="IsLocalResource">
+						<label asp-for="LocalFile">Local File</label>
+						<input asp-for="LocalFile" class="form-control-file" />
+						<span asp-validation-for="LocalFile"></span>
+					</div>
 
-                    <div class="form-group">
-                        <label>Featured Image</label>
-                        <input type="hidden" asp-for="ImageId" />
-                        <img id="featuredImage" src="" class="img-fluid w-100" alt="" />
-                        <div class="btn-group w-100">
-                            <button type="button" class="btn btn-block btn-primary" onclick="GetFeaturedImage()">Choose Image</button>
-                            <button type="button" class="btn btn-indigo btn-icon" onclick="ResetFeaturedImage()">
-                                <i class="fa fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
+					<div class="form-group">
+						<label>Featured Image</label>
+						<input type="hidden" asp-for="ImageId" />
+						<img id="featuredImage" src="" class="img-fluid w-100" alt="" />
+						<div class="btn-group w-100">
+							<button type="button" class="btn btn-block btn-primary" onclick="GetFeaturedImage()">Choose Image</button>
+							<button type="button" class="btn btn-indigo btn-icon" onclick="ResetFeaturedImage()">
+								<i class="fa fa-times"></i>
+							</button>
+						</div>
+					</div>
 
-                    <button class="btn btn-with-icon btn-primary">
-                        <i class="la la-plus"></i>
-                        Submit
-                    </button>
-                </div>
+					@*<div class="form-group">
+						<label asp-for="IsLocalResource">Requires Login</label>
+						<div class="az-toggle">
+							<span></span>
+							<input type="checkbox" asp-for="RequiresLogin" hidden />
+						</div>
+					</div>*@
+
+					<button class="btn btn-with-icon btn-primary">
+						<i class="la la-plus"></i>
+						Submit
+					</button>
+				</div>
             </div>
         </form>
     </div>

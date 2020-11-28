@@ -39,14 +39,14 @@ namespace LB.Controllers
 		public async Task<IActionResult> Search(int? page, string q)
 		{
 			var posts = context.Posts.Include(x => x.Image).Where(x => x.Deleted == false && x.Published == Published.Publish);
-			posts = posts.Where(x => x.Title.ToLower().Contains(q.ToLower()));
+			posts = posts.Where(x => x.Title.Contains(q, StringComparison.OrdinalIgnoreCase));
 			return View(nameof(Index), await PaginatedList<Post>.CreateAsync(posts, page ?? 1, 5));
 		}
 
 		[Route("/blog/{id}")]
 		public IActionResult Single(string id)
 		{
-			Post post = context.Posts.Include(x => x.Image).Include(x => x.Categories).ThenInclude(x => x.Category).Include(x => x.Tags).ThenInclude(x => x.Tag).FirstOrDefault(x => x.Slug == id);
+			Post post = context.Posts.Include(x => x.Image).Include(x => x.Categories).ThenInclude(x => x.Category).Include(x => x.Tags).ThenInclude(x => x.Tag).ToList().FirstOrDefault(x => x.Slug == id);
 			return View(post);
 		}
     }

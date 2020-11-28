@@ -63,9 +63,15 @@
                         </label>
                     </th>
                     <th>@Model.GetIndex(item)</th>
-                    <td>
-                        <img src="/uploads/images/@item.Image.Thumbnail" alt="@item.Image.Alt" style="width: 50px; height: 50px; object-fit: cover;" />
-                    </td>
+					<td>
+						@if (item.IsLocalResource) {
+						    <img src="/uploads/images/@(item.Image?.Thumbnail)" alt="@(item.Image?.Alt)" style="width: 50px; height: 50px; object-fit: cover;" />
+                        }
+                        else {
+                            var ytId = item.ResourceUrl.Split("/").LastOrDefault();
+						    <img src="https://img.youtube.com/vi/@ytId/0.jpg" alt="" class="image">
+                        }
+					</td>
                     <td>@item.Title</td>
                     <td>
                         @foreach (var access in item.ResourceAccesses)

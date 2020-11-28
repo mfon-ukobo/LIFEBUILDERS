@@ -1,0 +1,28 @@
+﻿@model SmallHeader
+
+@{ 
+	if (string.IsNullOrEmpty(Model.ImageUrl))
+	{
+		Model.ImageUrl = "/img/about_top-page.jpg";
+	}
+}
+<header class="page-heading s-p-100" style="background-image: url('/img/about_top-page.jpg');">
+	<div class="container text-center">
+		<h1>@Model.PageName</h1>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb bg-transparent">
+				@foreach (var name in Model.PageList)
+				{
+					if (name != Model.PageList.LastOrDefault())
+					{
+						<li class="breadcrumb-item"><a href="/">@name</a></li>
+					}
+					else
+					{
+						<li class="breadcrumb-item active" aria-current="page">@name</li>
+					}
+				}
+			</ol>
+		</nav>
+	</div>
+</header>

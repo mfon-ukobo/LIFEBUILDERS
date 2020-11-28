@@ -87,7 +87,7 @@
                     <div class="form-group">
                         <label>Featured Image</label>
                         <input type="hidden" asp-for="ImageId" />
-                        <img id="featuredImage" src="~/uploads/images/@Model.Image.Thumbnail" class="img-fluid w-100" alt="" />
+                        <img id="featuredImage" src="~/uploads/images/@(Model.Image?.Thumbnail)" class="img-fluid w-100" alt="" />
                         <div class="btn-group w-100">
                             <button type="button" class="btn btn-block btn-primary" onclick="GetFeaturedImage()">Choose Image</button>
                             <button type="button" class="btn btn-indigo btn-icon" onclick="ResetFeaturedImage()">
