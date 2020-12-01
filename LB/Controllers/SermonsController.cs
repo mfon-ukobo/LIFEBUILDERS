@@ -17,9 +17,9 @@ namespace LB.Controllers
 			this.context = context;
 		}
 
-		public async Task<IActionResult> Index(int? p, int? s)
+		public async Task<IActionResult> Index(int? page, int? size)
 		{
-			var sermons = await PaginatedList<Sermon>.CreateAsync(context.Sermons.Include(x => x.SiteImage), p ?? 1, s ?? 10);
+			var sermons = await PaginatedList<Sermon>.CreateAsync(context.Sermons.Include(x => x.SiteImage), page ?? 1, size ?? 10);
 			return View(sermons);
 		}
 

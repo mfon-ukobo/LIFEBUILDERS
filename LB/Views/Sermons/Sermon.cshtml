@@ -5,7 +5,7 @@
 }
 
 <!-- header start -->
-<header class="page-heading s-p-100" style="background-image: url('@Model.SiteImage.Image');">
+<header class="page-heading s-p-100" style="background-image: url('@(Model.SiteImage?.Image ?? "/img/about_top-page.jpg")');">
 	<div class="container text-center">
 		<h1>@Model.Title</h1>
 		<nav aria-label="breadcrumb">
@@ -26,6 +26,13 @@
 			@if (Model.FileType == FileType.Audio)
 			{
 				<audio src="@Model.FileURL" preload="metadata" class="w-100" controls />
+			}
+			else if (Model.FileType == FileType.Video)
+			{
+				@*<video src="@Model.FileURL" preload="metadata" class="w-100" controls />*@
+				<div class="embed-responsive embed-responsive-21by9">
+					<iframe class="embed-responsive-item" src="@Model.FileURL"></iframe>
+				</div>
 			}
 		</div>
 		<div>

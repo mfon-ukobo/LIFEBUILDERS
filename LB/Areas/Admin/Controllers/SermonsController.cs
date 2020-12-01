@@ -54,6 +54,7 @@ namespace LB.Areas.Admin.Controllers
 		// POST: SermonsController/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[DisableRequestSizeLimit]
 		public async Task<ActionResult> Create(Sermon sermon, IFormFile file)
 		{
 			if (!ModelState.IsValid)

@@ -19,14 +19,17 @@
 
 <section class="s-p-100">
 	<div class="container">
-		<div class="row">
+		<div class="row mb-4">
 			@foreach (var item in Model)
 			{
 				<div class="col-lg-4 col-md-6 mb-3 align-items-stretch">
 					<div class="card shadow">
-						<a asp-action="Sermon" asp-route-id="@item.Id">
-							<img src="@(item.SiteImage?.Thumbnail)" alt="@item.Title" class="card-img-top" />
-						</a>
+						@if (item.SiteImage != null)
+						{
+							<a asp-action="Sermon" asp-route-id="@item.Id">
+								<img src="@(item.SiteImage?.Thumbnail)" alt="@item.Title" class="card-img-top" />
+							</a>
+						}
 						<div class="card-body">
 							<h5 class="mg-b-20">
 								<a asp-action="Sermon" asp-route-id="@item.Id">@item.Title</a>
@@ -40,10 +43,43 @@
 							{
 								<audio src="@item.FileURL" preload="metadata" class="w-100" controls />
 							}
+							else if (item.FileType == FileType.Video)
+							{
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item" src="@item.FileURL"></iframe>
+								</div>
+							}
 						</div>
 					</div>
 				</div>
 			}
 		</div>
+
+		<nav aria-label="Pagination" class="pagination-container">
+			<ul class="pagination">
+				@if (Model.HasPreviousPage)
+				{
+					<li class="page-item">
+						<a asp-action="Index" asp-route-page="@(Model.PageIndex - 1)" class="page-link">
+							<i class="icofont-double-left"></i>
+						</a>
+					</li>
+				}
+				@for (var i = 1; i <= Model.TotalPages; i++)
+				{
+					<li class="page-item">
+						<a asp-route-page="@i" class="page-link">@i</a>
+					</li>
+				}
+				@if (Model.HasNextPage)
+				{
+					<li class="page-item">
+						<a asp-action="Index" asp-route-page="@(Model.PageIndex + 1)" class="page-link">
+							<i class="icofont-double-right"></i>
+						</a>
+					</li>
+				}
+			</ul>
+		</nav>
 	</div>
 </section>
