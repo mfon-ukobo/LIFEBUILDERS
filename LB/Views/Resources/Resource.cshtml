@@ -12,7 +12,7 @@
 					Previous Page
 				</a>
 
-				<a asp-action="Index" class="">
+				<a asp-action="Index" class="ml-3">
 					<strong>
 						Resources Page
 					</strong>
@@ -22,39 +22,32 @@
 			<h4 class="text-uppercase">@Model.Title</h4>
 
 			<div class="row justify-content-center">
-				<div class="col-lg-8 mb-4 tx-14">
-					@if (Model.IsLocalResource)
-					{
-						<div class="image-container image-10-9">
-							<img src="~/uploads/images/@Model.Image.Thumbnail" alt="" class="image" />
-						</div>
-						<a asp-action="Download" asp-route-id="@Model.Slug" class="theme-button button-1 button-sm mt-2 btn-block d-none d-lg-block">Download File</a>
-					}
-					else
-					{
-						<div style="overflow:hidden;position: relative;">
-							<iframe frameborder="0"
-									scrolling="no"
-									marginheight="0"
-									marginwidth="0"
-									width="100"
-									type="text/html"
-									style="min-height: 400px; width: 100%"
-									src="@Model.ResourceUrl?autoplay=1?autoplay=1&fs=1&iv_load_policy=3&showinfo=1&rel=0&cc_load_policy=0&start=0&end=0"></iframe>
-						</div>
-						<br />
-					}
+                <div class="col-lg-8 mb-4 tx-14">
+                    @if (Model.IsLocalResource)
+                    {
+                        if (Model.Image != null)
+                        {
+                            <div class="image-container image-10-9">
+                                <img src="~/uploads/images/@Model.Image.Thumbnail" alt="" class="image" />
+                            </div>
+                        }
 
-					<div class="mt-4">
-						@Html.Raw(Model.Description)
-					</div>
+						<div class="embed-responsive embed-responsive-21by9">
+							<iframe class="embed-responsive-item" src="~/uploads/resources/@Model.ResourceUrl"></iframe>
+						</div>
+                    }
 
-					<div class="meta">
-						<span><strong>Category</strong>: @Model.Category.Name</span> <br />
-						<span><strong>Created</strong>: @Model.Created.ToString("MMM dd, yyyy")</span> <br />
-						<span><strong>Access</strong>: @string.Join(",", Model.ResourceAccesses.Select(x => x.ResourceAccess.Name))</span>
-					</div>
-				</div>
+
+                    <div class="mt-4">
+                        @Html.Raw(Model.Description)
+                    </div>
+
+                    <div class="meta">
+                        <span><strong>Category</strong>: @Model.Category.Name</span> <br />
+                        <span><strong>Created</strong>: @Model.Created.ToString("MMM dd, yyyy")</span> <br />
+                        <span><strong>Access</strong>: @string.Join(",", Model.ResourceAccesses.Select(x => x.ResourceAccess.Name))</span>
+                    </div>
+                </div>
 				<div class="col-lg-4">
 					<h4 class="mb-4">Latest Resources</h4>
 
@@ -66,12 +59,7 @@
 								<div class="image-container image-16-9">
 									@if (resource.IsLocalResource || resource.Image != null)
 								{
-									<img src="/uploads/images/@(resource.Image?.Thumbnail)" alt="" class="image" />
-								}
-								else
-								{
-									var ytId = resource.ResourceUrl.Split("/").LastOrDefault();
-									<img src="https://img.youtube.com/vi/@ytId/0.jpg" alt="" class="image">
+									<img src="@(resource.Image != null ? $"/uploads/images/{resource.Image.Thumbnail}" : "/img/back3.jpg" )" alt="" class="image" />
 								}
 								</div>
 							</a>

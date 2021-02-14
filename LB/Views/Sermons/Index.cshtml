@@ -27,7 +27,7 @@
 						@if (item.SiteImage != null)
 						{
 							<a asp-action="Sermon" asp-route-id="@item.Id">
-								<img src="@(item.SiteImage?.Thumbnail)" alt="@item.Title" class="card-img-top" />
+								<img src="@(item.SiteImage?.Thumbnail)" alt="@item.Title" class="w-100" />
 							</a>
 						}
 						<div class="card-body">

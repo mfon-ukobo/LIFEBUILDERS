@@ -46,25 +46,24 @@
 		{
 			<div class="card message-card mb-5">
 				<div class="card-body">
-					<div class="clearfix">
+					<div class="clearfix mb-3">
 						<h6 class="card-title float-left">@category.Name</h6>
 						<a asp-action="Category" asp-route-id="@category.Slug" class="theme-button button-sm button-1 float-right">View All</a>
 					</div>
 					<div class="row">
 						@foreach (var item in Model.Resources.Where(x => x.CategoryId == category.Id).Take(4))
 						{
-							<div class="col-md-4 col-sm-6">
+							<div class="col-md-4 col-sm-6 mb-3">
 								<div class="card resource-card">
-									<div class="image-container image-10-9">
+									@*<div class="image-container image-10-9">
 										@if (item.IsLocalResource || item.Image != null) {
 											<img src="/uploads/images/@(item.Image?.Thumbnail)" alt="" class="image" />
 										}
-										else {
-											var ytId = item.ResourceUrl.Split("/").LastOrDefault();
-											<img src="https://img.youtube.com/vi/@ytId/0.jpg" alt="" class="image">
-										}
-									</div>
+									</div>*@
 									<div class="card-body">
+                                        <div>
+											<i class="fa fa-church"></i>
+										</div>
 										<a asp-action="Resource" asp-route-id="@item.Slug" class="link" style="font-size: 14px">@item.Title</a>
 									</div>
 								</div>
