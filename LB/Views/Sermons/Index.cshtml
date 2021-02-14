@@ -23,34 +23,40 @@
 			@foreach (var item in Model)
 			{
 				<div class="col-lg-4 col-md-6 mb-3 align-items-stretch">
-					<div class="card shadow">
-						@if (item.SiteImage != null)
-						{
-							<a asp-action="Sermon" asp-route-id="@item.Id">
-								<img src="@(item.SiteImage?.Thumbnail)" alt="@item.Title" class="w-100" />
-							</a>
-						}
-						<div class="card-body">
-							<h5 class="mg-b-20">
-								<a asp-action="Sermon" asp-route-id="@item.Id">@item.Title</a>
-							</h5>
+                    <div class="card shadow">
+                        @if (item.SiteImage != null)
+                        {
+                            <a asp-action="Sermon" asp-route-id="@item.Id">
+                                <img src="@(item.SiteImage?.Thumbnail)" alt="@item.Title" class="w-100" style="height: 200px; object-fit: cover;" />
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-action="Sermon" asp-route-id="@item.Id">
+                                <img src="/img/back3.jpg" alt="@item.Title" class="w-100" style="height: 200px; object-fit: cover;" />
+                            </a>
+                        }
+                        <div class="card-body">
+                            <h5 class="mg-b-20">
+                                <a asp-action="Sermon" asp-route-id="@item.Id">@item.Title</a>
+                            </h5>
 
-							<div class="description">
-								@Html.Raw(item.Description)
-							</div>
+                            <div class="description">
+                                @Html.Raw(item.Description)
+                            </div>
 
-							@if (item.FileType == FileType.Audio)
-							{
-								<audio src="@item.FileURL" preload="metadata" class="w-100" controls />
-							}
-							else if (item.FileType == FileType.Video)
-							{
-								<div class="embed-responsive embed-responsive-16by9">
-									<iframe class="embed-responsive-item" src="@item.FileURL"></iframe>
-								</div>
-							}
-						</div>
-					</div>
+                            @if (item.FileType == FileType.Audio)
+                            {
+                                <audio src="@item.FileURL" preload="metadata" class="w-100" controls />
+                            }
+                            else if (item.FileType == FileType.Video)
+                            {
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="@item.FileURL"></iframe>
+                                </div>
+                            }
+                        </div>
+                    </div>
 				</div>
 			}
 		</div>
@@ -67,7 +73,7 @@
 				}
 				@for (var i = 1; i <= Model.TotalPages; i++)
 				{
-					<li class="page-item">
+					<li class="page-item @(Model.PageIndex == i ? "active" : "")">
 						<a asp-route-page="@i" class="page-link">@i</a>
 					</li>
 				}
