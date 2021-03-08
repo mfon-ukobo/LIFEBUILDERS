@@ -38,8 +38,8 @@ namespace LB.Controllers
             //var model = context.ResourceCategories.Include(x => x.Resources).ThenInclude(x => x.Image);
             var model = new ResourceView
             {
-                ResourceCategories = await PaginatedList<ResourceCategory>.CreateAsync(context.ResourceCategories, page??1, 5),
-                Resources = await context.Resources.Include(x => x.Image).ToListAsync()
+                ResourceCategories = await PaginatedList<ResourceCategory>.CreateAsync(context.ResourceCategories.OrderByDescending(x => x.Id), page??1, 5),
+                Resources = await context.Resources.Include(x => x.Image).OrderByDescending(x => x.Id).ToListAsync()
             };
 
             return View(model);
