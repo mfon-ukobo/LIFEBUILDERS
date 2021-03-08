@@ -19,7 +19,7 @@ namespace LB.Controllers
 
 		public async Task<IActionResult> Index(int? page, int? size)
 		{
-			var sermons = await PaginatedList<Sermon>.CreateAsync(context.Sermons.Include(x => x.SiteImage), page ?? 1, size ?? 10);
+			var sermons = await PaginatedList<Sermon>.CreateAsync(context.Sermons.Include(x => x.SiteImage).OrderByDescending(x => x.Id), page ?? 1, size ?? 10);
 			return View(sermons);
 		}
 
