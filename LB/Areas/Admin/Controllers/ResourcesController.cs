@@ -102,6 +102,7 @@ namespace LB.Areas.Admin.Controllers
         /// <returns></returns>
         [GetErrors]
         [HttpPost]
+        [DisableRequestSizeLimit]
         public async Task<IActionResult> Create(Resource resource)
         {
             ViewBag.Categories = context.ResourceCategories.ToList();
